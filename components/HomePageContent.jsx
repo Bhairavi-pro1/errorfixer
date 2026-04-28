@@ -1,13 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import ErrorCard from "./ErrorCard";
 import AdBanner from "./AdBanner";
 
+const CATEGORIES = ["All", "1xx", "2xx", "3xx", "4xx", "5xx"];
+
 export default function HomePageContent({ errors }) {
-  const categories = ["All", "1xx", "2xx", "3xx", "4xx", "5xx"];
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
 
   const [activeCategory, setActiveCategory] = useState("All");
+
+  useEffect(() => {
+    if (categoryParam && CATEGORIES.includes(categoryParam)) {
+      setActiveCategory(categoryParam);
+      // scroll to filter section
+      const el = document.getElementById("category-filters");
+      if (el) {
+        // give the DOM and Next.js shallow routing a moment to settle
+        setTimeout(() => {
+          // Use window.scrollTo for a more consistent smooth effect, 
+          // accounting for the sticky header (~80px offset)
+          const yOffset = -90; 
+          const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }, 150);
+      }
+    }
+  }, [categoryParam]);
 
   // Filtering Logic
   const filteredErrors = errors.filter((err) => {
@@ -43,7 +65,7 @@ export default function HomePageContent({ errors }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         
         {/* Interactive Filters Area */}
-        <div className="bg-surface-high border border-outline-variant p-6 rounded-md mb-12 glass shadow-xl relative z-10">
+        <div id="category-filters" className="bg-surface-high border border-outline-variant p-6 rounded-md mb-12 glass shadow-xl relative z-10 scroll-mt-24">
           <div className="flex flex-col md:flex-row gap-8 justify-center">
             {/* Category Filters */}
             <div className="flex-1 max-w-2xl">
@@ -54,7 +76,7 @@ export default function HomePageContent({ errors }) {
                 Filter by Category
               </h3>
               <div className="flex flex-wrap justify-center gap-2">
-                {categories.map((cat) => (
+                {CATEGORIES.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}

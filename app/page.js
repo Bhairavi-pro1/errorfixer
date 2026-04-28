@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import HomePageContent from "../components/HomePageContent";
 import errorsData from "../data/errors.json";
 
@@ -8,6 +9,8 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <HomePageContent errors={errorsData} />
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <HomePageContent errors={errorsData} />
+    </Suspense>
   );
 }

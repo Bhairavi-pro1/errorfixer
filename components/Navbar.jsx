@@ -6,7 +6,10 @@ import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const categoriesList = ["1xx", "2xx", "3xx", "4xx", "5xx"];
 
   useEffect(() => {
     // Initialize theme based on localStorage
@@ -101,7 +104,27 @@ export default function Navbar() {
             </button>
             <nav className="mt-8 flex flex-col gap-4 font-display">
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Home</Link>
-              <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Categories</Link>
+              
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setCategoriesOpen(!categoriesOpen)} 
+                  className="flex items-center justify-between text-lg text-foreground hover:text-primary transition-colors focus:outline-none"
+                >
+                  <span>Categories</span>
+                  <svg className={`h-5 w-5 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {categoriesOpen && (
+                  <div className="mt-2 ml-4 flex flex-col gap-3">
+                    <Link href="/?category=All" onClick={() => setMenuOpen(false)} className="text-base text-on-surface-variant hover:text-primary transition-colors">All Categories</Link>
+                    {categoriesList.map(cat => (
+                      <Link key={cat} href={`/?category=${cat}`} onClick={() => setMenuOpen(false)} className="text-base text-on-surface-variant hover:text-primary transition-colors">{cat} Errors</Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Fix Mode</Link>
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">About</Link>
             </nav>

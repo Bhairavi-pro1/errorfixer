@@ -66,7 +66,7 @@ export default function SearchBar() {
 
       {/* Auto-suggestions Dropdown */}
       {isFocused && query.length > 0 && (
-        <div className="absolute top-full left-0 right-0 bg-surface-highest border border-outline-variant rounded-b-md shadow-lg overflow-hidden z-50 glass">
+        <div className="absolute top-full left-0 right-0 bg-surface-highest border border-outline-variant rounded-b-md shadow-2xl overflow-hidden z-50">
           {filteredResults.length > 0 ? (
             <ul className="py-2">
               {filteredResults.map((err, idx) => (
