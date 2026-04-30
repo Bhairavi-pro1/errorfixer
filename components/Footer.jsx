@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,8 +10,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand & Description */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="text-2xl font-display font-bold text-foreground hover:text-primary transition-colors">
-              Error<span className="text-tertiary">Fixer</span>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-display font-bold text-foreground hover:text-primary transition-colors">
+              <Image 
+                src="/assets/brand_logo.png" 
+                alt="ErrorFixer Logo" 
+                width={40} 
+                height={40} 
+                className="w-10 h-auto object-contain"
+              />
+              <span>Error<span className="text-tertiary">Fixer</span></span>
             </Link>
             <p className="mt-4 text-foreground opacity-80 max-w-md leading-relaxed">
               The ultimate platform for understanding, identifying, and resolving HTTP error codes instantly with real-world solutions. Built for developers, by developers.

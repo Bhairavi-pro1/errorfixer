@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 
@@ -41,8 +42,16 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-display font-bold text-foreground hover:text-primary transition-colors">
-              Error<span className="text-tertiary">Fixer</span>
+            <Link href="/" className="flex items-center gap-2 text-xl font-display font-bold text-foreground hover:text-primary transition-colors">
+              <Image 
+                src="/assets/brand_logo.png" 
+                alt="ErrorFixer Logo" 
+                width={40} 
+                height={40} 
+                className="w-10 h-auto object-contain"
+                priority
+              />
+              <span>Error<span className="text-tertiary">Fixer</span></span>
             </Link>
           </div>
 
@@ -124,7 +133,6 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Fix Mode</Link>
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">About</Link>
             </nav>
