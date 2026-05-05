@@ -102,7 +102,7 @@ export default function Navbar() {
             className="fixed inset-0 bg-black/50 backdrop-blur-sm" 
             onClick={() => setMenuOpen(false)}
           ></div>
-          <div className="relative w-64 h-full bg-surface-container-high shadow-xl flex flex-col p-6 animate-slide-in-right">
+          <div className="relative w-72 h-full bg-surface-high shadow-xl flex flex-col p-6 animate-slide-in-right">
             <button 
               onClick={() => setMenuOpen(false)}
               className="self-end p-2 text-foreground hover:bg-surface-highest rounded-md transition-colors"
@@ -111,13 +111,13 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <nav className="mt-8 flex flex-col gap-4 font-display">
-              <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Home</Link>
+            <nav className="mt-8 flex flex-col gap-6 font-display">
+              <Link href="/" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full">Home</Link>
               
               <div className="flex flex-col">
                 <button 
                   onClick={() => setCategoriesOpen(!categoriesOpen)} 
-                  className="flex items-center justify-between text-lg text-foreground hover:text-primary transition-colors focus:outline-none"
+                  className="flex items-center justify-between text-xl font-bold text-foreground hover:text-primary transition-colors focus:outline-none w-full"
                 >
                   <span>Categories</span>
                   <svg className={`h-5 w-5 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -125,16 +125,14 @@ export default function Navbar() {
                   </svg>
                 </button>
                 {categoriesOpen && (
-                  <div className="mt-2 ml-4 flex flex-col gap-3">
-                    <Link href="/?category=All" onClick={() => setMenuOpen(false)} className="text-base text-on-surface-variant hover:text-primary transition-colors">All Categories</Link>
+                  <div className="mt-3 ml-4 flex flex-col gap-4">
+                    <Link href="/?category=All" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">All Categories</Link>
                     {categoriesList.map(cat => (
-                      <Link key={cat} href={`/?category=${cat}`} onClick={() => setMenuOpen(false)} className="text-base text-on-surface-variant hover:text-primary transition-colors">{cat} Errors</Link>
+                      <Link key={cat} href={`/?category=${cat}`} onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">{cat} Errors</Link>
                     ))}
                   </div>
                 )}
               </div>
-              <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">Fix Mode</Link>
-              <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg text-foreground hover:text-primary transition-colors">About</Link>
             </nav>
           </div>
         </div>

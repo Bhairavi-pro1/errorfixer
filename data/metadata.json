@@ -1,0 +1,986 @@
+{
+  "layout": {
+    "title": {
+      "template": "%s | ErrorFixer",
+      "default": "ErrorFixer – HTTP Error Code Solutions & Fixes"
+    },
+    "description": "Understand, identify, and fix HTTP errors instantly with real-world solutions tailored for developers.",
+    "keywords": [
+      "HTTP errors",
+      "status codes",
+      "developer guide",
+      "fix HTTP errors",
+      "API troubleshooting"
+    ],
+    "openGraph": {
+      "title": "ErrorFixer – HTTP Error Code Solutions & Fixes",
+      "description": "Understand, identify, and fix HTTP errors instantly with real-world solutions tailored for developers.",
+      "url": "https://errorfixer.com",
+      "siteName": "ErrorFixer",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "ErrorFixer – HTTP Error Code Solutions & Fixes",
+      "description": "Understand, identify, and fix HTTP errors instantly with real-world solutions tailored for developers.",
+      "creator": "@errorfixer"
+    },
+    "robots": {
+      "index": true,
+      "follow": true,
+      "googleBot": {
+        "index": true,
+        "follow": true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1
+      }
+    }
+  },
+  "home": {
+    "title": "ErrorFixer – Fix HTTP Errors Instantly | Ultimate Guide",
+    "description": "Stop guessing what went wrong. Search your error code, understand the root cause, and copy-paste real-world solutions tailored to your tech stack.",
+    "keywords": [
+      "HTTP errors",
+      "status codes",
+      "fix 404",
+      "fix 500 error",
+      "web development troubleshooting"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/"
+    }
+  },
+  "about-us": {
+    "title": "About Us | The Ultimate HTTP Error Platform",
+    "description": "Learn more about ErrorFixer. A platform built by developers for developers to understand and resolve HTTP error codes instantly and accurately.",
+    "keywords": [
+      "about ErrorFixer",
+      "our story",
+      "developer tools",
+      "HTTP error solutions"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/about-us"
+    }
+  },
+  "contact-us": {
+    "title": "Contact Us | Support & Feedback",
+    "description": "Get in touch with the ErrorFixer team. Send us your questions, feedback, or report an issue with our HTTP error platform.",
+    "keywords": [
+      "contact ErrorFixer",
+      "support",
+      "feedback",
+      "HTTP error help"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/contact-us"
+    }
+  },
+  "privacy-policy": {
+    "title": "Privacy Policy | Data Protection",
+    "description": "Read the Privacy Policy for ErrorFixer. Learn how we collect, use, and protect your data while you use our HTTP error solving platform.",
+    "keywords": [
+      "privacy policy",
+      "data protection",
+      "ErrorFixer privacy",
+      "terms"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/privacy-policy"
+    }
+  },
+  "terms-and-conditions": {
+    "title": "Terms and Conditions | Legal",
+    "description": "Read the Terms and Conditions for using ErrorFixer. Understand the rules and regulations for accessing our HTTP error solutions.",
+    "keywords": [
+      "terms and conditions",
+      "terms of service",
+      "ErrorFixer terms"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/terms-and-conditions"
+    }
+  },
+  "affiliate-disclosure": {
+    "title": "Affiliate Disclosure | Transparency",
+    "description": "Read our Affiliate Disclosure to understand how ErrorFixer may earn commissions through affiliate links to keep the platform free.",
+    "keywords": [
+      "affiliate disclosure",
+      "affiliate links",
+      "ErrorFixer transparency"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/affiliate-disclosure"
+    }
+  },
+  "100-continue": {
+    "title": "100 Continue – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 100 Continue error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "100 error",
+      "Continue",
+      "fix 100",
+      "HTTP 100",
+      "1xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/100-continue"
+    }
+  },
+  "101-switching-protocols": {
+    "title": "101 Switching Protocols – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 101 Switching Protocols error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "101 error",
+      "Switching Protocols",
+      "fix 101",
+      "HTTP 101",
+      "1xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/101-switching-protocols"
+    }
+  },
+  "102-processing": {
+    "title": "102 Processing – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 102 Processing error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "102 error",
+      "Processing",
+      "fix 102",
+      "HTTP 102",
+      "1xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/102-processing"
+    }
+  },
+  "103-early-hints": {
+    "title": "103 Early Hints – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 103 Early Hints error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "103 error",
+      "Early Hints",
+      "fix 103",
+      "HTTP 103",
+      "1xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/103-early-hints"
+    }
+  },
+  "200-ok": {
+    "title": "200 OK – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 200 OK error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "200 error",
+      "OK",
+      "fix 200",
+      "HTTP 200",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/200-ok"
+    }
+  },
+  "201-created": {
+    "title": "201 Created – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 201 Created error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "201 error",
+      "Created",
+      "fix 201",
+      "HTTP 201",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/201-created"
+    }
+  },
+  "202-accepted": {
+    "title": "202 Accepted – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 202 Accepted error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "202 error",
+      "Accepted",
+      "fix 202",
+      "HTTP 202",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/202-accepted"
+    }
+  },
+  "203-non-authoritative-information": {
+    "title": "203 Non-Authoritative Information – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 203 Non-Authoritative Information error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "203 error",
+      "Non-Authoritative Information",
+      "fix 203",
+      "HTTP 203",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/203-non-authoritative-information"
+    }
+  },
+  "204-no-content": {
+    "title": "204 No Content – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 204 No Content error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "204 error",
+      "No Content",
+      "fix 204",
+      "HTTP 204",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/204-no-content"
+    }
+  },
+  "205-reset-content": {
+    "title": "205 Reset Content – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 205 Reset Content error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "205 error",
+      "Reset Content",
+      "fix 205",
+      "HTTP 205",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/205-reset-content"
+    }
+  },
+  "206-partial-content": {
+    "title": "206 Partial Content – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 206 Partial Content error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "206 error",
+      "Partial Content",
+      "fix 206",
+      "HTTP 206",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/206-partial-content"
+    }
+  },
+  "207-multi-status": {
+    "title": "207 Multi-Status – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 207 Multi-Status error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "207 error",
+      "Multi-Status",
+      "fix 207",
+      "HTTP 207",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/207-multi-status"
+    }
+  },
+  "208-already-reported": {
+    "title": "208 Already Reported – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 208 Already Reported error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "208 error",
+      "Already Reported",
+      "fix 208",
+      "HTTP 208",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/208-already-reported"
+    }
+  },
+  "226-im-used": {
+    "title": "226 IM Used – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 226 IM Used error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "226 error",
+      "IM Used",
+      "fix 226",
+      "HTTP 226",
+      "2xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/226-im-used"
+    }
+  },
+  "300-multiple-choices": {
+    "title": "300 Multiple Choices – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 300 Multiple Choices error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "300 error",
+      "Multiple Choices",
+      "fix 300",
+      "HTTP 300",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/300-multiple-choices"
+    }
+  },
+  "301-moved-permanently": {
+    "title": "301 Moved Permanently – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 301 Moved Permanently error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "301 error",
+      "Moved Permanently",
+      "fix 301",
+      "HTTP 301",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/301-moved-permanently"
+    }
+  },
+  "302-found": {
+    "title": "302 Found – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 302 Found error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "302 error",
+      "Found",
+      "fix 302",
+      "HTTP 302",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/302-found"
+    }
+  },
+  "303-see-other": {
+    "title": "303 See Other – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 303 See Other error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "303 error",
+      "See Other",
+      "fix 303",
+      "HTTP 303",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/303-see-other"
+    }
+  },
+  "304-not-modified": {
+    "title": "304 Not Modified – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 304 Not Modified error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "304 error",
+      "Not Modified",
+      "fix 304",
+      "HTTP 304",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/304-not-modified"
+    }
+  },
+  "305-use-proxy": {
+    "title": "305 Use Proxy – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 305 Use Proxy error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "305 error",
+      "Use Proxy",
+      "fix 305",
+      "HTTP 305",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/305-use-proxy"
+    }
+  },
+  "307-temporary-redirect": {
+    "title": "307 Temporary Redirect – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 307 Temporary Redirect error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "307 error",
+      "Temporary Redirect",
+      "fix 307",
+      "HTTP 307",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/307-temporary-redirect"
+    }
+  },
+  "308-permanent-redirect": {
+    "title": "308 Permanent Redirect – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 308 Permanent Redirect error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "308 error",
+      "Permanent Redirect",
+      "fix 308",
+      "HTTP 308",
+      "3xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/308-permanent-redirect"
+    }
+  },
+  "400-bad-request": {
+    "title": "400 Bad Request – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 400 Bad Request error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "400 error",
+      "Bad Request",
+      "fix 400",
+      "HTTP 400",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/400-bad-request"
+    }
+  },
+  "401-unauthorized": {
+    "title": "401 Unauthorized – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 401 Unauthorized error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "401 error",
+      "Unauthorized",
+      "fix 401",
+      "HTTP 401",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/401-unauthorized"
+    }
+  },
+  "402-payment-required": {
+    "title": "402 Payment Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 402 Payment Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "402 error",
+      "Payment Required",
+      "fix 402",
+      "HTTP 402",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/402-payment-required"
+    }
+  },
+  "403-forbidden": {
+    "title": "403 Forbidden – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 403 Forbidden error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "403 error",
+      "Forbidden",
+      "fix 403",
+      "HTTP 403",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/403-forbidden"
+    }
+  },
+  "404-not-found": {
+    "title": "404 Not Found – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 404 Not Found error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "404 error",
+      "Not Found",
+      "fix 404",
+      "HTTP 404",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/404-not-found"
+    }
+  },
+  "405-method-not-allowed": {
+    "title": "405 Method Not Allowed – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 405 Method Not Allowed error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "405 error",
+      "Method Not Allowed",
+      "fix 405",
+      "HTTP 405",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/405-method-not-allowed"
+    }
+  },
+  "406-not-acceptable": {
+    "title": "406 Not Acceptable – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 406 Not Acceptable error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "406 error",
+      "Not Acceptable",
+      "fix 406",
+      "HTTP 406",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/406-not-acceptable"
+    }
+  },
+  "407-proxy-authentication-required": {
+    "title": "407 Proxy Authentication Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 407 Proxy Authentication Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "407 error",
+      "Proxy Authentication Required",
+      "fix 407",
+      "HTTP 407",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/407-proxy-authentication-required"
+    }
+  },
+  "408-request-timeout": {
+    "title": "408 Request Timeout – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 408 Request Timeout error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "408 error",
+      "Request Timeout",
+      "fix 408",
+      "HTTP 408",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/408-request-timeout"
+    }
+  },
+  "409-conflict": {
+    "title": "409 Conflict – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 409 Conflict error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "409 error",
+      "Conflict",
+      "fix 409",
+      "HTTP 409",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/409-conflict"
+    }
+  },
+  "410-gone": {
+    "title": "410 Gone – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 410 Gone error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "410 error",
+      "Gone",
+      "fix 410",
+      "HTTP 410",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/410-gone"
+    }
+  },
+  "411-length-required": {
+    "title": "411 Length Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 411 Length Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "411 error",
+      "Length Required",
+      "fix 411",
+      "HTTP 411",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/411-length-required"
+    }
+  },
+  "412-precondition-failed": {
+    "title": "412 Precondition Failed – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 412 Precondition Failed error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "412 error",
+      "Precondition Failed",
+      "fix 412",
+      "HTTP 412",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/412-precondition-failed"
+    }
+  },
+  "413-payload-too-large": {
+    "title": "413 Payload Too Large – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 413 Payload Too Large error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "413 error",
+      "Payload Too Large",
+      "fix 413",
+      "HTTP 413",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/413-payload-too-large"
+    }
+  },
+  "414-uri-too-long": {
+    "title": "414 URI Too Long – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 414 URI Too Long error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "414 error",
+      "URI Too Long",
+      "fix 414",
+      "HTTP 414",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/414-uri-too-long"
+    }
+  },
+  "415-unsupported-media-type": {
+    "title": "415 Unsupported Media Type – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 415 Unsupported Media Type error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "415 error",
+      "Unsupported Media Type",
+      "fix 415",
+      "HTTP 415",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/415-unsupported-media-type"
+    }
+  },
+  "416-range-not-satisfiable": {
+    "title": "416 Range Not Satisfiable – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 416 Range Not Satisfiable error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "416 error",
+      "Range Not Satisfiable",
+      "fix 416",
+      "HTTP 416",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/416-range-not-satisfiable"
+    }
+  },
+  "417-expectation-failed": {
+    "title": "417 Expectation Failed – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 417 Expectation Failed error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "417 error",
+      "Expectation Failed",
+      "fix 417",
+      "HTTP 417",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/417-expectation-failed"
+    }
+  },
+  "418-im-a-teapot": {
+    "title": "418 I'm a teapot – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 418 I'm a teapot error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "418 error",
+      "I'm a teapot",
+      "fix 418",
+      "HTTP 418",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/418-im-a-teapot"
+    }
+  },
+  "421-misdirected-request": {
+    "title": "421 Misdirected Request – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 421 Misdirected Request error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "421 error",
+      "Misdirected Request",
+      "fix 421",
+      "HTTP 421",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/421-misdirected-request"
+    }
+  },
+  "422-unprocessable-entity": {
+    "title": "422 Unprocessable Entity – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 422 Unprocessable Entity error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "422 error",
+      "Unprocessable Entity",
+      "fix 422",
+      "HTTP 422",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/422-unprocessable-entity"
+    }
+  },
+  "423-locked": {
+    "title": "423 Locked – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 423 Locked error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "423 error",
+      "Locked",
+      "fix 423",
+      "HTTP 423",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/423-locked"
+    }
+  },
+  "424-failed-dependency": {
+    "title": "424 Failed Dependency – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 424 Failed Dependency error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "424 error",
+      "Failed Dependency",
+      "fix 424",
+      "HTTP 424",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/424-failed-dependency"
+    }
+  },
+  "425-too-early": {
+    "title": "425 Too Early – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 425 Too Early error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "425 error",
+      "Too Early",
+      "fix 425",
+      "HTTP 425",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/425-too-early"
+    }
+  },
+  "426-upgrade-required": {
+    "title": "426 Upgrade Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 426 Upgrade Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "426 error",
+      "Upgrade Required",
+      "fix 426",
+      "HTTP 426",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/426-upgrade-required"
+    }
+  },
+  "428-precondition-required": {
+    "title": "428 Precondition Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 428 Precondition Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "428 error",
+      "Precondition Required",
+      "fix 428",
+      "HTTP 428",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/428-precondition-required"
+    }
+  },
+  "429-too-many-requests": {
+    "title": "429 Too Many Requests – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 429 Too Many Requests error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "429 error",
+      "Too Many Requests",
+      "fix 429",
+      "HTTP 429",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/429-too-many-requests"
+    }
+  },
+  "431-request-header-fields-too-large": {
+    "title": "431 Request Header Fields Too Large – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 431 Request Header Fields Too Large error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "431 error",
+      "Request Header Fields Too Large",
+      "fix 431",
+      "HTTP 431",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/431-request-header-fields-too-large"
+    }
+  },
+  "451-unavailable-for-legal-reasons": {
+    "title": "451 Unavailable For Legal Reasons – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 451 Unavailable For Legal Reasons error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "451 error",
+      "Unavailable For Legal Reasons",
+      "fix 451",
+      "HTTP 451",
+      "4xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/451-unavailable-for-legal-reasons"
+    }
+  },
+  "500-internal-server-error": {
+    "title": "500 Internal Server Error – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 500 Internal Server Error error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "500 error",
+      "Internal Server Error",
+      "fix 500",
+      "HTTP 500",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/500-internal-server-error"
+    }
+  },
+  "501-not-implemented": {
+    "title": "501 Not Implemented – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 501 Not Implemented error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "501 error",
+      "Not Implemented",
+      "fix 501",
+      "HTTP 501",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/501-not-implemented"
+    }
+  },
+  "502-bad-gateway": {
+    "title": "502 Bad Gateway – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 502 Bad Gateway error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "502 error",
+      "Bad Gateway",
+      "fix 502",
+      "HTTP 502",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/502-bad-gateway"
+    }
+  },
+  "503-service-unavailable": {
+    "title": "503 Service Unavailable – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 503 Service Unavailable error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "503 error",
+      "Service Unavailable",
+      "fix 503",
+      "HTTP 503",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/503-service-unavailable"
+    }
+  },
+  "504-gateway-timeout": {
+    "title": "504 Gateway Timeout – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 504 Gateway Timeout error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "504 error",
+      "Gateway Timeout",
+      "fix 504",
+      "HTTP 504",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/504-gateway-timeout"
+    }
+  },
+  "505-http-version-not-supported": {
+    "title": "505 HTTP Version Not Supported – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 505 HTTP Version Not Supported error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "505 error",
+      "HTTP Version Not Supported",
+      "fix 505",
+      "HTTP 505",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/505-http-version-not-supported"
+    }
+  },
+  "506-variant-also-negotiates": {
+    "title": "506 Variant Also Negotiates – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 506 Variant Also Negotiates error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "506 error",
+      "Variant Also Negotiates",
+      "fix 506",
+      "HTTP 506",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/506-variant-also-negotiates"
+    }
+  },
+  "507-insufficient-storage": {
+    "title": "507 Insufficient Storage – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 507 Insufficient Storage error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "507 error",
+      "Insufficient Storage",
+      "fix 507",
+      "HTTP 507",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/507-insufficient-storage"
+    }
+  },
+  "508-loop-detected": {
+    "title": "508 Loop Detected – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 508 Loop Detected error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "508 error",
+      "Loop Detected",
+      "fix 508",
+      "HTTP 508",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/508-loop-detected"
+    }
+  },
+  "510-not-extended": {
+    "title": "510 Not Extended – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 510 Not Extended error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "510 error",
+      "Not Extended",
+      "fix 510",
+      "HTTP 510",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/510-not-extended"
+    }
+  },
+  "511-network-authentication-required": {
+    "title": "511 Network Authentication Required – Causes & Fix | ErrorFixer",
+    "description": "Understand why the 511 Network Authentication Required error happens and how to fix it in Node.js, React, Apache, Nginx, and more.",
+    "keywords": [
+      "511 error",
+      "Network Authentication Required",
+      "fix 511",
+      "HTTP 511",
+      "5xx error"
+    ],
+    "alternates": {
+      "canonical": "https://errorfixer.com/511-network-authentication-required"
+    }
+  }
+}

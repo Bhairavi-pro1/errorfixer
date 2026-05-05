@@ -1,5 +1,6 @@
 import Link from "next/link";
 import errorsData from "../../data/errors.json";
+import siteMetadata from "../../data/metadata.json";
 import AdBanner from "../../components/AdBanner";
 import Tabs from "../../components/Tabs";
 import DebugChecklist from "../../components/DebugChecklist";
@@ -12,16 +13,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const error = errorsData.find((e) => e.slug === slug);
   
-  if (!error) {
+  if (!siteMetadata[slug]) {
     return { title: 'Error Not Found' };
   }
 
-  return {
-    title: `${error.code} ${error.title} – Causes & Fix | ErrorFixer`,
-    description: `Understand why the ${error.code} ${error.title} error happens and how to fix it in Node.js, React, Apache, Nginx, and more.`,
-  };
+  return siteMetadata[slug];
 }
 
 export default async function ErrorDetailPage({ params }) {
@@ -56,7 +53,7 @@ export default async function ErrorDetailPage({ params }) {
         </div>
         
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6">
-          <span className="text-error-container">{error.code}</span> - {error.title}
+          <span className="text-primary">{error.code}</span> - {error.title}
         </h1>
         
         <div className="mb-8">

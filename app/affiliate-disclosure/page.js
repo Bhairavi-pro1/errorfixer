@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Affiliate Disclosure – ErrorFixer",
-  description: "Read our Affiliate Disclosure to understand how ErrorFixer may earn commissions through affiliate links.",
-};
+import siteMetadata from "../../data/metadata.json";
+
+export const metadata = siteMetadata["affiliate-disclosure"];
 
 export default function AffiliateDisclosure() {
   return (

@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Privacy Policy – ErrorFixer",
-  description: "Read the Privacy Policy for ErrorFixer. Learn how we collect, use, and protect your data.",
-};
+import siteMetadata from "../../data/metadata.json";
+
+export const metadata = siteMetadata["privacy-policy"];
 
 export default function PrivacyPolicy() {
   return (

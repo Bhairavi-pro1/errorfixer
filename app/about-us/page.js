@@ -1,9 +1,7 @@
 import Image from 'next/image';
+import siteMetadata from "../../data/metadata.json";
 
-export const metadata = {
-  title: "About Us – ErrorFixer",
-  description: "Learn more about ErrorFixer. The ultimate platform built by developers for developers to understand and resolve HTTP error codes.",
-};
+export const metadata = siteMetadata["about-us"];
 
 export default function AboutUs() {
   return (

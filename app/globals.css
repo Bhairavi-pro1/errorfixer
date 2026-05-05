@@ -23,18 +23,21 @@
   /* Glass and gradient colors */
   --surface-variant: rgba(53, 52, 62, 0.6);
   --outline-variant: rgba(70, 69, 85, 0.15);
+  
+  --on-surface-variant: #cac4d0;
+  --surface-container-high: var(--surface-high);
 }
 
 :root.light {
-  --background: #fdfcff;
-  --foreground: #1a1c1e;
+  --background: #f8f9fc;
+  --foreground: #1e1e28;
   
-  --surface: #fdfcff;
-  --surface-bright: #fdfcff;
-  --surface-low: #f4f3f7;
-  --surface-container: #efedf1;
-  --surface-high: #e9e7ec;
-  --surface-highest: #e3e2e6;
+  --surface: #ffffff;
+  --surface-bright: #ffffff;
+  --surface-low: #f1f3f9;
+  --surface-container: #e9ecf5;
+  --surface-high: #e2e6f1;
+  --surface-highest: #dce1ee;
 
   --primary: #4f46e5;
   --primary-container: #e0e0ff;
@@ -47,7 +50,10 @@
   
   /* Glass and gradient colors */
   --surface-variant: rgba(227, 226, 230, 0.6);
-  --outline-variant: rgba(116, 119, 127, 0.15);
+  --outline-variant: rgba(116, 119, 127, 0.25);
+  
+  --on-surface-variant: #525866;
+  --surface-container-high: var(--surface-high);
 }
 
 @theme inline {
@@ -74,6 +80,8 @@
   
   --color-surface-variant: var(--surface-variant);
   --color-outline-variant: var(--outline-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface-container-high: var(--surface-container-high);
 
   --animate-slide-in-right: slide-in-right 0.3s ease-out forwards;
 }

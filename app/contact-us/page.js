@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Contact Us – ErrorFixer",
-  description: "Get in touch with ErrorFixer. Send us your questions, feedback, or inquiries.",
-};
+import siteMetadata from "../../data/metadata.json";
+
+export const metadata = siteMetadata["contact-us"];
 
 export default function ContactUs() {
   return (

@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Terms and Conditions – ErrorFixer",
-  description: "Read the Terms and Conditions for ErrorFixer. Understand the rules and regulations for using our website.",
-};
+import siteMetadata from "../../data/metadata.json";
+
+export const metadata = siteMetadata["terms-and-conditions"];
 
 export default function TermsAndConditions() {
   return (

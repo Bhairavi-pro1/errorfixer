@@ -10,7 +10,7 @@ export default function ErrorCard({ error }) {
       
       <div className="flex flex-col h-full relative z-10">
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-flex items-center justify-center bg-error-container/20 text-tertiary-container border border-error-container/30 px-3 py-1 rounded-sm text-sm font-bold font-mono">
+          <span className="inline-flex items-center justify-center bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-sm text-sm font-bold font-mono">
             {error.code}
           </span>
           <span className="text-xs font-mono uppercase tracking-widest text-on-surface-variant">

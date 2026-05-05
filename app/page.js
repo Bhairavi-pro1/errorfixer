@@ -1,11 +1,9 @@
 import { Suspense } from 'react';
 import HomePageContent from "../components/HomePageContent";
 import errorsData from "../data/errors.json";
+import siteMetadata from "../data/metadata.json";
 
-export const metadata = {
-  title: "ErrorFixer – Fix HTTP Errors Instantly",
-  description: "Stop guessing what went wrong. Search your error code, understand the cause, and copy-paste real-world solutions tailored to your tech stack.",
-};
+export const metadata = siteMetadata.home;
 
 export default function Home() {
   return (
