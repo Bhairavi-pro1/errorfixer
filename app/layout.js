@@ -1,5 +1,4 @@
 import { Manrope, Inter } from "next/font/google";
-import Script from "next/script";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import siteMetadata from "../data/metadata.json";
@@ -23,14 +22,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${manrope.variable} ${inter.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-L4TSCHGSZF"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
+      <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4TSCHGSZF"></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -40,6 +34,8 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+      </head>
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <Navbar />
         <main className="flex-1">
           {children}

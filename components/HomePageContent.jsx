@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ErrorCard from "./ErrorCard";
 import AdBanner from "./AdBanner";
+import HomeSEOContent from "./HomeSEOContent";
 
 const CATEGORIES = ["All", "1xx", "2xx", "3xx", "4xx", "5xx"];
 
@@ -125,6 +126,7 @@ export default function HomePageContent({ errors }) {
           </div>
         )}
       </div>
+      <HomeSEOContent />
     </div>
   );
 }
