@@ -1,7 +1,7 @@
 import errorsData from '../data/errors.json';
 
 export default function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = "https://www.errorfixer.toolsofsaas.com";
 
   const staticRoutes = [
     '',
