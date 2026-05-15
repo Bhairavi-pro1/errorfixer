@@ -21,9 +21,7 @@ import RealWorldScenarios from "../../components/error-detail/RealWorldScenarios
 import FAQSection from "../../components/error-detail/FAQSection";
 import RelatedErrors from "../../components/error-detail/RelatedErrors";
 import DevNotes from "../../components/error-detail/DevNotes";
-import DiagnosticTools from "../../components/error-detail/DiagnosticTools";
-import CommunitySection from "../../components/error-detail/CommunitySection";
-import HelpfulVoting from "../../components/error-detail/HelpfulVoting";
+import AdvancedUseCases from "../../components/error-detail/AdvancedUseCases";
 import ShareCopyBar from "../../components/error-detail/ShareCopyBar";
 import StickyTOC from "../../components/error-detail/StickyTOC";
 import SchemaScripts from "../../components/error-detail/SchemaScripts";
@@ -137,9 +135,7 @@ export default async function ErrorDetailPage({ params }) {
               <FAQSection error={error} />
               <RelatedErrors error={error} />
               <DevNotes error={error} />
-              <DiagnosticTools />
-              <CommunitySection />
-              <HelpfulVoting error={error} />
+              <AdvancedUseCases error={error} />
               
               <div className="mb-12"><AdBanner /></div>
             </>

@@ -18,6 +18,7 @@ export default function StickyTOC({ error }) {
     ...(error.faq && error.faq.length > 0 ? [{ id: "faq", label: "FAQ" }] : []),
     ...(error.relatedErrors && error.relatedErrors.length > 0 ? [{ id: "related", label: "Related Errors" }] : []),
     ...(error.devNotes ? [{ id: "dev-notes", label: "Dev Notes" }] : []),
+    ...(error.advancedUseCases && error.advancedUseCases.length > 0 ? [{ id: "advanced-use-cases", label: "Advanced Use Cases" }] : []),
   ];
 
   useEffect(() => {

@@ -284,7 +284,43 @@
       "101-switching-protocols",
       "102-processing",
       "103-early-hints"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Pre-Validation for Large File Uploads",
+    "scenario": "A client needs to upload a very large file such as a 5 GB video, backup archive, or machine learning dataset to the server. Sending the full payload immediately could waste massive bandwidth if the server later rejects the request due to invalid authentication, unsupported file types, insufficient permissions, or payload limits.",
+    "howItWorks": "The client sends only the request headers first using the 'Expect: 100-continue' header. The server validates authentication, content length, request headers, and upload permissions before asking the client to proceed. If validation passes, the server responds with 'HTTP/1.1 100 Continue', allowing the client to safely stream the request body. If validation fails, the server can immediately reject the request with an error like 401 Unauthorized or 413 Payload Too Large without receiving gigabytes of unnecessary data.",
+    "benefits": [
+      "Prevents unnecessary bandwidth consumption",
+      "Reduces server resource exhaustion",
+      "Improves upload reliability on slow networks",
+      "Protects APIs from oversized malicious payloads",
+      "Improves performance for enterprise file transfer systems"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "HTTP Upload Handshake",
+      "code": "POST /upload HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer TOKEN\nContent-Length: 5368709120\nContent-Type: video/mp4\nExpect: 100-continue\n\nHTTP/1.1 100 Continue\n\n[file upload stream begins]"
+    },
+    "realWorldExample": "Cloud storage platforms like Amazon S3, Google Cloud Storage, enterprise backup systems, and media streaming platforms use Expect: 100-continue workflows to validate uploads before transferring huge payloads.",
+    "whyUnderrated": "Many developers ignore the 100 Continue mechanism entirely and directly upload large request bodies. This leads to wasted bandwidth, higher infrastructure costs, and slower failure detection when uploads are rejected.",
+    "developerNotes": [
+      "Useful for video uploads, enterprise backups, and large multipart form submissions",
+      "Particularly important for APIs handling multi-GB uploads",
+      "Can significantly reduce CDN and reverse proxy bandwidth costs",
+      "Works especially well with chunked transfer encoding"
+    ],
+    "securityImpact": "The 100 Continue workflow helps mitigate denial-of-service style oversized upload attacks by allowing servers to reject invalid requests before the payload transfer begins.",
+    "performanceImpact": "Large-scale APIs handling thousands of uploads per minute can save terabytes of bandwidth monthly by validating headers before accepting request bodies.",
+    "bestPractices": [
+      "Validate authentication before sending 100 Continue",
+      "Check Content-Length limits early",
+      "Reject unsupported MIME types immediately",
+      "Configure reverse proxies like Nginx or HAProxy to properly support Expect headers",
+      "Use streaming uploads instead of buffering entire payloads in memory"
     ]
+  }
+]
   },
   {
     "code": 101,
@@ -571,7 +607,47 @@
       "100-continue",
       "102-processing",
       "103-early-hints"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "WebSocket Upgrade for Real-Time Multiplayer Systems",
+    "scenario": "A browser-based multiplayer game, stock trading dashboard, collaborative editor, or live chat platform requires persistent two-way communication between the client and server with extremely low latency. Traditional HTTP request-response cycles introduce unnecessary overhead and cannot efficiently support real-time updates.",
+    "howItWorks": "The client first establishes a normal HTTP connection and sends an Upgrade request header asking the server to switch protocols from HTTP to WebSocket. If the server supports WebSockets, it responds with 'HTTP/1.1 101 Switching Protocols' and upgrades the connection into a persistent full-duplex communication channel. From that point onward, both the client and server can continuously exchange data without reopening new HTTP connections.",
+    "benefits": [
+      "Enables real-time bidirectional communication",
+      "Eliminates repeated HTTP connection overhead",
+      "Reduces latency for live applications",
+      "Improves scalability for event-driven systems",
+      "Supports persistent low-bandwidth connections"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "WebSocket Protocol Upgrade",
+      "code": "GET /socket HTTP/1.1\nHost: example.com\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\nSec-WebSocket-Version: 13\n\nHTTP/1.1 101 Switching Protocols\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo="
+    },
+    "realWorldExample": "Applications like Discord, Slack, Figma, Google Docs, Binance Trading Platform, and multiplayer gaming servers rely heavily on HTTP 101 protocol switching to establish persistent WebSocket sessions.",
+    "whyUnderrated": "Many developers think HTTP status codes are only for traditional REST APIs and overlook how critical the 101 status code is for powering modern real-time internet infrastructure.",
+    "developerNotes": [
+      "Frequently used with Socket.IO, ws, SignalR, and real-time frameworks",
+      "Requires reverse proxies like Nginx or HAProxy to properly forward Upgrade headers",
+      "Essential for scalable event-driven architectures",
+      "Often combined with Redis Pub/Sub or Kafka for distributed message broadcasting"
+    ],
+    "securityImpact": "WebSocket upgrades should validate authentication tokens before switching protocols because the persistent connection bypasses many traditional request-based security checks.",
+    "performanceImpact": "Persistent upgraded connections dramatically reduce TCP handshake overhead and HTTP header repetition, improving scalability for applications serving millions of concurrent users.",
+    "bestPractices": [
+      "Authenticate users before completing the upgrade",
+      "Implement heartbeat or ping-pong mechanisms to detect dead connections",
+      "Use rate limiting for WebSocket events",
+      "Terminate idle connections to conserve resources",
+      "Configure reverse proxies to support Upgrade and Connection headers properly"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Real-Time Event Infrastructure",
+      "description": "In large-scale systems, the upgraded WebSocket connection often acts as the gateway into a distributed event streaming architecture. Messages received through WebSockets may be routed into Redis Pub/Sub, Apache Kafka, RabbitMQ, or NATS clusters for broadcasting across multiple backend nodes."
+    }
+  }
+]
   },
   {
     "code": 102,
@@ -859,7 +935,43 @@
       "100-continue",
       "101-switching-protocols",
       "103-early-hints"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Background Media Processing with Live Progress Tracking",
+    "scenario": "A user uploads a large video, CAD file, or archive that requires extensive server-side processing such as transcoding, virus scanning, thumbnail generation, OCR extraction, or AI analysis. These operations may take several minutes and should not leave the client connection appearing frozen.",
+    "howItWorks": "The server immediately responds with 'HTTP/1.1 102 Processing' while continuing to work on the request in the background. This tells the client that the request has been accepted and is actively being processed, preventing browser or proxy timeouts. During long-running operations, the server may continue sending intermediate 102 responses before eventually returning the final success or failure response.",
+    "benefits": [
+      "Prevents premature client timeouts",
+      "Improves UX during long-running operations",
+      "Keeps reverse proxies aware of active processing",
+      "Useful for enterprise file systems and WebDAV environments",
+      "Reduces abandoned uploads during heavy processing"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Long-Running Processing Workflow",
+      "code": "PROPFIND /large-media HTTP/1.1\nHost: storage.example.com\n\nHTTP/1.1 102 Processing\n\nHTTP/1.1 102 Processing\n\nHTTP/1.1 200 OK\nContent-Type: application/json\n{\n  \"status\": \"completed\",\n  \"thumbnailsGenerated\": true\n}"
+    },
+    "realWorldExample": "Enterprise document management systems, cloud storage providers, AI video processing platforms, and WebDAV-based collaboration systems use 102 Processing to indicate ongoing backend activity.",
+    "whyUnderrated": "Most developers rely only on frontend loading spinners and ignore protocol-level progress signaling. HTTP 102 provides a standards-based way to keep connections alive during expensive operations.",
+    "developerNotes": [
+      "Primarily associated with WebDAV but useful for modern async workflows",
+      "Helpful when reverse proxies aggressively timeout inactive requests",
+      "Can be combined with polling or WebSockets for richer progress updates",
+      "Useful for OCR pipelines, media rendering, and backup restoration systems"
+    ],
+    "securityImpact": "Long-running requests should enforce strict authentication and timeout policies because attackers may intentionally open expensive processing tasks to exhaust server resources.",
+    "performanceImpact": "Proper use of 102 responses reduces unnecessary retries from impatient clients and prevents expensive duplicate processing jobs.",
+    "bestPractices": [
+      "Use async job queues for extremely long tasks",
+      "Return progress identifiers for client-side polling",
+      "Configure proxy_read_timeout correctly in Nginx or HAProxy",
+      "Avoid blocking server worker threads unnecessarily",
+      "Provide eventual completion callbacks or webhook notifications"
     ]
+  }
+]
   },
   {
     "code": 103,
@@ -1146,7 +1258,47 @@
       "100-continue",
       "101-switching-protocols",
       "102-processing"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Critical Resource Preloading for Core Web Vitals Optimization",
+    "scenario": "A high-traffic ecommerce platform or media-heavy website wants to improve Largest Contentful Paint (LCP) and reduce perceived page load times by telling the browser which critical assets to preload before the final HTML response is ready.",
+    "howItWorks": "The server sends an early 'HTTP/1.1 103 Early Hints' response containing Link preload headers for critical CSS, fonts, JavaScript bundles, or hero images. The browser immediately begins downloading these assets while the server continues rendering the final response. Once rendering is complete, the server sends the final 200 OK response with the actual page content.",
+    "benefits": [
+      "Improves Core Web Vitals scores",
+      "Reduces Largest Contentful Paint (LCP)",
+      "Accelerates perceived page rendering",
+      "Optimizes browser parallel downloading",
+      "Improves SEO and user experience"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "103 Early Hints Preload Response",
+      "code": "HTTP/1.1 103 Early Hints\nLink: </styles/main.css>; rel=preload; as=style\nLink: </fonts/inter.woff2>; rel=preload; as=font; crossorigin\nLink: </hero-banner.webp>; rel=preload; as=image\n\nHTTP/1.1 200 OK\nContent-Type: text/html"
+    },
+    "realWorldExample": "Large platforms like Shopify, Cloudflare-powered websites, ecommerce storefronts, streaming platforms, and high-performance SSR frameworks use Early Hints to optimize rendering performance.",
+    "whyUnderrated": "Many developers focus only on frontend optimization while ignoring transport-layer optimizations. HTTP 103 enables browsers to start downloading critical assets before the page itself is fully generated.",
+    "developerNotes": [
+      "Especially effective with server-side rendering frameworks",
+      "Works well with React SSR, Next.js, Nuxt, and edge-rendered applications",
+      "Can significantly improve Lighthouse performance scores",
+      "Often used together with CDN edge caching strategies"
+    ],
+    "securityImpact": "Only preload trusted assets because browsers may fetch hinted resources before validating the final response logic.",
+    "performanceImpact": "Early Hints can reduce render-blocking delays and significantly improve page interactivity for users on slower mobile networks.",
+    "bestPractices": [
+      "Only preload truly critical resources",
+      "Avoid over-preloading excessive assets",
+      "Use HTTP/2 or HTTP/3 for best performance",
+      "Combine with CDN edge delivery",
+      "Monitor actual performance gains using Core Web Vitals metrics"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge Rendering with Early Hints",
+      "description": "Modern CDN edge platforms can emit 103 Early Hints immediately while origin servers continue generating HTML. This allows browsers to start critical downloads milliseconds after the initial TCP connection is established."
+    }
+  }
+]
   },
   {
     "code": 200,
@@ -1435,7 +1587,47 @@
       "202-accepted",
       "203-non-authoritative-information",
       "204-no-content"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "API Response Integrity Verification with Signed Responses",
+    "scenario": "A fintech, healthcare, or enterprise API needs to guarantee that response data was not modified in transit by proxies, middleware, browser extensions, or compromised gateways. Clients must verify that the payload truly originated from the trusted backend server.",
+    "howItWorks": "The server returns a normal 'HTTP/1.1 200 OK' response together with a cryptographic signature header generated from the response body. The client validates the signature using a shared secret or public key infrastructure before trusting the data. Even if a malicious intermediary tampers with the payload, the signature verification will fail.",
+    "benefits": [
+      "Prevents response tampering",
+      "Adds trust verification for sensitive APIs",
+      "Improves security in distributed architectures",
+      "Useful for banking and compliance systems",
+      "Enables zero-trust API communication"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Signed API Response",
+      "code": "HTTP/1.1 200 OK\nContent-Type: application/json\nX-Response-Signature: sha256=4f8c1e8d9f0b2a7e1b\nCache-Control: no-store\n\n{\n  \"transactionId\": \"txn_94821\",\n  \"amount\": 5000,\n  \"status\": \"approved\"\n}"
+    },
+    "realWorldExample": "Payment gateways, banking APIs, webhook providers like Stripe and GitHub, and healthcare platforms often implement response signing to guarantee payload authenticity.",
+    "whyUnderrated": "Most developers assume HTTPS alone guarantees integrity, but response signing provides an additional verification layer against compromised proxies, middleware manipulation, and replay attacks.",
+    "developerNotes": [
+      "Can use HMAC SHA-256 or asymmetric RSA/ECDSA signatures",
+      "Frequently combined with timestamp validation",
+      "Useful for webhook verification systems",
+      "Can help meet compliance requirements like PCI DSS"
+    ],
+    "securityImpact": "Protects against payload tampering, replay attacks, and unauthorized response modification in multi-hop infrastructures.",
+    "performanceImpact": "Minimal overhead compared to the security and trust benefits provided for sensitive operations.",
+    "bestPractices": [
+      "Include timestamps in signatures",
+      "Use short-lived nonce values",
+      "Avoid signing mutable headers",
+      "Rotate cryptographic keys regularly",
+      "Validate signatures before parsing sensitive data"
+    ],
+    "advancedArchitecture": {
+      "title": "Zero-Trust API Verification",
+      "description": "In modern zero-trust infrastructures, even internal service-to-service responses may require cryptographic verification to prevent compromised internal proxies or service mesh manipulation."
+    }
+  }
+]
   },
   {
     "code": 201,
@@ -1723,7 +1915,47 @@
       "202-accepted",
       "203-non-authoritative-information",
       "204-no-content"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Event Sourcing with Immutable Resource Versioning",
+    "scenario": "A distributed system needs to create resources while preserving a complete historical audit trail of every state change. Instead of overwriting existing records, the system stores every new creation as an immutable event for traceability and rollback capabilities.",
+    "howItWorks": "When a new resource is created, the server responds with 'HTTP/1.1 201 Created' and includes both the Location header for the new resource and a version identifier. Rather than directly mutating records later, future updates generate additional immutable events linked to the original resource creation.",
+    "benefits": [
+      "Provides full audit history",
+      "Enables rollback and replay functionality",
+      "Improves debugging in distributed systems",
+      "Supports compliance and financial auditing",
+      "Works well with CQRS architectures"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Versioned Resource Creation",
+      "code": "POST /orders HTTP/1.1\nContent-Type: application/json\n\n{\n  \"product\": \"Laptop\",\n  \"quantity\": 1\n}\n\nHTTP/1.1 201 Created\nLocation: /orders/8472\nETag: \"v1-order-8472\"\nContent-Type: application/json\n\n{\n  \"id\": 8472,\n  \"status\": \"created\",\n  \"version\": 1\n}"
+    },
+    "realWorldExample": "Banking platforms, blockchain-inspired systems, ERP software, logistics platforms, and event-driven microservice architectures commonly use immutable event sourcing patterns built around 201 Created workflows.",
+    "whyUnderrated": "Most developers treat 201 Created as a simple success response and ignore its role in version-aware distributed architectures and immutable event storage systems.",
+    "developerNotes": [
+      "Frequently paired with Kafka, EventStoreDB, or RabbitMQ",
+      "Useful for financial and compliance-heavy applications",
+      "Can integrate with CQRS read/write separation",
+      "Supports distributed rollback and replay mechanisms"
+    ],
+    "securityImpact": "Immutable creation events provide tamper-resistant audit trails that help detect unauthorized changes or fraud attempts.",
+    "performanceImpact": "Appending immutable events is often faster and safer than performing direct in-place database mutations under heavy concurrency.",
+    "bestPractices": [
+      "Always return Location headers for newly created resources",
+      "Include version identifiers or ETags",
+      "Store immutable append-only events",
+      "Separate read models from write models",
+      "Implement idempotency keys for retry-safe creation"
+    ],
+    "advancedArchitecture": {
+      "title": "CQRS and Event Replay Systems",
+      "description": "Large-scale event-driven systems can replay historical 201-created events to rebuild application state, recover corrupted read models, or migrate systems without downtime."
+    }
+  }
+]
   },
   {
     "code": 202,
@@ -2013,7 +2245,47 @@
       "201-created",
       "203-non-authoritative-information",
       "204-no-content"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Asynchronous AI Processing and Job Queue Systems",
+    "scenario": "An application needs to handle computationally expensive operations such as AI image generation, video rendering, PDF conversion, machine learning inference, or large-scale data exports that may take several minutes to complete.",
+    "howItWorks": "Instead of keeping the HTTP connection open until the task finishes, the server immediately responds with 'HTTP/1.1 202 Accepted' to confirm the request has been accepted for processing. The actual work is delegated to a background worker queue such as BullMQ, RabbitMQ, Kafka, or AWS SQS. The response usually includes a job ID or status endpoint that the client can poll for progress updates.",
+    "benefits": [
+      "Prevents request timeout failures",
+      "Improves scalability under heavy workloads",
+      "Allows horizontal worker scaling",
+      "Provides smoother user experience",
+      "Supports distributed background processing"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Async Job Processing Workflow",
+      "code": "POST /generate-video HTTP/1.1\nContent-Type: application/json\n\n{\n  \"prompt\": \"Generate cinematic drone footage\"\n}\n\nHTTP/1.1 202 Accepted\nLocation: /jobs/8f4k21/status\nRetry-After: 10\nContent-Type: application/json\n\n{\n  \"jobId\": \"8f4k21\",\n  \"status\": \"queued\"\n}"
+    },
+    "realWorldExample": "AI platforms like OpenAI image generation systems, video rendering pipelines, cloud backup services, CI/CD deployment systems, and large analytics platforms frequently use 202 Accepted for asynchronous task execution.",
+    "whyUnderrated": "Many developers incorrectly block HTTP requests until long-running operations finish, which wastes server resources and causes gateway timeouts under load.",
+    "developerNotes": [
+      "Works extremely well with message queues and worker pools",
+      "Useful for email sending, report generation, and AI processing",
+      "Can be combined with WebSockets for live progress updates",
+      "Often paired with Retry-After headers"
+    ],
+    "securityImpact": "Background job systems should validate permissions before queueing tasks because queued jobs may execute long after the original request context ends.",
+    "performanceImpact": "Async processing dramatically improves throughput by freeing web server threads immediately after job acceptance.",
+    "bestPractices": [
+      "Return job tracking URLs",
+      "Implement retry mechanisms for failed jobs",
+      "Use idempotency keys to prevent duplicate processing",
+      "Store job progress states persistently",
+      "Apply queue prioritization for critical tasks"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Worker Infrastructure",
+      "description": "Modern cloud-native systems distribute 202-accepted jobs across autoscaling worker clusters using Kafka, RabbitMQ, AWS SQS, or Redis-backed queues to process millions of tasks asynchronously."
+    }
+  }
+]
   },
   {
     "code": 203,
@@ -2301,7 +2573,47 @@
       "201-created",
       "202-accepted",
       "204-no-content"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Metadata Transformation Through Edge Proxies and CDNs",
+    "scenario": "A reverse proxy, CDN, enterprise firewall, or edge gateway modifies the original response metadata before sending it to the client. This is common in security filtering, localization, content optimization, or compliance-sensitive infrastructures.",
+    "howItWorks": "The upstream origin server generates the original response, but an intermediary transforms headers, content encoding, localization rules, or metadata before forwarding the response downstream. The intermediary returns 'HTTP/1.1 203 Non-Authoritative Information' to indicate that the response payload may differ from the authoritative origin version.",
+    "benefits": [
+      "Enables intelligent edge content transformation",
+      "Supports regional localization",
+      "Improves CDN optimization flexibility",
+      "Allows enterprise compliance filtering",
+      "Enables bandwidth-saving compression pipelines"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "CDN-Modified Response",
+      "code": "HTTP/1.1 203 Non-Authoritative Information\nVia: 1.1 edge-proxy\nContent-Language: en-IN\nX-Optimized-By: CDN-Edge\nCache-Control: public, max-age=3600\n\n{\n  \"article\": \"Compressed and localized content version\"\n}"
+    },
+    "realWorldExample": "CDNs, enterprise API gateways, antivirus scanning proxies, regional content delivery systems, and edge rendering platforms may return 203 responses after transforming origin content.",
+    "whyUnderrated": "Most developers rarely encounter 203 responses and assume all successful responses originate directly from the backend server without intermediary modifications.",
+    "developerNotes": [
+      "Useful in enterprise proxy environments",
+      "Can indicate content adaptation or localization",
+      "Helpful for debugging edge transformation layers",
+      "Often appears in compliance-heavy infrastructures"
+    ],
+    "securityImpact": "203 responses help identify when intermediaries have modified payloads, which is important for auditing, compliance, and detecting unexpected proxy manipulation.",
+    "performanceImpact": "Edge transformations can reduce origin load by compressing, caching, or adapting content closer to users geographically.",
+    "bestPractices": [
+      "Clearly document intermediary transformations",
+      "Use Via and X-Forwarded headers transparently",
+      "Avoid modifying signed payloads without re-signing",
+      "Validate cache consistency across regions",
+      "Monitor edge node behavior carefully"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge Computing and Dynamic Content Adaptation",
+      "description": "Modern edge computing platforms may dynamically transform responses based on user device type, network speed, geographic region, or enterprise compliance rules before returning a 203 response."
+    }
+  }
+]
   },
   {
     "code": 204,
@@ -2589,7 +2901,47 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Optimistic Concurrency Control with ETags",
+    "scenario": "Two or more users are editing the same resource simultaneously in a collaborative system such as a project management tool, document editor, or inventory platform. Without concurrency protection, one update may silently overwrite another user's changes.",
+    "howItWorks": "The client sends a PUT or PATCH request together with an 'If-Match' header containing the last known ETag value of the resource. After successfully processing the update, the server responds with 'HTTP/1.1 204 No Content' and returns a new ETag header without sending the entire resource body again. The client updates its local ETag for future modification requests.",
+    "benefits": [
+      "Prevents accidental overwrite conflicts",
+      "Reduces unnecessary response payloads",
+      "Improves efficiency for high-frequency updates",
+      "Supports collaborative editing systems",
+      "Enables safer distributed data synchronization"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "ETag-Based Concurrency Workflow",
+      "code": "PATCH /documents/42 HTTP/1.1\nIf-Match: \"v5-doc-42\"\nContent-Type: application/json\n\n{\n  \"title\": \"Updated Document\"\n}\n\nHTTP/1.1 204 No Content\nETag: \"v6-doc-42\"\nCache-Control: no-cache"
+    },
+    "realWorldExample": "Platforms like Notion, Google Docs, GitHub APIs, inventory systems, and enterprise ERP software commonly use ETags together with 204 responses for lightweight synchronization.",
+    "whyUnderrated": "Many APIs return full 200 OK payloads after updates even when the client already has the latest representation, wasting bandwidth and increasing latency.",
+    "developerNotes": [
+      "Especially useful for RESTful PATCH and PUT operations",
+      "Works well with optimistic locking strategies",
+      "Helpful for mobile synchronization systems",
+      "Can reduce API response sizes significantly"
+    ],
+    "securityImpact": "ETag validation helps prevent race conditions and unintended data overwrites caused by stale client states.",
+    "performanceImpact": "Using 204 responses avoids retransmitting large resources after updates, improving API efficiency under heavy concurrent traffic.",
+    "bestPractices": [
+      "Always generate strong ETags for mutable resources",
+      "Reject stale updates with 412 Precondition Failed",
+      "Use PATCH for partial updates when possible",
+      "Avoid returning unnecessary response bodies",
+      "Document concurrency requirements clearly for API consumers"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Synchronization Systems",
+      "description": "Large-scale distributed applications often combine 204 responses, ETags, and event streams to synchronize state changes across multiple clients without repeatedly transferring full resource payloads."
+    }
+  }
+]
   },
   {
     "code": 205,
@@ -2876,7 +3228,47 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "State Reset Workflows in Multi-Step Interactive Applications",
+    "scenario": "A complex web application such as a POS terminal, kiosk system, trading dashboard, medical intake form, or industrial control interface needs to instruct the client UI to completely reset its current state after a successful operation.",
+    "howItWorks": "After successfully processing the request, the server responds with 'HTTP/1.1 205 Reset Content'. Unlike 204 No Content, the 205 response explicitly tells the client application to clear form fields, reset interface state, and prepare for a completely new interaction cycle.",
+    "benefits": [
+      "Improves UX for repetitive workflows",
+      "Prevents stale form data reuse",
+      "Reduces frontend state management complexity",
+      "Useful for transactional interfaces",
+      "Improves operational efficiency in kiosk-style systems"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Form Reset Workflow",
+      "code": "POST /checkout HTTP/1.1\nContent-Type: application/json\n\n{\n  \"customerId\": 284,\n  \"items\": [\"A12\", \"B94\"]\n}\n\nHTTP/1.1 205 Reset Content"
+    },
+    "realWorldExample": "Retail POS systems, airport self-check-in kiosks, hospital registration terminals, warehouse scanners, and industrial touch-screen systems frequently require complete UI resets after transactions.",
+    "whyUnderrated": "Many frontend applications manually clear UI state after successful submissions and ignore the protocol-level semantic meaning already provided by HTTP 205.",
+    "developerNotes": [
+      "Particularly useful for SPA applications",
+      "Works well with frontend state managers like Redux or Zustand",
+      "Helpful for touchscreen and kiosk environments",
+      "Can simplify repetitive workflow handling"
+    ],
+    "securityImpact": "Automatically resetting interface state helps prevent sensitive information leakage between shared-device sessions.",
+    "performanceImpact": "Using 205 responses reduces the need for additional redirect flows or UI synchronization logic after repetitive actions.",
+    "bestPractices": [
+      "Use 205 only when the client should fully reset its current view",
+      "Avoid sending unnecessary response bodies",
+      "Ensure frontend frameworks properly handle reset semantics",
+      "Clear temporary session data when appropriate",
+      "Combine with frontend focus-reset behavior for accessibility"
+    ],
+    "advancedArchitecture": {
+      "title": "Shared Device Transaction Systems",
+      "description": "Large kiosk and terminal infrastructures often rely on 205 Reset Content responses to instantly clear transaction state between users without requiring full page reloads."
+    }
+  }
+]
   },
   {
     "code": 206,
@@ -3165,7 +3557,47 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Adaptive Video Streaming and Resumable Downloads",
+    "scenario": "A media platform needs to stream large video files efficiently across unstable mobile networks while allowing users to seek, pause, resume, or partially download content without restarting the entire transfer.",
+    "howItWorks": "The client sends a request with a 'Range' header specifying the exact byte range it needs. The server responds with 'HTTP/1.1 206 Partial Content' and returns only the requested segment of the file. This allows browsers, media players, and download managers to retrieve content incrementally instead of downloading the entire resource at once.",
+    "benefits": [
+      "Enables efficient video streaming",
+      "Supports resumable downloads",
+      "Reduces bandwidth consumption",
+      "Improves playback on unstable networks",
+      "Optimizes CDN cache utilization"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Partial Video Stream Response",
+      "code": "GET /movie.mp4 HTTP/1.1\nRange: bytes=1048576-2097151\n\nHTTP/1.1 206 Partial Content\nContent-Range: bytes 1048576-2097151/734003200\nContent-Length: 1048576\nContent-Type: video/mp4"
+    },
+    "realWorldExample": "Netflix, YouTube, Spotify, AWS S3, CDN providers, and download managers use 206 Partial Content extensively for streaming and resumable transfer systems.",
+    "whyUnderrated": "Many developers treat 206 only as a download feature and overlook its foundational role in modern adaptive streaming architectures and high-performance CDN delivery.",
+    "developerNotes": [
+      "Critical for HLS and DASH streaming protocols",
+      "Works well with CDN edge caching",
+      "Useful for large backup archives and cloud storage",
+      "Can dramatically improve mobile playback reliability"
+    ],
+    "securityImpact": "Range requests should be rate-limited because attackers may abuse fragmented range requests to exhaust server resources.",
+    "performanceImpact": "Partial content delivery reduces unnecessary data transfer and improves scalability for large media-serving infrastructures.",
+    "bestPractices": [
+      "Support byte-range requests for large files",
+      "Use Accept-Ranges headers properly",
+      "Cache frequently requested segments at the CDN layer",
+      "Validate ranges to prevent malformed requests",
+      "Combine with adaptive bitrate streaming"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge-Cached Segment Streaming",
+      "description": "Modern streaming infrastructures split large media files into cacheable byte segments distributed globally across CDN edge nodes, enabling low-latency playback using repeated 206 responses."
+    }
+  }
+]
   },
   {
     "code": 207,
@@ -3452,7 +3884,47 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Multi-Resource Batch Operations in Distributed Collaboration Systems",
+    "scenario": "A client application needs to perform bulk operations on multiple files, folders, or resources simultaneously, where some operations may succeed while others fail independently.",
+    "howItWorks": "Instead of returning separate HTTP responses for each resource operation, the server processes all sub-operations together and returns a single 'HTTP/1.1 207 Multi-Status' response containing detailed per-resource status information. Each resource receives its own success or failure result within the response body.",
+    "benefits": [
+      "Improves efficiency for batch operations",
+      "Avoids multiple HTTP round trips",
+      "Provides granular per-resource results",
+      "Useful for collaborative file systems",
+      "Improves synchronization workflows"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Multi-Status Batch Response",
+      "code": "HTTP/1.1 207 Multi-Status\nContent-Type: application/xml\n\n<multistatus>\n  <response>\n    <href>/files/report.pdf</href>\n    <status>HTTP/1.1 200 OK</status>\n  </response>\n  <response>\n    <href>/files/archive.zip</href>\n    <status>HTTP/1.1 403 Forbidden</status>\n  </response>\n</multistatus>"
+    },
+    "realWorldExample": "WebDAV servers, enterprise cloud storage systems, document collaboration platforms, and distributed file synchronization tools commonly rely on 207 Multi-Status responses.",
+    "whyUnderrated": "Most developers implement custom batch APIs returning generic arrays instead of leveraging the protocol-level semantics already provided by HTTP 207.",
+    "developerNotes": [
+      "Strongly associated with WebDAV ecosystems",
+      "Useful for bulk delete, move, copy, and sync operations",
+      "Can reduce API overhead significantly",
+      "Helpful for enterprise document management systems"
+    ],
+    "securityImpact": "Per-resource authorization checks remain important because different resources in the same batch operation may have different access permissions.",
+    "performanceImpact": "Combining multiple operations into one request reduces connection overhead and improves synchronization efficiency.",
+    "bestPractices": [
+      "Return detailed resource-level statuses",
+      "Avoid hiding partial failures",
+      "Use structured XML or JSON responses consistently",
+      "Implement transactional rollback rules when necessary",
+      "Log failed sub-operations independently"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed File Synchronization Engines",
+      "description": "Enterprise synchronization platforms often use 207 Multi-Status responses to coordinate large-scale distributed file replication while tracking individual file-level success and failure states."
+    }
+  }
+]
   },
   {
     "code": 208,
@@ -3739,7 +4211,47 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
-    ]
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Deduplicated Graph Traversal in Distributed File Synchronization",
+    "scenario": "A collaborative file platform or WebDAV-based synchronization engine needs to traverse deeply nested directory structures containing symbolic links, shared folders, or repeated references without sending duplicate resource information repeatedly.",
+    "howItWorks": "During a PROPFIND or resource discovery request, the server may encounter the same resource multiple times through different paths or bindings. Instead of retransmitting the same metadata repeatedly, the server returns 'HTTP/1.1 208 Already Reported' to indicate that the resource has already been included earlier in the same multi-status response.",
+    "benefits": [
+      "Prevents duplicate metadata transmission",
+      "Reduces response payload size",
+      "Improves synchronization efficiency",
+      "Avoids recursive traversal loops",
+      "Optimizes large directory discovery operations"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Deduplicated Multi-Status Response",
+      "code": "HTTP/1.1 207 Multi-Status\nContent-Type: application/xml\n\n<response>\n  <href>/shared/designs</href>\n  <status>HTTP/1.1 200 OK</status>\n</response>\n\n<response>\n  <href>/team/designs</href>\n  <status>HTTP/1.1 208 Already Reported</status>\n</response>"
+    },
+    "realWorldExample": "Enterprise document systems, cloud storage synchronization platforms, distributed filesystem scanners, and WebDAV collaboration servers use 208 responses to avoid repeatedly returning identical resources.",
+    "whyUnderrated": "Most developers are unaware that HTTP already provides a protocol-level mechanism for duplicate graph traversal optimization and instead build expensive custom deduplication logic.",
+    "developerNotes": [
+      "Primarily used with WebDAV and DAV bindings",
+      "Useful for recursive directory scanning",
+      "Prevents infinite traversal loops",
+      "Can dramatically reduce XML multi-status payload sizes"
+    ],
+    "securityImpact": "Deduplicated traversal reduces the risk of exposing unintended resource relationships through repeated path enumeration.",
+    "performanceImpact": "Avoiding repeated resource serialization significantly improves performance in deeply linked directory structures and distributed storage systems.",
+    "bestPractices": [
+      "Track previously reported resource identifiers carefully",
+      "Use stable resource UUIDs for deduplication",
+      "Prevent circular reference traversal",
+      "Document multi-status traversal behavior clearly",
+      "Optimize recursive discovery operations with caching"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Graph-Based Storage Systems",
+      "description": "Large-scale collaborative storage systems often represent files and folders as graph structures with shared references. HTTP 208 helps optimize graph traversal responses without repeatedly serializing identical nodes."
+    }
+  }
+]
   },
   {
     "code": 226,
@@ -4027,6 +4539,46 @@
       "201-created",
       "202-accepted",
       "203-non-authoritative-information"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Delta Compression for Efficient API Synchronization",
+    "scenario": "A mobile app, distributed client, or offline-first application frequently synchronizes large datasets where only small portions of the data change between requests. Downloading the entire resource repeatedly wastes bandwidth and increases synchronization latency.",
+    "howItWorks": "The client sends information about the previously cached resource version, and the server responds with 'HTTP/1.1 226 IM Used' together with a delta representation describing only the changes needed to reconstruct the latest version. Instead of retransmitting the full resource, the client applies the incremental modifications locally.",
+    "benefits": [
+      "Reduces bandwidth consumption",
+      "Accelerates synchronization speed",
+      "Improves mobile performance",
+      "Minimizes CDN and server transfer costs",
+      "Supports offline-first architectures"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Delta Encoding Synchronization",
+      "code": "GET /documents/42 HTTP/1.1\nA-IM: diffe\nIf-None-Match: \"v5-doc\"\n\nHTTP/1.1 226 IM Used\nETag: \"v6-doc\"\nIM: diffe\nContent-Type: application/json\n\n{\n  \"changes\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"/title\",\n      \"value\": \"Updated Title\"\n    }\n  ]\n}"
+    },
+    "realWorldExample": "Offline-capable enterprise apps, mobile synchronization platforms, distributed databases, collaborative editing tools, and bandwidth-sensitive IoT systems can benefit from delta-based synchronization using 226 responses.",
+    "whyUnderrated": "Most APIs repeatedly transmit entire JSON payloads even when only tiny fields change, ignoring the protocol-level support for incremental transfer optimization.",
+    "developerNotes": [
+      "Based on HTTP Delta Encoding extensions",
+      "Useful for large frequently updated datasets",
+      "Can integrate with JSON Patch or binary diffs",
+      "Particularly valuable for mobile and IoT devices"
+    ],
+    "securityImpact": "Delta synchronization systems should validate patch integrity carefully because malformed incremental changes can corrupt local client state.",
+    "performanceImpact": "Delta-based transfers can reduce synchronization bandwidth by over 90% in frequently updated distributed systems.",
+    "bestPractices": [
+      "Maintain reliable version tracking with ETags",
+      "Validate client cache consistency before applying deltas",
+      "Fallback to full resource transfer if versions diverge",
+      "Compress patch payloads when possible",
+      "Use immutable resource version identifiers"
+    ],
+    "advancedArchitecture": {
+      "title": "Offline-First Distributed Synchronization",
+      "description": "Advanced offline-first systems use delta synchronization pipelines where clients continuously exchange compact incremental updates instead of retransmitting complete datasets across unreliable networks."
+    }
+  }
     ]
   },
   {
@@ -4316,6 +4868,46 @@
       "302-found",
       "303-see-other",
       "304-not-modified"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Dynamic Content Negotiation Across Distributed CDN Regions",
+    "scenario": "A global platform serves different content versions depending on user language, device type, geographic region, subscription tier, or network conditions. The system needs a flexible routing mechanism to help clients choose the best representation.",
+    "howItWorks": "The server responds with 'HTTP/1.1 300 Multiple Choices' and provides multiple resource variants for the client to select from. These variants may differ by language, media quality, encoding format, or regional availability. Intelligent clients, browsers, or edge systems can then select the most appropriate version dynamically.",
+    "benefits": [
+      "Supports multilingual content delivery",
+      "Enables adaptive media distribution",
+      "Improves regional user experience",
+      "Allows device-aware optimization",
+      "Reduces unnecessary bandwidth usage"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Multiple Regional Content Variants",
+      "code": "HTTP/1.1 300 Multiple Choices\nContent-Type: application/json\n\n{\n  \"variants\": [\n    {\n      \"language\": \"en-US\",\n      \"url\": \"https://us.example.com/content\"\n    },\n    {\n      \"language\": \"fr-FR\",\n      \"url\": \"https://fr.example.com/content\"\n    },\n    {\n      \"language\": \"ja-JP\",\n      \"url\": \"https://jp.example.com/content\"\n    }\n  ]\n}"
+    },
+    "realWorldExample": "Global streaming services, multilingual ecommerce platforms, enterprise CDN systems, and adaptive media delivery infrastructures may use 300 responses for content negotiation.",
+    "whyUnderrated": "Most developers hardcode regional routing logic into frontend applications instead of leveraging the protocol-level semantics designed for representation negotiation.",
+    "developerNotes": [
+      "Can work with Accept-Language and Accept headers",
+      "Useful for multi-format APIs",
+      "Helpful for device-specific optimization",
+      "Can integrate with edge computing logic"
+    ],
+    "securityImpact": "Careful validation is needed to prevent malicious redirection or content spoofing between regional variants.",
+    "performanceImpact": "Regional content negotiation improves latency and reduces unnecessary asset transfers for geographically distributed users.",
+    "bestPractices": [
+      "Provide clear variant metadata",
+      "Avoid excessive redirect chains",
+      "Cache regional selections intelligently",
+      "Use consistent canonical URLs when possible",
+      "Monitor region-specific performance metrics"
+    ],
+    "advancedArchitecture": {
+      "title": "Geo-Aware Edge Routing Systems",
+      "description": "Large CDN providers may dynamically generate 300 responses at edge nodes to direct users toward optimized regional or device-specific content representations."
+    }
+  }
     ]
   },
   {
@@ -4606,6 +5198,46 @@
       "302-found",
       "303-see-other",
       "304-not-modified"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "SEO-Preserving Domain Migration and Infrastructure Modernization",
+    "scenario": "A company migrates its website to a new domain, restructures URL architecture, upgrades to HTTPS, or moves traffic to a new infrastructure platform while needing to preserve SEO rankings and search engine authority.",
+    "howItWorks": "The server responds with 'HTTP/1.1 301 Moved Permanently' to indicate that the requested resource has permanently changed location. Browsers, search engines, and crawlers update their cached references and transfer ranking authority to the new URL over time.",
+    "benefits": [
+      "Preserves SEO ranking signals",
+      "Transfers search engine authority",
+      "Improves long-term URL consistency",
+      "Supports infrastructure migrations",
+      "Prevents broken backlinks"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Permanent HTTPS Migration",
+      "code": "HTTP/1.1 301 Moved Permanently\nLocation: https://www.example.com/new-page\nCache-Control: public, max-age=31536000"
+    },
+    "realWorldExample": "Large ecommerce platforms, SaaS providers, media companies, and enterprise organizations frequently rely on 301 redirects during domain migrations, HTTPS upgrades, and URL restructuring projects.",
+    "whyUnderrated": "Many developers focus only on redirect functionality and underestimate how critical 301 responses are for preserving organic search visibility and long-term traffic stability.",
+    "developerNotes": [
+      "Search engines treat 301 as a strong canonical signal",
+      "Useful during monolith-to-microfrontend migrations",
+      "Can help consolidate duplicate content URLs",
+      "Often configured at CDN or reverse proxy layers"
+    ],
+    "securityImpact": "Permanent redirects should always point to trusted destinations to prevent phishing risks and malicious redirect abuse.",
+    "performanceImpact": "Excessive redirect chains increase latency, so permanent redirects should be flattened whenever possible.",
+    "bestPractices": [
+      "Avoid redirect loops and chains",
+      "Use HTTPS as the canonical destination",
+      "Update internal links after migration",
+      "Preserve URL structures when possible",
+      "Monitor crawl errors after deployment"
+    ],
+    "advancedArchitecture": {
+      "title": "Large-Scale Traffic Migration Systems",
+      "description": "Enterprise platforms often combine 301 redirects with CDN edge routing, traffic shadowing, and phased infrastructure migrations to safely move millions of users between architectures without downtime."
+    }
+  }
     ]
   },
   {
@@ -4896,6 +5528,46 @@
       "301-moved-permanently",
       "303-see-other",
       "304-not-modified"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Feature Flags and Real-Time Traffic Experimentation",
+    "scenario": "A platform needs to dynamically route users to different application versions for A/B testing, feature rollouts, canary deployments, pricing experiments, or infrastructure testing without permanently changing URLs.",
+    "howItWorks": "The server responds with 'HTTP/1.1 302 Found' and temporarily redirects selected users to alternate routes, experimental environments, or feature-specific pages. Because the redirect is temporary, browsers and search engines continue treating the original URL as canonical while allowing flexible runtime routing decisions.",
+    "benefits": [
+      "Supports live A/B testing",
+      "Enables canary deployments",
+      "Allows temporary traffic steering",
+      "Preserves original SEO indexing",
+      "Improves controlled feature rollout safety"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Temporary Experiment Redirect",
+      "code": "HTTP/1.1 302 Found\nLocation: https://beta.example.com/new-checkout\nSet-Cookie: experiment_group=B\nCache-Control: no-store"
+    },
+    "realWorldExample": "Ecommerce platforms, SaaS providers, ad-tech systems, and large-scale product experimentation infrastructures commonly use 302 redirects for temporary routing logic and controlled experiments.",
+    "whyUnderrated": "Many developers use frontend-only feature flags while overlooking how HTTP-level traffic steering enables cleaner infrastructure separation and safer rollback strategies.",
+    "developerNotes": [
+      "Useful for blue-green deployments",
+      "Can integrate with edge-based experimentation",
+      "Helpful for regional failover routing",
+      "Often combined with sticky session cookies"
+    ],
+    "securityImpact": "Temporary redirects should validate destinations carefully to prevent open redirect vulnerabilities and phishing abuse.",
+    "performanceImpact": "Edge-level 302 routing enables low-latency traffic experiments without requiring frontend redeployments.",
+    "bestPractices": [
+      "Use 302 only for temporary routing",
+      "Avoid caching dynamic experiment redirects",
+      "Track experiment assignment consistently",
+      "Limit redirect chains for performance",
+      "Implement fast rollback capabilities"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge-Controlled Traffic Segmentation",
+      "description": "Modern experimentation platforms use CDN edge nodes to generate dynamic 302 redirects in real time based on user geography, device type, subscription tier, or rollout percentage."
+    }
+  }
     ]
   },
   {
@@ -5183,6 +5855,46 @@
       "301-moved-permanently",
       "302-found",
       "304-not-modified"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Post/Redirect/Get Workflow for Idempotent Transaction Systems",
+    "scenario": "A user submits a payment form, checkout flow, support ticket, or registration request. Refreshing the browser afterward could accidentally resubmit the same POST request and duplicate the transaction.",
+    "howItWorks": "After successfully processing the POST request, the server responds with 'HTTP/1.1 303 See Other' and redirects the client to a separate confirmation or status page using a GET request. This breaks the browser refresh cycle and prevents accidental form resubmission.",
+    "benefits": [
+      "Prevents duplicate form submissions",
+      "Improves payment workflow safety",
+      "Creates cleaner transactional UX",
+      "Supports idempotent user flows",
+      "Separates write and read operations cleanly"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Post/Redirect/Get Transaction Flow",
+      "code": "POST /checkout HTTP/1.1\nContent-Type: application/json\n\n{\n  \"amount\": 4999,\n  \"product\": \"Premium Plan\"\n}\n\nHTTP/1.1 303 See Other\nLocation: /checkout/success/txn_94821"
+    },
+    "realWorldExample": "Payment gateways, ecommerce checkout systems, banking portals, reservation platforms, and enterprise workflow systems commonly rely on 303 redirects after successful POST transactions.",
+    "whyUnderrated": "Many developers incorrectly return 200 OK after form submissions and unintentionally allow browser refreshes to trigger duplicate writes or payments.",
+    "developerNotes": [
+      "Core part of the PRG (Post/Redirect/Get) pattern",
+      "Useful for checkout and registration systems",
+      "Improves UX after transactional operations",
+      "Works especially well with server-rendered applications"
+    ],
+    "securityImpact": "Separating POST actions from confirmation pages reduces accidental replay of sensitive transactional requests.",
+    "performanceImpact": "Redirecting to lightweight confirmation pages improves frontend stability and simplifies browser navigation behavior.",
+    "bestPractices": [
+      "Use 303 after successful POST operations",
+      "Generate idempotency keys for critical transactions",
+      "Avoid exposing sensitive data in redirect URLs",
+      "Store transaction state server-side",
+      "Provide stable confirmation endpoints"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Transaction Confirmation Systems",
+      "description": "Large-scale transactional platforms often combine 303 redirects with asynchronous payment verification, queue-based processing, and event-driven confirmation systems."
+    }
+  }
     ]
   },
   {
@@ -5472,6 +6184,46 @@
       "301-moved-permanently",
       "302-found",
       "303-see-other"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Edge Cache Revalidation for Massive CDN Bandwidth Reduction",
+    "scenario": "A high-traffic platform serves millions of static assets such as JavaScript bundles, images, API responses, or documentation pages. Re-downloading unchanged resources repeatedly would waste enormous bandwidth and increase latency globally.",
+    "howItWorks": "The client sends a conditional request using headers like 'If-None-Match' or 'If-Modified-Since'. If the resource has not changed, the server responds with 'HTTP/1.1 304 Not Modified' and sends no response body. The client or CDN then reuses its already cached version locally.",
+    "benefits": [
+      "Reduces bandwidth consumption dramatically",
+      "Improves page load performance",
+      "Decreases CDN and origin server costs",
+      "Accelerates repeat visits",
+      "Improves scalability during traffic spikes"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Conditional Cache Revalidation",
+      "code": "GET /app.js HTTP/1.1\nIf-None-Match: \"v8-app-bundle\"\n\nHTTP/1.1 304 Not Modified\nETag: \"v8-app-bundle\"\nCache-Control: public, max-age=31536000"
+    },
+    "realWorldExample": "Cloudflare, Akamai, AWS CloudFront, GitHub Pages, and virtually all large-scale CDN-backed applications rely heavily on 304 responses for efficient cache validation.",
+    "whyUnderrated": "Many developers focus only on frontend optimization while ignoring how conditional HTTP caching can save terabytes of monthly bandwidth at the protocol level.",
+    "developerNotes": [
+      "Works best with strong ETag generation",
+      "Critical for CDN optimization strategies",
+      "Useful for API response caching",
+      "Can improve Lighthouse performance scores significantly"
+    ],
+    "securityImpact": "Improper cache configuration may accidentally expose stale authenticated responses across users if cache-control rules are incorrect.",
+    "performanceImpact": "304 responses drastically reduce origin server load because unchanged resources avoid retransmission entirely.",
+    "bestPractices": [
+      "Use strong ETags whenever possible",
+      "Set proper Cache-Control directives",
+      "Avoid caching sensitive authenticated responses publicly",
+      "Use immutable asset versioning for static files",
+      "Combine with CDN edge caching"
+    ],
+    "advancedArchitecture": {
+      "title": "Multi-Layer Distributed Edge Caching",
+      "description": "Modern internet-scale systems combine browser caches, service workers, CDN edges, and origin revalidation pipelines using 304 responses to minimize redundant transfers globally."
+    }
+  }
     ]
   },
   {
@@ -5760,6 +6512,46 @@
       "301-moved-permanently",
       "302-found",
       "303-see-other"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Legacy Enterprise Proxy Routing and Controlled Network Gateways",
+    "scenario": "An enterprise organization routes outbound web traffic through controlled proxy servers for compliance monitoring, traffic filtering, auditing, malware inspection, or bandwidth optimization.",
+    "howItWorks": "The server responds with 'HTTP/1.1 305 Use Proxy' to instruct the client that future requests should be routed through a specified intermediary proxy server. The proxy then handles filtering, inspection, authentication, logging, or routing policies before forwarding requests to external destinations.",
+    "benefits": [
+      "Centralizes enterprise traffic control",
+      "Enables compliance and auditing",
+      "Supports network-level filtering",
+      "Allows malware inspection pipelines",
+      "Improves internal traffic governance"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Enterprise Proxy Routing",
+      "code": "HTTP/1.1 305 Use Proxy\nLocation: http://proxy.company.internal:8080"
+    },
+    "realWorldExample": "Legacy enterprise intranets, government networks, regulated financial environments, and older corporate security infrastructures historically used 305 responses for centralized outbound routing policies.",
+    "whyUnderrated": "Most modern developers never encounter 305 because browsers deprecated it for security reasons, but it played a significant role in early enterprise network architecture.",
+    "developerNotes": [
+      "Deprecated in modern browsers due to security concerns",
+      "Historically important for enterprise proxy systems",
+      "Useful for understanding legacy HTTP infrastructure",
+      "Replaced today by PAC files and explicit proxy configurations"
+    ],
+    "securityImpact": "305 was deprecated because malicious servers could redirect traffic through attacker-controlled proxies and intercept sensitive communications.",
+    "performanceImpact": "Centralized proxies can optimize bandwidth usage but may also introduce latency bottlenecks if improperly scaled.",
+    "bestPractices": [
+      "Avoid using 305 in modern public web applications",
+      "Prefer secure enterprise proxy configuration methods",
+      "Use authenticated proxies when possible",
+      "Encrypt traffic end-to-end with HTTPS",
+      "Audit intermediary proxy behavior carefully"
+    ],
+    "advancedArchitecture": {
+      "title": "Enterprise Traffic Inspection Infrastructure",
+      "description": "Large enterprise networks historically relied on centralized proxy infrastructures to inspect outbound traffic for compliance, malware prevention, and data leakage monitoring before modern zero-trust networking evolved."
+    }
+  }
     ]
   },
   {
@@ -6048,6 +6840,46 @@
       "301-moved-permanently",
       "302-found",
       "303-see-other"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Zero-Downtime API Failover with Method-Preserving Redirects",
+    "scenario": "A distributed API platform needs to temporarily reroute live traffic during maintenance, regional outages, infrastructure upgrades, or blue-green deployments without breaking non-GET requests such as POST, PUT, PATCH, or DELETE.",
+    "howItWorks": "The server responds with 'HTTP/1.1 307 Temporary Redirect' and provides a temporary destination URL. Unlike older 302 redirects, the client must preserve the original HTTP method and request body exactly when retrying the request against the new location.",
+    "benefits": [
+      "Preserves request integrity during failover",
+      "Supports safe infrastructure migrations",
+      "Enables temporary regional rerouting",
+      "Protects transactional API requests",
+      "Improves reliability during deployments"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Temporary API Failover Redirect",
+      "code": "POST /payments HTTP/1.1\nContent-Type: application/json\n\n{\n  \"amount\": 2500\n}\n\nHTTP/1.1 307 Temporary Redirect\nLocation: https://backup-api.example.com/payments"
+    },
+    "realWorldExample": "Cloud providers, payment gateways, banking APIs, and large SaaS platforms use 307 redirects during failover events and traffic migration operations.",
+    "whyUnderrated": "Many developers incorrectly use 302 redirects for APIs without realizing some clients may silently convert POST requests into GET requests, causing broken workflows.",
+    "developerNotes": [
+      "Critical for method-sensitive APIs",
+      "Useful during blue-green deployments",
+      "Can integrate with disaster recovery systems",
+      "Helpful for regional traffic balancing"
+    ],
+    "securityImpact": "Temporary redirects should only target trusted infrastructure because redirected authenticated requests may contain sensitive payloads.",
+    "performanceImpact": "307 redirects enable rapid traffic rerouting without requiring DNS propagation delays during outages.",
+    "bestPractices": [
+      "Use 307 for temporary method-preserving redirects",
+      "Avoid redirect loops across regions",
+      "Validate redirect destinations carefully",
+      "Monitor redirected traffic separately",
+      "Keep failover infrastructure synchronized"
+    ],
+    "advancedArchitecture": {
+      "title": "Regional Active-Active API Routing",
+      "description": "Modern globally distributed APIs use temporary 307 redirects to dynamically reroute traffic between healthy regions during outages, congestion spikes, or maintenance events."
+    }
+  }
     ]
   },
   {
@@ -6336,6 +7168,46 @@
       "301-moved-permanently",
       "302-found",
       "303-see-other"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Permanent API Version Migration Without Breaking Write Operations",
+    "scenario": "An API provider permanently migrates endpoints to a new version, domain, or infrastructure platform while needing to preserve all HTTP methods and payload semantics for long-lived clients and integrations.",
+    "howItWorks": "The server responds with 'HTTP/1.1 308 Permanent Redirect' and provides the new permanent endpoint location. Unlike 301 redirects, the client must preserve the original HTTP method and request body when making future requests to the new URL.",
+    "benefits": [
+      "Preserves POST and PUT semantics permanently",
+      "Supports long-term API evolution",
+      "Improves migration safety for integrations",
+      "Avoids accidental method conversion",
+      "Enables stable infrastructure modernization"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Permanent API Migration",
+      "code": "PUT /v1/users/42 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"name\": \"Alex\"\n}\n\nHTTP/1.1 308 Permanent Redirect\nLocation: https://api.example.com/v2/users/42"
+    },
+    "realWorldExample": "Cloud APIs, enterprise SaaS platforms, payment processors, and long-lived developer platforms use 308 redirects when permanently restructuring APIs while maintaining backward compatibility.",
+    "whyUnderrated": "Many developers still rely on 301 redirects for APIs even though older clients may incorrectly transform write operations into GET requests during redirection.",
+    "developerNotes": [
+      "Ideal for REST API version migrations",
+      "Safer than 301 for non-GET requests",
+      "Useful for domain consolidation projects",
+      "Can simplify long-term deprecation workflows"
+    ],
+    "securityImpact": "Permanent redirects should be carefully audited because clients may cache redirect behavior aggressively for long periods.",
+    "performanceImpact": "308 redirects reduce repeated migration logic because clients permanently learn the updated endpoint location.",
+    "bestPractices": [
+      "Use 308 for permanent method-preserving redirects",
+      "Document API migration timelines clearly",
+      "Maintain backward compatibility during transition periods",
+      "Avoid chaining permanent redirects",
+      "Provide stable versioning policies"
+    ],
+    "advancedArchitecture": {
+      "title": "Long-Term API Evolution Infrastructure",
+      "description": "Large developer platforms often use 308 redirects together with gateway versioning, schema negotiation, and phased client migration systems to evolve APIs without breaking existing integrations."
+    }
+  }
     ]
   },
   {
@@ -6627,6 +7499,46 @@
       "402-payment-required",
       "403-forbidden",
       "404-not-found"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Schema-Aware API Validation and Developer Feedback Systems",
+    "scenario": "A large public API platform needs to validate incoming requests against strict schemas while helping developers quickly identify malformed payloads, invalid field types, missing parameters, or contract mismatches.",
+    "howItWorks": "When the client sends invalid input, the server responds with 'HTTP/1.1 400 Bad Request' together with structured validation metadata describing exactly which fields failed validation and why. Advanced systems may also include machine-readable error codes, documentation URLs, and field-level correction hints.",
+    "benefits": [
+      "Improves developer debugging speed",
+      "Reduces invalid API traffic",
+      "Enforces strong schema consistency",
+      "Improves API onboarding experience",
+      "Prevents malformed data from reaching business logic"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Structured Validation Error Response",
+      "code": "HTTP/1.1 400 Bad Request\nContent-Type: application/json\n\n{\n  \"error\": \"validation_failed\",\n  \"fields\": [\n    {\n      \"field\": \"email\",\n      \"message\": \"Invalid email format\"\n    },\n    {\n      \"field\": \"age\",\n      \"message\": \"Must be greater than 18\"\n    }\n  ],\n  \"docs\": \"https://api.example.com/docs/errors/400\"\n}"
+    },
+    "realWorldExample": "Stripe, GitHub, Twilio, OpenAI APIs, and enterprise API gateways use highly structured 400 validation responses to improve developer experience and reduce support overhead.",
+    "whyUnderrated": "Many developers return generic error strings for invalid requests instead of treating 400 responses as part of a developer-facing API contract.",
+    "developerNotes": [
+      "Works well with JSON Schema and OpenAPI validation",
+      "Useful for frontend form validation synchronization",
+      "Can integrate with automated SDK generation",
+      "Helpful for API analytics and abuse detection"
+    ],
+    "securityImpact": "Validation layers protect backend systems from malformed payloads, injection attempts, and unexpected input structures.",
+    "performanceImpact": "Early schema validation prevents expensive downstream processing for invalid requests.",
+    "bestPractices": [
+      "Return machine-readable validation structures",
+      "Avoid exposing internal stack traces",
+      "Validate payloads before database operations",
+      "Use consistent error code formats",
+      "Provide actionable correction guidance"
+    ],
+    "advancedArchitecture": {
+      "title": "Centralized API Validation Gateways",
+      "description": "Large API ecosystems often centralize request validation at gateway layers using schema enforcement engines before requests ever reach internal microservices."
+    }
+  }
     ]
   },
   {
@@ -6918,6 +7830,46 @@
       "402-payment-required",
       "403-forbidden",
       "404-not-found"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Distributed Token Refresh and Session Renewal Pipelines",
+    "scenario": "A modern authentication system uses short-lived access tokens for security, requiring clients to automatically refresh expired credentials without interrupting the user experience.",
+    "howItWorks": "When an access token expires, the API responds with 'HTTP/1.1 401 Unauthorized' together with authentication metadata such as 'WWW-Authenticate' headers or token expiration details. The client application then silently exchanges a refresh token for a new access token and retries the original request automatically.",
+    "benefits": [
+      "Improves security with short-lived tokens",
+      "Enables seamless session continuity",
+      "Reduces long-term credential exposure",
+      "Supports scalable distributed authentication",
+      "Improves user experience during reauthentication"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Expired Token Refresh Flow",
+      "code": "GET /protected/profile HTTP/1.1\nAuthorization: Bearer expired_token\n\nHTTP/1.1 401 Unauthorized\nWWW-Authenticate: Bearer realm=\"api\", error=\"invalid_token\", error_description=\"Token expired\""
+    },
+    "realWorldExample": "OAuth providers, banking platforms, SaaS dashboards, mobile apps, and enterprise SSO systems rely heavily on 401-driven token refresh workflows.",
+    "whyUnderrated": "Many developers incorrectly treat 401 responses as fatal errors instead of recognizing them as a core component of modern distributed authentication flows.",
+    "developerNotes": [
+      "Frequently used with OAuth2 and OpenID Connect",
+      "Useful for SPA and mobile authentication",
+      "Can integrate with silent token refresh systems",
+      "Important for zero-trust architectures"
+    ],
+    "securityImpact": "Short-lived access tokens combined with controlled 401 refresh flows reduce the impact of token leakage and credential replay attacks.",
+    "performanceImpact": "Efficient refresh token handling minimizes unnecessary login redirects and improves application responsiveness.",
+    "bestPractices": [
+      "Use short-lived access tokens",
+      "Store refresh tokens securely",
+      "Avoid infinite refresh retry loops",
+      "Invalidate compromised refresh tokens immediately",
+      "Implement token rotation when possible"
+    ],
+    "advancedArchitecture": {
+      "title": "Zero-Trust Identity Infrastructure",
+      "description": "Modern zero-trust systems continuously validate identity and device trustworthiness using distributed token verification pipelines where 401 responses trigger reauthentication or token renewal workflows dynamically."
+    }
+  }
     ]
   },
   {
@@ -7207,6 +8159,46 @@
       "401-unauthorized",
       "403-forbidden",
       "404-not-found"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Usage-Based Billing and API Credit Enforcement",
+    "scenario": "A SaaS platform, AI API provider, or cloud infrastructure service operates on prepaid credits, quota-based subscriptions, or metered billing where users must maintain sufficient balance before accessing premium operations.",
+    "howItWorks": "When the client attempts to access a paid feature without sufficient credits or billing authorization, the server responds with 'HTTP/1.1 402 Payment Required'. The response may include account balance information, billing URLs, quota exhaustion details, or upgrade instructions.",
+    "benefits": [
+      "Supports prepaid billing systems",
+      "Enables quota-aware API monetization",
+      "Prevents unauthorized premium feature usage",
+      "Improves billing transparency",
+      "Supports scalable metered infrastructure"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "API Credit Exhaustion Response",
+      "code": "POST /ai/generate-image HTTP/1.1\nAuthorization: Bearer user_token\n\nHTTP/1.1 402 Payment Required\nContent-Type: application/json\n\n{\n  \"error\": \"insufficient_credits\",\n  \"remainingCredits\": 0,\n  \"upgradeUrl\": \"https://billing.example.com/upgrade\"\n}"
+    },
+    "realWorldExample": "AI generation APIs, cloud infrastructure providers, SaaS platforms, developer APIs, and subscription-based digital services can use 402 responses for billing-aware access control.",
+    "whyUnderrated": "Many developers overload 403 or custom error codes for billing failures instead of using the dedicated payment-related semantics already defined in HTTP.",
+    "developerNotes": [
+      "Rarely used publicly but highly valuable for SaaS APIs",
+      "Useful for quota and subscription enforcement",
+      "Can integrate with Stripe or metered billing systems",
+      "Helpful for developer self-service billing workflows"
+    ],
+    "securityImpact": "Billing-aware access control helps prevent abuse of expensive compute resources such as AI inference or GPU-heavy operations.",
+    "performanceImpact": "Early payment validation prevents unnecessary backend processing for unpaid requests.",
+    "bestPractices": [
+      "Provide clear upgrade or payment instructions",
+      "Avoid exposing sensitive billing metadata",
+      "Track quota usage accurately",
+      "Support graceful plan upgrades",
+      "Log billing denials for analytics"
+    ],
+    "advancedArchitecture": {
+      "title": "Real-Time Usage Metering Infrastructure",
+      "description": "Large SaaS systems often use distributed quota-tracking services and streaming usage analytics pipelines to enforce billing limits in real time using 402 responses."
+    }
+  }
     ]
   },
   {
@@ -7499,6 +8491,46 @@
       "401-unauthorized",
       "402-payment-required",
       "404-not-found"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Geo-Restricted Access and Enterprise Policy Enforcement",
+    "scenario": "A platform must restrict access to certain resources based on geographic location, regulatory requirements, corporate network policies, device trust levels, or user role permissions.",
+    "howItWorks": "The server responds with 'HTTP/1.1 403 Forbidden' when the client is authenticated but lacks permission to access the requested resource. The denial may be based on IP geolocation, compliance restrictions, enterprise access rules, subscription tiers, or internal authorization policies.",
+    "benefits": [
+      "Enforces granular authorization policies",
+      "Supports regional compliance requirements",
+      "Protects sensitive enterprise resources",
+      "Enables role-based access control",
+      "Improves zero-trust security enforcement"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Geo-Restricted Resource Access",
+      "code": "GET /premium-content HTTP/1.1\nAuthorization: Bearer valid_user_token\n\nHTTP/1.1 403 Forbidden\nContent-Type: application/json\n\n{\n  \"error\": \"region_restricted\",\n  \"message\": \"Content unavailable in your location\"\n}"
+    },
+    "realWorldExample": "Streaming services, enterprise dashboards, banking systems, government portals, and regulated SaaS platforms commonly use 403 responses for authorization and compliance enforcement.",
+    "whyUnderrated": "Many developers treat 403 as a generic permission failure without leveraging its role in advanced policy enforcement, compliance controls, and zero-trust security architectures.",
+    "developerNotes": [
+      "Works well with RBAC and ABAC authorization systems",
+      "Useful for enterprise compliance enforcement",
+      "Can integrate with device trust verification",
+      "Helpful for subscription-tier access management"
+    ],
+    "securityImpact": "403 responses form a critical layer of defense by preventing authenticated users from accessing unauthorized resources or operations.",
+    "performanceImpact": "Authorization checks performed early in the request lifecycle reduce unnecessary backend processing for forbidden operations.",
+    "bestPractices": [
+      "Avoid exposing sensitive authorization logic",
+      "Implement centralized policy evaluation systems",
+      "Use least-privilege access principles",
+      "Log forbidden access attempts securely",
+      "Differentiate clearly between 401 and 403 semantics"
+    ],
+    "advancedArchitecture": {
+      "title": "Zero-Trust Policy Enforcement Engines",
+      "description": "Modern enterprise security systems continuously evaluate identity, device posture, network trust, and contextual policies before granting resource access, often returning dynamic 403 responses when trust conditions fail."
+    }
+  }
     ]
   },
   {
@@ -7789,6 +8821,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Soft-Delete Systems and Delayed Resource Purging",
+    "scenario": "A platform needs to allow deleted resources such as files, messages, projects, or user accounts to be recoverable for a limited retention period before permanent removal.",
+    "howItWorks": "When a resource is soft-deleted, the backend marks it as inactive instead of immediately removing it from storage. Public requests to the resource return 'HTTP/1.1 404 Not Found' to hide the resource from normal users, while internal recovery systems or administrators can still restore it during the retention window.",
+    "benefits": [
+      "Prevents accidental permanent deletions",
+      "Supports recovery workflows",
+      "Improves audit and compliance capabilities",
+      "Reduces risk of destructive operations",
+      "Enables delayed archival strategies"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Soft-Deleted Resource Response",
+      "code": "GET /projects/8472 HTTP/1.1\nAuthorization: Bearer user_token\n\nHTTP/1.1 404 Not Found\nContent-Type: application/json\n\n{\n  \"error\": \"resource_not_found\"\n}"
+    },
+    "realWorldExample": "Google Drive, GitHub repositories, enterprise CRMs, cloud storage systems, and SaaS collaboration platforms commonly use soft-delete architectures hidden behind 404 responses.",
+    "whyUnderrated": "Many developers think 404 only means a missing route, while advanced systems intentionally use it to obscure soft-deleted or hidden resources safely.",
+    "developerNotes": [
+      "Useful for GDPR retention workflows",
+      "Can integrate with archive restoration systems",
+      "Helps avoid accidental data loss",
+      "Supports secure delayed deletion pipelines"
+    ],
+    "securityImpact": "Returning 404 instead of revealing deletion state helps prevent attackers from enumerating previously existing resources.",
+    "performanceImpact": "Soft-delete systems simplify recovery operations but require optimized indexing to avoid database performance degradation.",
+    "bestPractices": [
+      "Use background jobs for permanent purge operations",
+      "Separate soft-delete visibility from actual deletion",
+      "Audit restoration actions carefully",
+      "Avoid exposing deleted resource metadata publicly",
+      "Implement configurable retention periods"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Recovery and Archival Pipelines",
+      "description": "Large-scale platforms often combine soft-delete systems with cold storage archives, event streams, and delayed purge workers to safely manage long-term resource lifecycle policies."
+    }
+  }
     ]
   },
   {
@@ -8078,6 +9150,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Strict API Contract Enforcement and Method-Level Security",
+    "scenario": "An API platform needs to enforce strict operation boundaries where certain endpoints support only specific HTTP methods to maintain predictable behavior, compliance rules, and secure resource access patterns.",
+    "howItWorks": "When a client attempts to use an unsupported HTTP method on a resource, the server responds with 'HTTP/1.1 405 Method Not Allowed' together with an 'Allow' header listing the permitted methods. This helps clients dynamically understand valid operations while preventing unintended actions.",
+    "benefits": [
+      "Enforces strong API contracts",
+      "Improves endpoint security",
+      "Prevents unintended operations",
+      "Supports RESTful resource design",
+      "Helps API client auto-discovery"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Method Restriction Response",
+      "code": "DELETE /users/42 HTTP/1.1\nAuthorization: Bearer user_token\n\nHTTP/1.1 405 Method Not Allowed\nAllow: GET, PATCH\nContent-Type: application/json\n\n{\n  \"error\": \"method_not_allowed\"\n}"
+    },
+    "realWorldExample": "REST APIs, banking platforms, Kubernetes APIs, cloud management systems, and enterprise microservices frequently rely on 405 responses to enforce operation-specific access rules.",
+    "whyUnderrated": "Many developers return generic 404 or 403 responses for unsupported methods instead of using 405 to communicate precise API contract semantics.",
+    "developerNotes": [
+      "Important for RESTful API consistency",
+      "Useful for API gateway enforcement",
+      "Can integrate with OpenAPI specifications",
+      "Helpful for automated client SDK generation"
+    ],
+    "securityImpact": "Restricting unsupported methods reduces attack surface by preventing unexpected or dangerous operations on sensitive resources.",
+    "performanceImpact": "Early method validation prevents unnecessary backend execution for invalid operations.",
+    "bestPractices": [
+      "Always include accurate Allow headers",
+      "Validate methods at gateway layers when possible",
+      "Avoid exposing unsupported administrative operations",
+      "Use consistent RESTful method semantics",
+      "Document endpoint capabilities clearly"
+    ],
+    "advancedArchitecture": {
+      "title": "Policy-Driven API Gateways",
+      "description": "Modern API gateways often enforce method restrictions centrally using policy engines, schema validation, and service contracts before requests reach internal microservices."
+    }
+  }
     ]
   },
   {
@@ -8366,6 +9478,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Content Negotiation for Multi-Format Enterprise APIs",
+    "scenario": "A large enterprise API platform supports multiple response formats such as JSON, XML, CSV, Protocol Buffers, or localized content variants depending on client capabilities and integration requirements.",
+    "howItWorks": "The client sends headers like 'Accept', 'Accept-Language', or 'Accept-Encoding' specifying the formats it can process. If the server cannot generate any compatible representation, it responds with 'HTTP/1.1 406 Not Acceptable' and may include metadata describing supported formats.",
+    "benefits": [
+      "Enforces strict API format compatibility",
+      "Supports multi-format enterprise integrations",
+      "Improves client-server interoperability",
+      "Enables localization-aware responses",
+      "Helps prevent incompatible payload handling"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsupported Content Negotiation",
+      "code": "GET /reports HTTP/1.1\nAccept: application/protobuf\n\nHTTP/1.1 406 Not Acceptable\nContent-Type: application/json\n\n{\n  \"error\": \"unsupported_format\",\n  \"supportedFormats\": [\n    \"application/json\",\n    \"application/xml\"\n  ]\n}"
+    },
+    "realWorldExample": "Banking APIs, enterprise ERP systems, healthcare integrations, and government data services often use strict content negotiation with 406 responses.",
+    "whyUnderrated": "Many developers always force JSON responses and overlook how important protocol-level negotiation becomes in enterprise interoperability environments.",
+    "developerNotes": [
+      "Works well with Accept and Accept-Language headers",
+      "Useful for API version negotiation",
+      "Can support localization-aware systems",
+      "Helpful for machine-to-machine integrations"
+    ],
+    "securityImpact": "Strict content negotiation reduces ambiguity and prevents clients from accidentally processing unsupported or unsafe payload formats.",
+    "performanceImpact": "Negotiating optimized formats such as compressed binary payloads can significantly improve bandwidth efficiency.",
+    "bestPractices": [
+      "Return supported format metadata clearly",
+      "Validate Accept headers strictly",
+      "Document negotiable formats thoroughly",
+      "Avoid silently changing response formats",
+      "Support graceful fallback strategies"
+    ],
+    "advancedArchitecture": {
+      "title": "Multi-Representation API Platforms",
+      "description": "Large-scale enterprise APIs often dynamically generate multiple representations of the same resource for mobile clients, legacy systems, analytics pipelines, and machine integrations."
+    }
+  }
     ]
   },
   {
@@ -8654,6 +9806,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Authenticated Enterprise Proxy Gateways and Zero-Trust Traffic Inspection",
+    "scenario": "An organization routes outbound traffic through authenticated proxy gateways for compliance auditing, malware scanning, DLP enforcement, user tracking, or zero-trust access control.",
+    "howItWorks": "When a client attempts to access an external resource without authenticating to the intermediary proxy, the proxy responds with 'HTTP/1.1 407 Proxy Authentication Required' together with 'Proxy-Authenticate' headers describing the required authentication method. The client must authenticate with the proxy before traffic forwarding is allowed.",
+    "benefits": [
+      "Centralizes outbound traffic governance",
+      "Supports enterprise compliance monitoring",
+      "Enables proxy-level authentication",
+      "Improves network visibility and auditing",
+      "Supports zero-trust network enforcement"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Proxy Authentication Challenge",
+      "code": "HTTP/1.1 407 Proxy Authentication Required\nProxy-Authenticate: Basic realm=\"Corporate Proxy\"\nContent-Type: text/plain\n\nProxy authentication required."
+    },
+    "realWorldExample": "Corporate networks, regulated financial institutions, government infrastructures, and enterprise VPN gateways commonly rely on authenticated proxy systems using 407 responses.",
+    "whyUnderrated": "Most web developers rarely encounter enterprise proxy authentication flows and underestimate how heavily large organizations depend on intermediary traffic control systems.",
+    "developerNotes": [
+      "Primarily used in enterprise networking",
+      "Works with authenticated forward proxies",
+      "Can integrate with LDAP or Active Directory",
+      "Important for corporate browser environments"
+    ],
+    "securityImpact": "Authenticated proxy enforcement helps organizations inspect, filter, and audit outbound traffic before it reaches external networks.",
+    "performanceImpact": "Centralized proxy inspection may introduce latency but enables bandwidth optimization, caching, and policy enforcement.",
+    "bestPractices": [
+      "Use secure authentication methods",
+      "Encrypt proxy traffic with HTTPS",
+      "Avoid exposing proxy credentials insecurely",
+      "Implement proxy access logging carefully",
+      "Scale proxy infrastructure horizontally"
+    ],
+    "advancedArchitecture": {
+      "title": "Zero-Trust Enterprise Network Inspection",
+      "description": "Modern enterprise environments often combine authenticated proxy gateways, device posture verification, DLP scanning, and behavioral analytics before allowing outbound internet access."
+    }
+  }
     ]
   },
   {
@@ -8944,6 +10136,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Idle Connection Reclamation in Large-Scale API Gateways",
+    "scenario": "A high-traffic API gateway or load balancer manages millions of concurrent client connections. Some clients open connections but never complete their requests due to unstable networks, abandoned uploads, or malicious slow-connection attacks.",
+    "howItWorks": "If the client takes too long to send the full request, the server responds with 'HTTP/1.1 408 Request Timeout' and closes the connection. This allows the infrastructure to reclaim server threads, sockets, and memory resources instead of indefinitely waiting for inactive clients.",
+    "benefits": [
+      "Protects infrastructure from idle connection exhaustion",
+      "Mitigates slow-client denial-of-service attacks",
+      "Improves gateway scalability",
+      "Prevents thread and socket starvation",
+      "Optimizes resource utilization under heavy traffic"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Idle Client Timeout",
+      "code": "HTTP/1.1 408 Request Timeout\nConnection: close\nContent-Type: application/json\n\n{\n  \"error\": \"request_timeout\",\n  \"message\": \"Client took too long to send request\"\n}"
+    },
+    "realWorldExample": "CDNs, API gateways, cloud load balancers, reverse proxies, and enterprise edge infrastructures commonly use 408 responses to manage connection lifecycles efficiently.",
+    "whyUnderrated": "Many developers view 408 only as a client inconvenience and overlook its critical role in protecting large-scale infrastructure from resource exhaustion attacks.",
+    "developerNotes": [
+      "Important for reverse proxy hardening",
+      "Useful for slowloris attack mitigation",
+      "Can integrate with adaptive timeout policies",
+      "Helpful for mobile network optimization"
+    ],
+    "securityImpact": "Aggressive timeout enforcement helps defend against slow-client attacks designed to exhaust server connection pools.",
+    "performanceImpact": "Closing stalled connections quickly improves throughput and availability for legitimate users.",
+    "bestPractices": [
+      "Configure sensible timeout thresholds",
+      "Differentiate upload and read timeouts carefully",
+      "Monitor abnormal timeout spikes",
+      "Use connection pooling efficiently",
+      "Protect gateways with rate limiting"
+    ],
+    "advancedArchitecture": {
+      "title": "Adaptive Connection Lifecycle Management",
+      "description": "Modern edge infrastructures dynamically adjust timeout policies based on traffic patterns, device type, network conditions, and threat detection systems."
+    }
+  }
     ]
   },
   {
@@ -9233,6 +10465,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Distributed Conflict Resolution and Optimistic Locking",
+    "scenario": "Multiple users or distributed services attempt to modify the same resource simultaneously, such as collaborative documents, inventory systems, financial records, or version-controlled data.",
+    "howItWorks": "When the server detects that the client's update conflicts with the current resource state, it responds with 'HTTP/1.1 409 Conflict'. The client can then retrieve the latest version, merge changes, or prompt the user to resolve the conflict manually before retrying the operation.",
+    "benefits": [
+      "Prevents silent data overwrites",
+      "Supports collaborative editing systems",
+      "Improves distributed consistency",
+      "Enables optimistic concurrency control",
+      "Protects transactional integrity"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Optimistic Lock Conflict Detection",
+      "code": "PUT /documents/42 HTTP/1.1\nIf-Match: \"v5-doc\"\nContent-Type: application/json\n\n{\n  \"title\": \"Updated Title\"\n}\n\nHTTP/1.1 409 Conflict\nContent-Type: application/json\n\n{\n  \"error\": \"version_conflict\",\n  \"currentVersion\": \"v6-doc\"\n}"
+    },
+    "realWorldExample": "Git platforms, collaborative editors, banking systems, inventory management software, and distributed databases frequently use 409 responses for concurrency conflict management.",
+    "whyUnderrated": "Many developers either overwrite data silently or use database locks excessively instead of leveraging lightweight optimistic conflict detection workflows.",
+    "developerNotes": [
+      "Works well with ETags and version numbers",
+      "Useful for collaborative SaaS platforms",
+      "Can integrate with CRDT or merge systems",
+      "Important for distributed write consistency"
+    ],
+    "securityImpact": "Conflict-aware update validation helps prevent unintended destructive writes and maintains data integrity across distributed systems.",
+    "performanceImpact": "Optimistic locking scales far better than heavy pessimistic database locking under high concurrency.",
+    "bestPractices": [
+      "Include version identifiers in updates",
+      "Use ETags for concurrency tracking",
+      "Provide merge guidance when possible",
+      "Avoid silent overwrite behavior",
+      "Implement retry-safe update flows"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Collaborative Synchronization",
+      "description": "Large collaborative platforms often combine 409 conflict responses with operational transforms, CRDTs, and event-stream synchronization systems to coordinate concurrent edits safely."
+    }
+  }
     ]
   },
   {
@@ -9521,6 +10793,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Permanent Content Sunsetting and Legal Compliance Removal",
+    "scenario": "A platform permanently removes content, APIs, user data, or legacy endpoints due to legal requests, GDPR compliance, deprecation policies, expired campaigns, or discontinued products.",
+    "howItWorks": "Instead of returning a generic 404 response, the server responds with 'HTTP/1.1 410 Gone' to explicitly indicate that the resource existed previously but has been permanently removed and will not return. Search engines and crawlers can then aggressively de-index the content.",
+    "benefits": [
+      "Improves search engine de-indexing speed",
+      "Communicates intentional permanent removal",
+      "Supports legal and compliance workflows",
+      "Helps retire deprecated APIs cleanly",
+      "Reduces unnecessary crawler retries"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Permanently Removed Resource",
+      "code": "GET /legacy-api/v1/users HTTP/1.1\n\nHTTP/1.1 410 Gone\nContent-Type: application/json\n\n{\n  \"error\": \"resource_removed\",\n  \"message\": \"This API version has been permanently discontinued\"\n}"
+    },
+    "realWorldExample": "News platforms removing legal content, SaaS providers retiring old APIs, GDPR deletion systems, and ecommerce platforms discontinuing products often use 410 responses.",
+    "whyUnderrated": "Many developers incorrectly use 404 for permanently removed resources, missing the SEO and lifecycle management benefits of explicit removal signaling.",
+    "developerNotes": [
+      "Useful for API deprecation strategies",
+      "Helps search engines clean indexes faster",
+      "Supports compliance-driven deletions",
+      "Can improve crawler efficiency"
+    ],
+    "securityImpact": "Explicitly removing sensitive or deprecated endpoints reduces accidental access to unsupported infrastructure.",
+    "performanceImpact": "Search engines stop repeatedly crawling permanently removed resources sooner, reducing unnecessary server load.",
+    "bestPractices": [
+      "Use 410 only for intentional permanent removal",
+      "Provide migration documentation when applicable",
+      "Avoid reactivating permanently removed URLs",
+      "Log removal events for auditing",
+      "Coordinate API retirement timelines carefully"
+    ],
+    "advancedArchitecture": {
+      "title": "Lifecycle-Aware API Deprecation Pipelines",
+      "description": "Enterprise platforms often automate endpoint retirement workflows where deprecated APIs transition from warnings to 410 responses before complete infrastructure removal."
+    }
+  }
     ]
   },
   {
@@ -9809,6 +11121,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Streaming Upload Validation and Memory-Safe Request Handling",
+    "scenario": "A server processes large uploads, streaming APIs, or chunked requests where knowing the exact request body size is required for resource allocation, quota enforcement, or security validation.",
+    "howItWorks": "When a client sends a request without a valid 'Content-Length' header and the server requires it, the server responds with 'HTTP/1.1 411 Length Required'. This forces the client to specify the request body size before the upload proceeds.",
+    "benefits": [
+      "Prevents ambiguous request sizes",
+      "Improves upload resource planning",
+      "Protects against malformed streaming requests",
+      "Supports quota-aware upload systems",
+      "Helps avoid memory exhaustion"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Missing Content-Length Validation",
+      "code": "POST /upload HTTP/1.1\nContent-Type: application/octet-stream\n\nHTTP/1.1 411 Length Required\nContent-Type: application/json\n\n{\n  \"error\": \"content_length_required\",\n  \"message\": \"Specify Content-Length header before upload\"\n}"
+    },
+    "realWorldExample": "Cloud storage systems, reverse proxies, enterprise upload gateways, and large media-processing infrastructures often enforce Content-Length validation with 411 responses.",
+    "whyUnderrated": "Many developers rely entirely on chunked transfer encoding and overlook situations where explicit payload sizing is critical for infrastructure protection and resource allocation.",
+    "developerNotes": [
+      "Important for upload-heavy APIs",
+      "Useful for quota enforcement systems",
+      "Can integrate with streaming validation pipelines",
+      "Helpful for reverse proxy hardening"
+    ],
+    "securityImpact": "Requiring Content-Length helps defend against malformed uploads, request smuggling, and resource exhaustion attacks.",
+    "performanceImpact": "Knowing request sizes upfront allows infrastructure to allocate buffers and storage resources more efficiently.",
+    "bestPractices": [
+      "Validate Content-Length against upload limits",
+      "Reject suspicious oversized payloads early",
+      "Support chunked encoding only where appropriate",
+      "Apply upload quotas consistently",
+      "Monitor abnormal upload patterns"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Upload Gateway Systems",
+      "description": "Large-scale upload infrastructures often use dedicated ingress gateways that validate request sizes, reserve storage capacity, and enforce upload policies before forwarding traffic to backend processing clusters."
+    }
+  }
     ]
   },
   {
@@ -10097,6 +11449,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Conditional Write Protection in Distributed Synchronization Systems",
+    "scenario": "Multiple clients, mobile devices, or microservices synchronize shared resources across distributed environments where stale updates could accidentally overwrite newer data.",
+    "howItWorks": "The client sends conditional headers such as 'If-Match', 'If-Unmodified-Since', or version identifiers when attempting to modify a resource. If the resource state has changed since the client last retrieved it, the server responds with 'HTTP/1.1 412 Precondition Failed' and rejects the update.",
+    "benefits": [
+      "Prevents stale data overwrites",
+      "Improves distributed consistency",
+      "Supports optimistic concurrency control",
+      "Protects collaborative editing workflows",
+      "Enables safer offline synchronization"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Conditional Update Protection",
+      "code": "PATCH /documents/42 HTTP/1.1\nIf-Match: \"v5-doc\"\nContent-Type: application/json\n\n{\n  \"title\": \"Updated Title\"\n}\n\nHTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{\n  \"error\": \"etag_mismatch\",\n  \"currentVersion\": \"v6-doc\"\n}"
+    },
+    "realWorldExample": "Google Docs-style collaboration systems, Git-based platforms, cloud synchronization services, and distributed enterprise CRMs frequently rely on 412 responses for concurrency protection.",
+    "whyUnderrated": "Many developers implement custom version checks manually while ignoring the powerful conditional request semantics already built into HTTP.",
+    "developerNotes": [
+      "Works best with ETags and version identifiers",
+      "Useful for offline-first applications",
+      "Can integrate with merge conflict systems",
+      "Important for distributed mobile synchronization"
+    ],
+    "securityImpact": "Conditional validation helps prevent unintended or malicious overwrites caused by stale client states or replayed requests.",
+    "performanceImpact": "Optimistic conditional writes scale better than pessimistic locking under heavy concurrency.",
+    "bestPractices": [
+      "Generate strong ETags consistently",
+      "Reject stale writes early",
+      "Provide latest version metadata in errors",
+      "Use conditional requests for write-heavy systems",
+      "Document synchronization expectations clearly"
+    ],
+    "advancedArchitecture": {
+      "title": "Offline-First Synchronization Engines",
+      "description": "Advanced synchronization systems often combine 412 responses with CRDTs, event streams, and conflict-resolution algorithms to coordinate distributed offline edits safely."
+    }
+  }
     ]
   },
   {
@@ -10386,6 +11778,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Adaptive Upload Protection and Large Payload Governance",
+    "scenario": "A platform accepts file uploads, AI training datasets, media content, or bulk API payloads where oversized requests could overwhelm infrastructure, exceed quotas, or trigger expensive backend processing.",
+    "howItWorks": "When the client attempts to upload a payload larger than the allowed limit, the server responds with 'HTTP/1.1 413 Payload Too Large'. Advanced systems may also include maximum size metadata, retry guidance, chunk-upload instructions, or alternative upload endpoints.",
+    "benefits": [
+      "Protects infrastructure from oversized uploads",
+      "Prevents memory and storage exhaustion",
+      "Supports quota-aware upload governance",
+      "Improves API stability under abuse",
+      "Encourages efficient chunked upload workflows"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Oversized Upload Rejection",
+      "code": "POST /upload HTTP/1.1\nContent-Length: 10737418240\nContent-Type: video/mp4\n\nHTTP/1.1 413 Payload Too Large\nContent-Type: application/json\n\n{\n  \"error\": \"payload_too_large\",\n  \"maxAllowedSize\": \"500MB\",\n  \"uploadStrategy\": \"multipart_chunked\"\n}"
+    },
+    "realWorldExample": "Cloud storage providers, AI model upload systems, video platforms, reverse proxies, and enterprise media pipelines commonly enforce upload size governance using 413 responses.",
+    "whyUnderrated": "Many developers treat 413 only as an error condition instead of recognizing it as a critical infrastructure protection and traffic governance mechanism.",
+    "developerNotes": [
+      "Useful for multipart upload workflows",
+      "Can integrate with resumable upload systems",
+      "Important for CDN and reverse proxy protection",
+      "Helpful for abuse prevention pipelines"
+    ],
+    "securityImpact": "Payload size enforcement protects systems from denial-of-service attacks involving oversized request bodies and storage exhaustion attempts.",
+    "performanceImpact": "Rejecting oversized payloads early prevents expensive buffering, storage allocation, and downstream processing waste.",
+    "bestPractices": [
+      "Validate payload size before processing",
+      "Support chunked or multipart uploads for large files",
+      "Expose upload limits clearly to clients",
+      "Apply quota-based upload governance",
+      "Monitor abnormal upload behavior patterns"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Media Ingestion Infrastructure",
+      "description": "Large-scale upload systems often combine ingress gateways, multipart upload coordinators, CDN-assisted transfer acceleration, and streaming validation pipelines to safely process massive payloads."
+    }
+  }
     ]
   },
   {
@@ -10674,6 +12106,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "URL Length Governance in Secure API Gateway Architectures",
+    "scenario": "A platform receives extremely long URLs generated by tracking systems, deeply nested filters, malformed redirect chains, encoded payloads, or malicious attack attempts designed to overwhelm proxies and servers.",
+    "howItWorks": "When the request target exceeds configured limits, the server or gateway responds with 'HTTP/1.1 414 URI Too Long' and rejects the request before routing it through expensive backend infrastructure. Advanced systems may also trigger logging, anomaly detection, or redirect-loop analysis workflows.",
+    "benefits": [
+      "Protects gateways from malformed requests",
+      "Prevents redirect-loop amplification",
+      "Mitigates header and parsing attacks",
+      "Improves routing stability",
+      "Helps detect abnormal client behavior"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Oversized URL Rejection",
+      "code": "GET /search?q=very_long_encoded_payload... HTTP/1.1\n\nHTTP/1.1 414 URI Too Long\nContent-Type: application/json\n\n{\n  \"error\": \"uri_too_long\",\n  \"message\": \"Request URL exceeds maximum allowed length\"\n}"
+    },
+    "realWorldExample": "CDNs, WAFs, reverse proxies, enterprise gateways, and large ecommerce search systems commonly enforce URL length restrictions using 414 responses.",
+    "whyUnderrated": "Many developers assume URLs are effectively unlimited and overlook how oversized request targets can destabilize routing layers, proxies, and logging systems.",
+    "developerNotes": [
+      "Useful for WAF and reverse proxy protection",
+      "Can detect malformed redirect loops",
+      "Important for search and analytics systems",
+      "Helpful for abuse and anomaly monitoring"
+    ],
+    "securityImpact": "Restricting oversized URIs helps defend against parser exhaustion attacks, malicious encoded payloads, and request smuggling attempts.",
+    "performanceImpact": "Early rejection of malformed URLs prevents unnecessary routing, logging, and backend processing overhead.",
+    "bestPractices": [
+      "Use POST requests for large payload transmission",
+      "Configure reasonable URI length limits",
+      "Monitor repeated oversized request attempts",
+      "Avoid encoding excessive state into query strings",
+      "Protect gateways with request normalization"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge-Normalized Request Validation Pipelines",
+      "description": "Modern edge infrastructures often normalize, validate, and reject oversized request targets before traffic reaches internal microservices or routing meshes."
+    }
+  }
     ]
   },
   {
@@ -10963,6 +12435,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Strict Media-Type Enforcement in Polyglot API Ecosystems",
+    "scenario": "An enterprise API platform supports multiple payload formats such as JSON, XML, Protocol Buffers, multipart uploads, or domain-specific binary encodings where incompatible media types could break downstream processing.",
+    "howItWorks": "When the client sends a request body with an unsupported 'Content-Type' header, the server responds with 'HTTP/1.1 415 Unsupported Media Type'. Advanced systems may include supported formats, schema documentation, or transformation guidance in the response.",
+    "benefits": [
+      "Enforces strict payload compatibility",
+      "Prevents malformed processing pipelines",
+      "Supports multi-format enterprise integrations",
+      "Improves API contract consistency",
+      "Protects downstream parsers and services"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsupported Content-Type Validation",
+      "code": "POST /api/orders HTTP/1.1\nContent-Type: application/yaml\n\nHTTP/1.1 415 Unsupported Media Type\nContent-Type: application/json\n\n{\n  \"error\": \"unsupported_media_type\",\n  \"supportedTypes\": [\n    \"application/json\",\n    \"application/xml\"\n  ]\n}"
+    },
+    "realWorldExample": "Banking APIs, healthcare systems, enterprise integration platforms, Kubernetes APIs, and cloud management services frequently enforce strict media-type validation using 415 responses.",
+    "whyUnderrated": "Many developers silently attempt to parse unsupported payloads instead of enforcing explicit media-type contracts at the protocol layer.",
+    "developerNotes": [
+      "Useful for OpenAPI-driven validation",
+      "Can integrate with schema negotiation systems",
+      "Important for binary protocol handling",
+      "Helpful for enterprise integration governance"
+    ],
+    "securityImpact": "Strict media-type validation reduces parser confusion vulnerabilities and prevents malicious payload interpretation attacks.",
+    "performanceImpact": "Rejecting unsupported payloads early prevents unnecessary parsing, deserialization, and backend processing overhead.",
+    "bestPractices": [
+      "Validate Content-Type headers strictly",
+      "Document supported media types clearly",
+      "Avoid automatic fallback parsing",
+      "Use schema validation after media-type verification",
+      "Return actionable compatibility guidance"
+    ],
+    "advancedArchitecture": {
+      "title": "Polyglot Service Integration Platforms",
+      "description": "Large enterprise ecosystems often operate heterogeneous services using multiple serialization formats, requiring centralized media-type governance and compatibility enforcement."
+    }
+  }
     ]
   },
   {
@@ -11251,6 +12763,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Corrupted Resume Detection in Distributed Media Delivery Systems",
+    "scenario": "A client attempts to resume a partially downloaded file, video stream, backup archive, or cloud synchronization transfer using an invalid byte range that no longer matches the current resource state.",
+    "howItWorks": "The client sends a request with a 'Range' header specifying the desired byte segment. If the requested range falls outside the available resource size or references stale offsets from an outdated file version, the server responds with 'HTTP/1.1 416 Range Not Satisfiable'. The response may also include the valid total resource length so the client can recover gracefully.",
+    "benefits": [
+      "Prevents corrupted resumable downloads",
+      "Protects streaming integrity",
+      "Supports reliable synchronization workflows",
+      "Improves large file transfer recovery",
+      "Helps detect stale cached metadata"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Invalid Byte Range Request",
+      "code": "GET /movie.mp4 HTTP/1.1\nRange: bytes=999999999-1000000000\n\nHTTP/1.1 416 Range Not Satisfiable\nContent-Range: bytes */734003200\nContent-Type: application/json\n\n{\n  \"error\": \"invalid_range\",\n  \"resourceSize\": 734003200\n}"
+    },
+    "realWorldExample": "Streaming platforms, cloud storage providers, CDN infrastructures, resumable backup systems, and download managers frequently encounter 416 responses during interrupted transfer recovery.",
+    "whyUnderrated": "Many developers treat 416 as a rare edge case without realizing how critical it is for reliable large-scale streaming and resumable synchronization systems.",
+    "developerNotes": [
+      "Important for resumable upload/download systems",
+      "Useful for adaptive media streaming",
+      "Can integrate with cache revalidation workflows",
+      "Helpful for distributed backup synchronization"
+    ],
+    "securityImpact": "Strict range validation prevents malformed byte-range abuse attempts that could trigger excessive resource allocation or parser instability.",
+    "performanceImpact": "Efficient range validation avoids unnecessary partial transfer generation for invalid or stale requests.",
+    "bestPractices": [
+      "Validate byte ranges carefully",
+      "Return accurate Content-Range metadata",
+      "Combine ranges with ETag validation",
+      "Support graceful download restart logic",
+      "Monitor abnormal fragmented range requests"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Segment-Based Media Delivery",
+      "description": "Modern CDN and streaming infrastructures divide large resources into cacheable byte segments where range validation becomes critical for resumable playback and edge synchronization consistency."
+    }
+  }
     ]
   },
   {
@@ -11539,6 +13091,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Expectation Negotiation for Smart Upload and Streaming Pipelines",
+    "scenario": "A client uses advanced request expectations such as 'Expect: 100-continue' to optimize large uploads, streaming transfers, or protocol negotiations, but the server cannot satisfy the requested expectation.",
+    "howItWorks": "The client sends an 'Expect' header requesting special handling before transmitting the full request body. If the server does not support or cannot fulfill the expectation, it responds with 'HTTP/1.1 417 Expectation Failed' instead of continuing the transaction.",
+    "benefits": [
+      "Prevents unsupported upload negotiation",
+      "Protects servers from invalid transfer workflows",
+      "Improves protocol compatibility detection",
+      "Supports efficient large-payload handling",
+      "Reduces unnecessary bandwidth usage"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsupported Expect Header",
+      "code": "POST /upload HTTP/1.1\nExpect: 100-continue\nContent-Length: 5368709120\n\nHTTP/1.1 417 Expectation Failed\nContent-Type: application/json\n\n{\n  \"error\": \"unsupported_expectation\",\n  \"message\": \"100-continue negotiation not supported\"\n}"
+    },
+    "realWorldExample": "Enterprise upload gateways, reverse proxies, cloud storage services, and streaming infrastructures may return 417 responses when unsupported request expectations are encountered.",
+    "whyUnderrated": "Most developers rarely work directly with HTTP expectation negotiation and underestimate its importance for large-scale upload optimization and transfer governance.",
+    "developerNotes": [
+      "Strongly related to Expect: 100-continue workflows",
+      "Useful for upload-heavy infrastructures",
+      "Can expose proxy compatibility issues",
+      "Helpful for debugging advanced HTTP clients"
+    ],
+    "securityImpact": "Expectation validation helps prevent malformed transfer negotiation attacks and reduces unnecessary exposure to oversized request bodies.",
+    "performanceImpact": "Rejecting unsupported expectations early saves bandwidth and prevents wasted upload transfers.",
+    "bestPractices": [
+      "Support Expect: 100-continue when handling large uploads",
+      "Reject unsupported expectations explicitly",
+      "Document upload negotiation requirements",
+      "Validate transfer capabilities at gateway layers",
+      "Monitor failed expectation patterns"
+    ],
+    "advancedArchitecture": {
+      "title": "Smart Ingress Upload Coordination",
+      "description": "Large upload infrastructures often use expectation negotiation between clients, edge gateways, and backend storage systems to coordinate safe streaming transfer workflows efficiently."
+    }
+  }
     ]
   },
   {
@@ -11828,6 +13420,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Intentional Bot Detection and Honeypot Traffic Analysis",
+    "scenario": "A platform wants to identify abusive crawlers, automated scanners, fake browsers, or unauthorized scraping tools without exposing real infrastructure behavior or security logic.",
+    "howItWorks": "The server intentionally returns 'HTTP/1.1 418 I'm a Teapot' for suspicious traffic patterns, hidden endpoints, honeypot URLs, or bot-detection traps. Legitimate browsers usually never encounter these routes, making 418 responses useful for identifying non-human automation and malicious reconnaissance activity.",
+    "benefits": [
+      "Helps detect malicious bots and scanners",
+      "Supports honeypot-based threat intelligence",
+      "Reduces exposure of real infrastructure behavior",
+      "Improves traffic anomaly monitoring",
+      "Provides lightweight deception mechanisms"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Bot Detection Honeypot Response",
+      "code": "GET /.env HTTP/1.1\nUser-Agent: suspicious-scanner\n\nHTTP/1.1 418 I'm a Teapot\nContent-Type: application/json\n\n{\n  \"error\": \"bot_detected\",\n  \"message\": \"Automated probing detected\"\n}"
+    },
+    "realWorldExample": "Security-focused infrastructures, honeypot systems, WAFs, and anti-bot platforms sometimes use 418 responses for reconnaissance detection and humorous but intentional threat signaling.",
+    "whyUnderrated": "Most developers view 418 purely as a joke status code and overlook its usefulness in deception engineering and lightweight bot-analysis workflows.",
+    "developerNotes": [
+      "Useful for hidden endpoint monitoring",
+      "Can integrate with WAF and SIEM systems",
+      "Helpful for bot fingerprinting pipelines",
+      "Works well with deception-based security models"
+    ],
+    "securityImpact": "Honeypot responses help identify malicious automation, reconnaissance scans, and vulnerability probing attempts before attackers reach real services.",
+    "performanceImpact": "Returning lightweight fake responses to suspicious traffic reduces unnecessary backend resource consumption.",
+    "bestPractices": [
+      "Use 418 only intentionally for controlled workflows",
+      "Avoid exposing sensitive implementation details",
+      "Log honeypot interactions aggressively",
+      "Combine with behavioral traffic analysis",
+      "Separate deception routes from production APIs"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Deception and Threat Intelligence Systems",
+      "description": "Modern cybersecurity infrastructures may deploy fake endpoints, canary resources, and deception APIs that intentionally trigger 418 responses to collect attacker intelligence and behavioral analytics."
+    }
+  }
     ]
   },
   {
@@ -12116,6 +13748,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Connection Isolation in Multi-Tenant HTTP/2 Infrastructures",
+    "scenario": "A large cloud platform, CDN, or reverse proxy infrastructure multiplexes requests from multiple domains over shared HTTP/2 connections. Improper connection reuse could accidentally route requests to the wrong backend origin or violate tenant isolation policies.",
+    "howItWorks": "When the server determines that the current connection is not valid for the requested authority or tenant, it responds with 'HTTP/1.1 421 Misdirected Request'. The client must then establish a new connection to the correct origin instead of reusing the existing multiplexed channel.",
+    "benefits": [
+      "Protects tenant isolation boundaries",
+      "Prevents cross-origin connection confusion",
+      "Improves HTTP/2 routing correctness",
+      "Supports secure multi-tenant infrastructures",
+      "Avoids backend authority mismatches"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "HTTP/2 Authority Mismatch",
+      "code": "GET /api/data HTTP/2\nHost: tenant-b.example.com\n\nHTTP/1.1 421 Misdirected Request\nContent-Type: application/json\n\n{\n  \"error\": \"misdirected_request\",\n  \"message\": \"Connection not valid for requested authority\"\n}"
+    },
+    "realWorldExample": "CDNs, service meshes, API gateways, Kubernetes ingress controllers, and large HTTP/2 multi-tenant cloud infrastructures may generate 421 responses during connection-routing mismatches.",
+    "whyUnderrated": "Most developers rarely encounter HTTP/2 connection reuse internals and underestimate how important 421 is for secure multiplexed infrastructure behavior.",
+    "developerNotes": [
+      "Primarily associated with HTTP/2 and HTTP/3",
+      "Useful for multi-tenant edge infrastructures",
+      "Can expose TLS SNI routing issues",
+      "Helpful for debugging reverse proxy authority mismatches"
+    ],
+    "securityImpact": "421 responses help enforce strict origin isolation and prevent accidental cross-tenant traffic leakage in multiplexed environments.",
+    "performanceImpact": "Correct connection routing improves multiplexing efficiency while avoiding costly backend misrouting retries.",
+    "bestPractices": [
+      "Validate authority headers carefully",
+      "Configure TLS and SNI routing consistently",
+      "Separate tenant connection pools when needed",
+      "Monitor misdirected request spikes",
+      "Test HTTP/2 proxy behavior thoroughly"
+    ],
+    "advancedArchitecture": {
+      "title": "Multi-Tenant Edge Routing Fabrics",
+      "description": "Modern cloud edge platforms multiplex massive volumes of traffic across shared HTTP/2 and HTTP/3 connections while dynamically enforcing strict tenant isolation using authority-aware routing systems."
+    }
+  }
     ]
   },
   {
@@ -12405,6 +14077,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Semantic Validation in Workflow and Business Rule Engines",
+    "scenario": "A client sends syntactically correct JSON or XML data, but the request violates higher-level business logic rules such as invalid workflow states, scheduling conflicts, unsupported transitions, or domain-specific validation policies.",
+    "howItWorks": "The server successfully parses the request structure but determines that the contained instructions are semantically invalid. Instead of returning a generic 400 response, the server responds with 'HTTP/1.1 422 Unprocessable Entity' and provides detailed field-level or rule-level validation failures.",
+    "benefits": [
+      "Separates syntax errors from business-rule violations",
+      "Improves developer debugging experience",
+      "Supports complex validation workflows",
+      "Enables rich form validation feedback",
+      "Protects domain integrity rules"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Business Rule Validation Failure",
+      "code": "POST /appointments HTTP/1.1\nContent-Type: application/json\n\n{\n  \"date\": \"2026-05-13\",\n  \"time\": \"02:00\",\n  \"doctorId\": 42\n}\n\nHTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n  \"error\": \"validation_failed\",\n  \"violations\": [\n    {\n      \"field\": \"time\",\n      \"message\": \"Appointment outside working hours\"\n    }\n  ]\n}"
+    },
+    "realWorldExample": "GitHub APIs, healthcare systems, ecommerce checkout engines, workflow automation platforms, and enterprise CRMs frequently use 422 responses for semantic validation enforcement.",
+    "whyUnderrated": "Many developers overload 400 Bad Request for all validation problems instead of distinguishing between malformed syntax and logically invalid operations.",
+    "developerNotes": [
+      "Popular in REST and JSON API ecosystems",
+      "Useful for advanced form validation",
+      "Can integrate with schema and business-rule engines",
+      "Helpful for workflow state enforcement"
+    ],
+    "securityImpact": "Strict semantic validation prevents invalid state transitions, inconsistent records, and malicious business-logic abuse attempts.",
+    "performanceImpact": "Early semantic validation prevents expensive downstream processing for logically impossible operations.",
+    "bestPractices": [
+      "Return detailed validation metadata",
+      "Separate syntax and semantic validation clearly",
+      "Avoid exposing sensitive internal logic",
+      "Use machine-readable validation codes",
+      "Document business-rule expectations thoroughly"
+    ],
+    "advancedArchitecture": {
+      "title": "Policy-Driven Validation Engines",
+      "description": "Large enterprise platforms often centralize semantic validation using workflow engines, rule evaluators, and policy-based orchestration systems that dynamically generate 422 responses."
+    }
+  }
     ]
   },
   {
@@ -12693,6 +14405,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Distributed Resource Locking in Collaborative Editing Systems",
+    "scenario": "Multiple users or services attempt to modify the same file, document, configuration, or transactional resource simultaneously, requiring temporary exclusive access to prevent corruption or inconsistent updates.",
+    "howItWorks": "When a resource is currently locked by another process, user, or synchronization operation, the server responds with 'HTTP/1.1 423 Locked'. The client must wait, retry later, or explicitly release the lock before performing modifications.",
+    "benefits": [
+      "Prevents concurrent modification corruption",
+      "Supports safe collaborative editing",
+      "Protects transactional consistency",
+      "Improves distributed synchronization safety",
+      "Enables explicit resource reservation workflows"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Locked Resource Modification Attempt",
+      "code": "PUT /documents/42 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"title\": \"Updated Title\"\n}\n\nHTTP/1.1 423 Locked\nContent-Type: application/json\n\n{\n  \"error\": \"resource_locked\",\n  \"lockedBy\": \"user_128\",\n  \"retryAfter\": 30\n}"
+    },
+    "realWorldExample": "WebDAV collaboration systems, enterprise CMS platforms, CAD editing tools, distributed configuration managers, and cloud document editors frequently rely on 423 responses for lock enforcement.",
+    "whyUnderrated": "Many developers either ignore concurrency entirely or overuse database-level locks instead of leveraging protocol-aware resource locking semantics.",
+    "developerNotes": [
+      "Strongly associated with WebDAV ecosystems",
+      "Useful for distributed editing workflows",
+      "Can integrate with lease-based locking systems",
+      "Helpful for long-running transactional operations"
+    ],
+    "securityImpact": "Explicit locking prevents race conditions and unauthorized concurrent modifications that could corrupt sensitive shared resources.",
+    "performanceImpact": "Fine-grained distributed locking scales better than broad database transaction locking for collaborative systems.",
+    "bestPractices": [
+      "Use lock expiration or lease timeouts",
+      "Provide lock ownership metadata carefully",
+      "Avoid indefinite lock retention",
+      "Support lock refresh mechanisms",
+      "Log abnormal lock contention events"
+    ],
+    "advancedArchitecture": {
+      "title": "Lease-Based Distributed Coordination Systems",
+      "description": "Large collaborative infrastructures often combine distributed lease managers, consensus systems, and synchronization coordinators to manage resource ownership safely across clusters."
+    }
+  }
     ]
   },
   {
@@ -12981,6 +14733,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Transactional Dependency Chains in Distributed Workflow Systems",
+    "scenario": "A complex workflow executes multiple dependent operations such as document publishing, financial processing, infrastructure provisioning, or multi-step synchronization where later actions depend on earlier successful steps.",
+    "howItWorks": "If a prerequisite operation fails, the server responds with 'HTTP/1.1 424 Failed Dependency' for subsequent dependent actions that cannot safely continue. This prevents partially completed workflows from producing inconsistent or corrupted states.",
+    "benefits": [
+      "Protects transactional consistency",
+      "Prevents cascading workflow corruption",
+      "Supports multi-step orchestration safety",
+      "Improves distributed process reliability",
+      "Helps isolate upstream dependency failures"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Dependent Workflow Failure",
+      "code": "POST /workflow/publish HTTP/1.1\nContent-Type: application/json\n\n{\n  \"documentId\": 42\n}\n\nHTTP/1.1 424 Failed Dependency\nContent-Type: application/json\n\n{\n  \"error\": \"dependency_failed\",\n  \"failedStep\": \"virus_scan\",\n  \"message\": \"Publishing blocked because prerequisite validation failed\"\n}"
+    },
+    "realWorldExample": "CI/CD pipelines, enterprise workflow engines, distributed transaction systems, cloud provisioning platforms, and WebDAV operations frequently encounter dependency-aware failure handling using 424 responses.",
+    "whyUnderrated": "Many developers treat every failure independently and overlook the importance of explicitly modeling dependency-aware workflow execution semantics.",
+    "developerNotes": [
+      "Strongly associated with WebDAV and orchestration systems",
+      "Useful for multi-step transaction workflows",
+      "Can integrate with saga-based architectures",
+      "Helpful for dependency-aware automation pipelines"
+    ],
+    "securityImpact": "Dependency validation prevents downstream operations from executing in inconsistent or partially verified states.",
+    "performanceImpact": "Early dependency failure propagation avoids unnecessary execution of expensive downstream tasks.",
+    "bestPractices": [
+      "Track workflow dependencies explicitly",
+      "Provide clear failure-chain metadata",
+      "Implement compensating rollback actions",
+      "Avoid partially committed distributed states",
+      "Log dependency failures for observability"
+    ],
+    "advancedArchitecture": {
+      "title": "Saga-Based Distributed Transaction Coordination",
+      "description": "Large distributed systems often coordinate multi-service workflows using saga orchestration patterns where dependency failures trigger rollback and compensation pipelines."
+    }
+  }
     ]
   },
   {
@@ -13268,6 +15060,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Replay-Attack Protection in Early Data TLS Workflows",
+    "scenario": "A client attempts to send non-idempotent requests such as payments, account updates, or transactional writes using TLS 1.3 early data (0-RTT) to reduce latency, but the server detects replay-risk conditions.",
+    "howItWorks": "When the server determines that replaying the request could create unsafe side effects, it responds with 'HTTP/1.1 425 Too Early'. The client must retry the request after the full TLS handshake completes instead of using early data transmission.",
+    "benefits": [
+      "Protects against replay attacks",
+      "Improves transactional security",
+      "Supports safe TLS 1.3 optimization",
+      "Prevents duplicate side effects",
+      "Enables secure low-latency networking"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsafe Early Data Rejection",
+      "code": "POST /payments HTTP/1.1\nEarly-Data: 1\nContent-Type: application/json\n\n{\n  \"amount\": 5000\n}\n\nHTTP/1.1 425 Too Early\nContent-Type: application/json\n\n{\n  \"error\": \"retry_without_early_data\",\n  \"message\": \"Request rejected due to replay protection\"\n}"
+    },
+    "realWorldExample": "Banking systems, payment gateways, identity providers, and security-sensitive APIs may use 425 responses to protect against replay risks during TLS 1.3 early-data optimization.",
+    "whyUnderrated": "Most developers are unfamiliar with TLS 1.3 early data behavior and underestimate how dangerous replay attacks can become for non-idempotent operations.",
+    "developerNotes": [
+      "Closely related to TLS 1.3 0-RTT optimization",
+      "Useful for financial and identity systems",
+      "Important for idempotency-sensitive APIs",
+      "Helpful for advanced transport-layer security"
+    ],
+    "securityImpact": "425 responses help prevent attackers from replaying captured early-data requests to duplicate sensitive operations such as payments or account modifications.",
+    "performanceImpact": "Rejecting unsafe early data slightly increases latency but significantly improves security for critical transactional workflows.",
+    "bestPractices": [
+      "Allow early data only for idempotent operations",
+      "Use idempotency keys for critical transactions",
+      "Retry rejected requests after handshake completion",
+      "Monitor replay-risk traffic carefully",
+      "Document early-data compatibility clearly"
+    ],
+    "advancedArchitecture": {
+      "title": "TLS-Aware Edge Security Gateways",
+      "description": "Modern edge infrastructures dynamically evaluate replay risk, request idempotency, and transaction sensitivity before accepting TLS 1.3 early-data requests."
+    }
+  }
     ]
   },
   {
@@ -13556,6 +15388,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Protocol Evolution and Secure Transport Enforcement",
+    "scenario": "A platform needs to migrate clients from outdated or insecure protocols to newer transport standards such as HTTPS, HTTP/2, HTTP/3, WebSockets, or gRPC for performance, compatibility, or security reasons.",
+    "howItWorks": "When a client connects using an unsupported or obsolete protocol version, the server responds with 'HTTP/1.1 426 Upgrade Required' together with an 'Upgrade' header specifying the required protocol. The client must reconnect using the upgraded protocol before communication can continue.",
+    "benefits": [
+      "Enforces modern secure transport standards",
+      "Improves protocol compatibility",
+      "Supports phased infrastructure modernization",
+      "Enables advanced transport optimizations",
+      "Protects against legacy protocol vulnerabilities"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Protocol Upgrade Requirement",
+      "code": "GET /realtime HTTP/1.1\nHost: api.example.com\n\nHTTP/1.1 426 Upgrade Required\nUpgrade: websocket\nConnection: Upgrade\nContent-Type: application/json\n\n{\n  \"error\": \"upgrade_required\",\n  \"requiredProtocol\": \"websocket\"\n}"
+    },
+    "realWorldExample": "Realtime communication platforms, gRPC services, WebSocket infrastructures, enterprise APIs, and security-sensitive cloud platforms may use 426 responses during protocol modernization efforts.",
+    "whyUnderrated": "Many developers handle protocol negotiation entirely outside HTTP semantics and overlook the built-in upgrade coordination mechanisms already available in the protocol.",
+    "developerNotes": [
+      "Useful for HTTP-to-WebSocket upgrades",
+      "Can support HTTP/2 or HTTP/3 migrations",
+      "Helpful for enforcing secure transport layers",
+      "Important for long-lived realtime systems"
+    ],
+    "securityImpact": "Protocol upgrade enforcement helps eliminate insecure legacy transport usage and strengthens communication-layer protections.",
+    "performanceImpact": "Migrating clients to modern protocols enables multiplexing, lower latency, and improved connection efficiency.",
+    "bestPractices": [
+      "Provide clear upgrade instructions",
+      "Support phased client migration strategies",
+      "Monitor outdated protocol usage",
+      "Use TLS consistently with upgrades",
+      "Avoid abrupt protocol deprecations"
+    ],
+    "advancedArchitecture": {
+      "title": "Progressive Transport Modernization Pipelines",
+      "description": "Large-scale infrastructures often gradually migrate traffic toward HTTP/3, QUIC, gRPC, or realtime transport systems using protocol-aware upgrade negotiation mechanisms."
+    }
+  }
     ]
   },
   {
@@ -13844,6 +15716,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Mandatory Conditional Requests for Safe Distributed Updates",
+    "scenario": "A distributed API platform requires all resource modifications to include conditional headers such as ETags or version identifiers in order to prevent accidental overwrites and stale writes.",
+    "howItWorks": "When the client attempts to modify a resource without providing required preconditions like 'If-Match' or version metadata, the server responds with 'HTTP/1.1 428 Precondition Required'. The client must first retrieve the latest resource state and include proper conditional validation before retrying the update.",
+    "benefits": [
+      "Prevents unsafe blind updates",
+      "Improves distributed consistency",
+      "Supports optimistic concurrency control",
+      "Protects collaborative workflows",
+      "Enforces safer API write patterns"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Missing Conditional Update Protection",
+      "code": "PUT /documents/42 HTTP/1.1\nContent-Type: application/json\n\n{\n  \"title\": \"Updated Title\"\n}\n\nHTTP/1.1 428 Precondition Required\nContent-Type: application/json\n\n{\n  \"error\": \"missing_precondition\",\n  \"requiredHeader\": \"If-Match\"\n}"
+    },
+    "realWorldExample": "Cloud storage systems, collaborative SaaS platforms, distributed synchronization engines, and enterprise APIs commonly enforce conditional updates using 428 responses.",
+    "whyUnderrated": "Many APIs allow unsafe overwrite operations by default and fail to enforce concurrency-aware update semantics at the protocol level.",
+    "developerNotes": [
+      "Works closely with ETags and 412 responses",
+      "Useful for offline-first synchronization systems",
+      "Can integrate with version-aware APIs",
+      "Helpful for distributed editing platforms"
+    ],
+    "securityImpact": "Mandatory preconditions reduce accidental or malicious stale-write operations that could corrupt shared data.",
+    "performanceImpact": "Optimistic concurrency validation scales more efficiently than pessimistic database locking under heavy write contention.",
+    "bestPractices": [
+      "Require ETags for mutable resources",
+      "Return clear precondition guidance",
+      "Document conditional update requirements",
+      "Reject unsafe blind writes consistently",
+      "Use strong version identifiers"
+    ],
+    "advancedArchitecture": {
+      "title": "Consistency-Aware Distributed Synchronization",
+      "description": "Modern distributed systems often combine mandatory conditional requests, event streams, and optimistic concurrency pipelines to safely coordinate updates across globally distributed clients."
+    }
+  }
     ]
   },
   {
@@ -14134,6 +16046,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Adaptive API Rate Limiting and Abuse Mitigation",
+    "scenario": "A high-traffic API platform must protect itself from excessive client requests caused by bots, scraping systems, credential stuffing attacks, runaway integrations, or accidental traffic spikes while still serving legitimate users reliably.",
+    "howItWorks": "When a client exceeds configured request thresholds, the server responds with 'HTTP/1.1 429 Too Many Requests' together with metadata such as retry windows, quota limits, or remaining request counts. Advanced systems may dynamically adjust rate limits based on user reputation, geographic risk, authentication state, or backend load conditions.",
+    "benefits": [
+      "Protects infrastructure from overload",
+      "Mitigates scraping and abuse attacks",
+      "Improves fair resource allocation",
+      "Prevents cascading service failures",
+      "Supports scalable multi-tenant APIs"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Dynamic Rate Limit Enforcement",
+      "code": "GET /api/search HTTP/1.1\nAuthorization: Bearer client_token\n\nHTTP/1.1 429 Too Many Requests\nRetry-After: 60\nX-RateLimit-Limit: 1000\nX-RateLimit-Remaining: 0\nContent-Type: application/json\n\n{\n  \"error\": \"rate_limit_exceeded\",\n  \"retryAfterSeconds\": 60\n}"
+    },
+    "realWorldExample": "Cloud APIs, AI inference platforms, social networks, payment gateways, and CDN-backed services heavily rely on 429 responses for adaptive traffic governance.",
+    "whyUnderrated": "Many developers implement simplistic fixed limits and underestimate how sophisticated rate-limiting systems become in internet-scale infrastructures.",
+    "developerNotes": [
+      "Useful for bot mitigation and quota governance",
+      "Can integrate with token bucket algorithms",
+      "Helpful for AI and compute-heavy APIs",
+      "Important for multi-tenant fairness enforcement"
+    ],
+    "securityImpact": "Dynamic throttling protects against DDoS amplification, brute-force attacks, scraping, and automated abuse campaigns.",
+    "performanceImpact": "Early request throttling prevents backend overload and improves system stability during traffic spikes.",
+    "bestPractices": [
+      "Use adaptive rate-limiting strategies",
+      "Return clear retry metadata",
+      "Differentiate authenticated and anonymous quotas",
+      "Monitor abnormal traffic bursts",
+      "Combine rate limiting with behavioral analytics"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Traffic Governance Systems",
+      "description": "Modern edge infrastructures use globally synchronized quota engines, behavioral scoring systems, and distributed token-bucket algorithms to enforce adaptive rate limits across regions in real time."
+    }
+  }
     ]
   },
   {
@@ -14423,6 +16375,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Header Bloat Detection and Gateway Hardening",
+    "scenario": "A client sends excessively large HTTP headers due to oversized cookies, malformed authentication tokens, excessive tracing metadata, recursive proxy forwarding, or malicious request amplification attempts.",
+    "howItWorks": "When request headers exceed configured size limits, the server or gateway responds with 'HTTP/1.1 431 Request Header Fields Too Large'. The client must reduce header size before retrying the request.",
+    "benefits": [
+      "Protects gateways from oversized metadata attacks",
+      "Prevents parser and memory exhaustion",
+      "Improves proxy and load balancer stability",
+      "Detects malformed client behavior",
+      "Supports secure edge infrastructure operation"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Oversized Header Rejection",
+      "code": "GET /dashboard HTTP/1.1\nCookie: extremely_large_cookie_payload...\n\nHTTP/1.1 431 Request Header Fields Too Large\nContent-Type: application/json\n\n{\n  \"error\": \"headers_too_large\",\n  \"message\": \"Reduce request header size\"\n}"
+    },
+    "realWorldExample": "CDNs, reverse proxies, enterprise gateways, authentication-heavy SaaS platforms, and microservice meshes commonly enforce header-size limits using 431 responses.",
+    "whyUnderrated": "Many developers focus only on payload sizes and overlook how oversized headers can destabilize gateways, proxies, and distributed tracing systems.",
+    "developerNotes": [
+      "Useful for reverse proxy protection",
+      "Can expose cookie bloat issues",
+      "Important for microservice tracing systems",
+      "Helpful for debugging authentication middleware"
+    ],
+    "securityImpact": "Header-size enforcement helps defend against parser exhaustion attacks, malicious cookie inflation, and request smuggling techniques.",
+    "performanceImpact": "Rejecting oversized headers early reduces unnecessary parsing, memory allocation, and proxy processing overhead.",
+    "bestPractices": [
+      "Limit cookie sizes aggressively",
+      "Avoid excessive custom headers",
+      "Compress distributed tracing metadata carefully",
+      "Monitor abnormal header growth patterns",
+      "Configure gateway header limits consistently"
+    ],
+    "advancedArchitecture": {
+      "title": "Edge Request Normalization Pipelines",
+      "description": "Large-scale API gateways often normalize, compress, and validate incoming headers before forwarding traffic through service meshes and distributed tracing infrastructures."
+    }
+  }
     ]
   },
   {
@@ -14711,6 +16703,46 @@
       "401-unauthorized",
       "402-payment-required",
       "403-forbidden"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Regulatory Geo-Blocking and Legal Compliance Enforcement",
+    "scenario": "A platform must restrict access to specific content, APIs, datasets, or digital services because of government regulations, court orders, copyright takedowns, sanctions, privacy laws, or regional licensing agreements.",
+    "howItWorks": "When the requested resource cannot legally be served in a particular jurisdiction, the server responds with 'HTTP/1.1 451 Unavailable For Legal Reasons'. The response may include legal references, jurisdiction metadata, or transparency information describing why access was restricted.",
+    "benefits": [
+      "Provides transparency for legal restrictions",
+      "Supports regional compliance requirements",
+      "Improves auditability of content blocking",
+      "Separates legal restrictions from technical failures",
+      "Helps organizations meet regulatory obligations"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Legally Restricted Resource",
+      "code": "GET /movies/licensed-content HTTP/1.1\n\nHTTP/1.1 451 Unavailable For Legal Reasons\nContent-Type: application/json\n\n{\n  \"error\": \"legal_restriction\",\n  \"jurisdiction\": \"EU\",\n  \"reason\": \"Content unavailable due to licensing restrictions\"\n}"
+    },
+    "realWorldExample": "Streaming services, search engines, cloud platforms, social networks, and news providers may use 451 responses for copyright removals, sanctions compliance, or court-ordered content restrictions.",
+    "whyUnderrated": "Many platforms hide legal restrictions behind generic 403 or 404 responses instead of providing explicit transparency about compliance-driven blocking decisions.",
+    "developerNotes": [
+      "Useful for transparency reporting systems",
+      "Can integrate with geo-IP enforcement",
+      "Important for regional licensing compliance",
+      "Helpful for legal audit trails"
+    ],
+    "securityImpact": "Explicit legal-blocking workflows reduce accidental exposure of restricted content across regulated jurisdictions.",
+    "performanceImpact": "Region-aware blocking at CDN edges reduces unnecessary origin requests for legally restricted resources.",
+    "bestPractices": [
+      "Provide clear jurisdiction metadata when appropriate",
+      "Implement accurate geo-location enforcement",
+      "Log legal-blocking decisions securely",
+      "Separate policy enforcement from infrastructure failures",
+      "Coordinate legal updates with caching layers"
+    ],
+    "advancedArchitecture": {
+      "title": "Global Policy Enforcement Fabrics",
+      "description": "Large global platforms often operate distributed policy engines that dynamically evaluate geographic location, legal requirements, and licensing agreements before serving content."
+    }
+  }
     ]
   },
   {
@@ -15001,6 +17033,46 @@
       "502-bad-gateway",
       "503-service-unavailable",
       "504-gateway-timeout"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Automatic Failover and Graceful Degradation in Distributed Systems",
+    "scenario": "A backend service encounters unexpected failures such as database outages, memory exhaustion, dependency crashes, or infrastructure instability while still needing to preserve availability for users.",
+    "howItWorks": "When the server encounters an unexpected internal condition, it responds with 'HTTP/1.1 500 Internal Server Error'. Advanced systems may simultaneously trigger automated recovery workflows such as traffic rerouting, circuit breakers, fallback services, degraded read-only modes, or self-healing orchestration mechanisms.",
+    "benefits": [
+      "Signals unexpected infrastructure failures clearly",
+      "Enables automated recovery systems",
+      "Supports graceful degradation strategies",
+      "Improves observability and incident response",
+      "Protects users from inconsistent application states"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Graceful Failure Response",
+      "code": "GET /payments/process HTTP/1.1\n\nHTTP/1.1 500 Internal Server Error\nContent-Type: application/json\n\n{\n  \"error\": \"internal_server_error\",\n  \"requestId\": \"req_8472\",\n  \"message\": \"Unexpected server failure\"\n}"
+    },
+    "realWorldExample": "Cloud providers, banking systems, ecommerce platforms, AI services, and globally distributed SaaS infrastructures continuously handle and recover from 500-level failures using automated orchestration systems.",
+    "whyUnderrated": "Many developers treat 500 responses as generic crashes without recognizing their role in triggering sophisticated resilience, failover, and observability pipelines.",
+    "developerNotes": [
+      "Useful for incident correlation systems",
+      "Can integrate with distributed tracing",
+      "Important for chaos engineering validation",
+      "Helpful for automated rollback workflows"
+    ],
+    "securityImpact": "500 responses should avoid exposing stack traces or sensitive infrastructure details that attackers could exploit.",
+    "performanceImpact": "Graceful degradation systems reduce cascading failures and improve platform stability during outages.",
+    "bestPractices": [
+      "Log request correlation IDs consistently",
+      "Avoid exposing internal exceptions publicly",
+      "Implement circuit breakers for unstable dependencies",
+      "Use retry and fallback strategies carefully",
+      "Monitor failure patterns aggressively"
+    ],
+    "advancedArchitecture": {
+      "title": "Self-Healing Cloud Infrastructure",
+      "description": "Modern distributed platforms often combine observability pipelines, autoscaling systems, circuit breakers, health probes, and automated failover orchestration to recover from internal failures dynamically."
+    }
+  }
     ]
   },
   {
@@ -15290,6 +17362,46 @@
       "502-bad-gateway",
       "503-service-unavailable",
       "504-gateway-timeout"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Feature Negotiation and Incremental API Capability Rollouts",
+    "scenario": "A distributed platform gradually introduces new HTTP methods, protocol extensions, or advanced API capabilities across multiple regions and services where not all backend nodes support the same features simultaneously.",
+    "howItWorks": "When a client requests functionality that the server does not recognize or support, the server responds with 'HTTP/1.1 501 Not Implemented'. Advanced systems may also include capability metadata, feature negotiation hints, or alternative supported operations.",
+    "benefits": [
+      "Supports incremental feature rollouts",
+      "Prevents unsupported operation execution",
+      "Improves API compatibility management",
+      "Helps coordinate multi-version infrastructures",
+      "Provides clear capability signaling"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsupported API Capability",
+      "code": "PATCH /legacy-service HTTP/1.1\nContent-Type: application/json\n\n{\n  \"feature\": \"advanced_sync\"\n}\n\nHTTP/1.1 501 Not Implemented\nContent-Type: application/json\n\n{\n  \"error\": \"feature_not_supported\",\n  \"supportedMethods\": [\"GET\", \"POST\"]\n}"
+    },
+    "realWorldExample": "Cloud APIs, legacy enterprise systems, distributed microservice platforms, and evolving developer ecosystems may use 501 responses during staged feature adoption or capability negotiation.",
+    "whyUnderrated": "Many developers incorrectly use 500 or 404 for unsupported features instead of distinguishing between server failures and intentionally unimplemented capabilities.",
+    "developerNotes": [
+      "Useful for API evolution strategies",
+      "Can support protocol capability discovery",
+      "Helpful for backward compatibility management",
+      "Important for staged infrastructure upgrades"
+    ],
+    "securityImpact": "Clearly rejecting unsupported operations reduces accidental execution of partially implemented or insecure functionality.",
+    "performanceImpact": "Early capability rejection avoids unnecessary routing and backend processing for unsupported requests.",
+    "bestPractices": [
+      "Differentiate unsupported features from runtime failures",
+      "Document capability availability clearly",
+      "Provide migration or fallback guidance",
+      "Avoid exposing experimental internals publicly",
+      "Track unsupported feature usage analytics"
+    ],
+    "advancedArchitecture": {
+      "title": "Capability-Aware Distributed Platforms",
+      "description": "Large distributed systems often maintain feature registries and compatibility negotiation layers where services dynamically advertise supported operations across evolving infrastructures."
+    }
+  }
     ]
   },
   {
@@ -15578,6 +17690,46 @@
       "501-not-implemented",
       "503-service-unavailable",
       "504-gateway-timeout"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Upstream Health Monitoring and Intelligent Gateway Failover",
+    "scenario": "A reverse proxy, API gateway, CDN edge node, or load balancer forwards requests to upstream backend services that may become unavailable, overloaded, misconfigured, or unreachable.",
+    "howItWorks": "When the intermediary receives an invalid response or cannot successfully communicate with the upstream server, it responds with 'HTTP/1.1 502 Bad Gateway'. Advanced infrastructures may simultaneously trigger failover routing, health-check isolation, circuit breakers, or automatic traffic redistribution.",
+    "benefits": [
+      "Detects upstream infrastructure instability",
+      "Supports automated failover systems",
+      "Improves gateway observability",
+      "Prevents cascading backend failures",
+      "Enables resilient multi-service routing"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Upstream Service Failure",
+      "code": "GET /api/orders HTTP/1.1\n\nHTTP/1.1 502 Bad Gateway\nContent-Type: application/json\n\n{\n  \"error\": \"upstream_failure\",\n  \"upstreamService\": \"orders-service\",\n  \"message\": \"Invalid upstream response received\"\n}"
+    },
+    "realWorldExample": "CDNs, Kubernetes ingress controllers, service meshes, API gateways, cloud load balancers, and microservice architectures frequently encounter and manage 502 responses during upstream instability.",
+    "whyUnderrated": "Many developers view 502 as a generic hosting issue without understanding its importance in diagnosing distributed networking and gateway-routing failures.",
+    "developerNotes": [
+      "Useful for reverse proxy troubleshooting",
+      "Can integrate with health-check systems",
+      "Important for service mesh observability",
+      "Helpful for autoscaling and failover workflows"
+    ],
+    "securityImpact": "Proper upstream validation prevents malformed backend responses from propagating through public-facing gateways.",
+    "performanceImpact": "Fast upstream isolation and failover reduce cascading latency spikes during partial outages.",
+    "bestPractices": [
+      "Implement upstream health checks aggressively",
+      "Use circuit breakers for unstable services",
+      "Separate gateway and backend logs clearly",
+      "Retry idempotent requests carefully",
+      "Monitor upstream latency and error patterns"
+    ],
+    "advancedArchitecture": {
+      "title": "Self-Healing Service Mesh Infrastructures",
+      "description": "Modern cloud-native systems use intelligent gateways, distributed health monitoring, and traffic-routing orchestration to automatically isolate unhealthy upstream services during failures."
+    }
+  }
     ]
   },
   {
@@ -15869,6 +18021,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "504-gateway-timeout"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Graceful Maintenance Mode and Traffic Shedding",
+    "scenario": "A platform needs to temporarily reduce traffic during deployments, database migrations, infrastructure maintenance, flash-sale overloads, or partial outages while preserving overall system stability.",
+    "howItWorks": "When the service is temporarily unable to handle requests, the server responds with 'HTTP/1.1 503 Service Unavailable'. Advanced systems often include 'Retry-After' headers, maintenance metadata, or fallback routing instructions while autoscaling, failover, or recovery workflows continue in the background.",
+    "benefits": [
+      "Prevents cascading infrastructure failures",
+      "Supports controlled maintenance windows",
+      "Enables graceful traffic shedding",
+      "Improves system resilience under overload",
+      "Protects backend stability during incidents"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Temporary Service Degradation",
+      "code": "GET /checkout HTTP/1.1\n\nHTTP/1.1 503 Service Unavailable\nRetry-After: 120\nContent-Type: application/json\n\n{\n  \"error\": \"service_unavailable\",\n  \"message\": \"System temporarily under maintenance\"\n}"
+    },
+    "realWorldExample": "Cloud providers, ecommerce platforms, banking systems, ticket-booking services, and large SaaS infrastructures frequently use 503 responses during maintenance events and overload protection scenarios.",
+    "whyUnderrated": "Many developers view 503 only as downtime instead of recognizing its role in controlled resilience engineering and overload management strategies.",
+    "developerNotes": [
+      "Useful for autoscaling and maintenance workflows",
+      "Can integrate with load-shedding algorithms",
+      "Important for traffic spike protection",
+      "Helpful for graceful degradation systems"
+    ],
+    "securityImpact": "Controlled overload rejection prevents attackers or traffic spikes from destabilizing critical infrastructure components.",
+    "performanceImpact": "Traffic shedding and maintenance signaling preserve availability for critical operations during resource exhaustion events.",
+    "bestPractices": [
+      "Use Retry-After headers consistently",
+      "Provide lightweight maintenance responses",
+      "Implement circuit breakers for overloaded dependencies",
+      "Prioritize critical traffic during incidents",
+      "Monitor overload patterns proactively"
+    ],
+    "advancedArchitecture": {
+      "title": "Adaptive Traffic Governance Systems",
+      "description": "Modern cloud platforms dynamically shed low-priority traffic, reroute requests, and activate degraded-service modes during overload events to maintain partial system availability."
+    }
+  }
     ]
   },
   {
@@ -16160,6 +18352,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Timeout Isolation and Long-Running Workflow Recovery",
+    "scenario": "A gateway, CDN, or reverse proxy forwards requests to backend services that become excessively slow due to overloaded databases, deadlocked workers, slow external APIs, or long-running computations.",
+    "howItWorks": "When the intermediary does not receive a timely response from the upstream service, it responds with 'HTTP/1.1 504 Gateway Timeout'. Advanced infrastructures may simultaneously trigger retries, fallback services, circuit breakers, or asynchronous recovery workflows.",
+    "benefits": [
+      "Prevents indefinitely hanging client connections",
+      "Supports resilient timeout management",
+      "Improves distributed observability",
+      "Protects user experience during backend slowness",
+      "Enables automated recovery strategies"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Upstream Timeout Failure",
+      "code": "GET /reports/generate HTTP/1.1\n\nHTTP/1.1 504 Gateway Timeout\nContent-Type: application/json\n\n{\n  \"error\": \"gateway_timeout\",\n  \"upstreamService\": \"reporting-engine\",\n  \"message\": \"Upstream service exceeded timeout threshold\"\n}"
+    },
+    "realWorldExample": "API gateways, Kubernetes ingress systems, CDNs, serverless platforms, and microservice architectures frequently generate 504 responses during slow dependency failures or overloaded upstream operations.",
+    "whyUnderrated": "Many developers blame only the gateway layer for 504 errors without understanding that they often expose deeper latency problems within distributed dependency chains.",
+    "developerNotes": [
+      "Useful for distributed tracing analysis",
+      "Can expose slow database or API dependencies",
+      "Important for timeout-budget engineering",
+      "Helpful for resilience testing and chaos engineering"
+    ],
+    "securityImpact": "Strict timeout enforcement protects infrastructure from resource exhaustion caused by stalled or intentionally slow upstream operations.",
+    "performanceImpact": "Timeout isolation prevents blocked connections from consuming gateway resources indefinitely during backend failures.",
+    "bestPractices": [
+      "Set realistic timeout budgets per service",
+      "Use asynchronous processing for long tasks",
+      "Implement retries only for idempotent operations",
+      "Monitor latency percentiles continuously",
+      "Combine timeouts with circuit breakers"
+    ],
+    "advancedArchitecture": {
+      "title": "Latency-Aware Distributed Service Meshes",
+      "description": "Modern distributed systems dynamically track latency budgets, dependency health, and retry behavior across service meshes to isolate slow components before widespread timeout cascades occur."
+    }
+  }
     ]
   },
   {
@@ -16447,6 +18679,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Protocol Compatibility Enforcement During Infrastructure Modernization",
+    "scenario": "A platform upgrades its infrastructure to support newer HTTP standards such as HTTP/2 or HTTP/3 while older clients continue attempting to connect using unsupported protocol versions.",
+    "howItWorks": "When the server receives a request using an unsupported HTTP protocol version, it responds with 'HTTP/1.1 505 HTTP Version Not Supported'. Advanced systems may also provide upgrade guidance, compatibility metadata, or transport migration instructions.",
+    "benefits": [
+      "Enforces modern protocol compatibility",
+      "Protects infrastructure from legacy limitations",
+      "Supports transport-layer modernization",
+      "Improves connection performance and security",
+      "Helps coordinate phased client upgrades"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Unsupported Protocol Version",
+      "code": "GET /api/data HTTP/1.0\nHost: api.example.com\n\nHTTP/1.1 505 HTTP Version Not Supported\nContent-Type: application/json\n\n{\n  \"error\": \"unsupported_http_version\",\n  \"supportedVersions\": [\"HTTP/1.1\", \"HTTP/2\", \"HTTP/3\"]\n}"
+    },
+    "realWorldExample": "Cloud providers, modern API gateways, gRPC infrastructures, and high-performance CDN platforms may enforce protocol compatibility using 505 responses during infrastructure upgrades.",
+    "whyUnderrated": "Most developers rarely think about HTTP version negotiation until legacy clients begin failing during major transport modernization efforts.",
+    "developerNotes": [
+      "Useful for HTTP/2 and HTTP/3 migrations",
+      "Can expose outdated client libraries",
+      "Important for protocol compliance enforcement",
+      "Helpful for transport modernization analytics"
+    ],
+    "securityImpact": "Rejecting outdated protocols helps eliminate legacy transport vulnerabilities and weak protocol behaviors.",
+    "performanceImpact": "Modern protocol adoption improves multiplexing, connection reuse, and latency efficiency across distributed infrastructures.",
+    "bestPractices": [
+      "Document supported protocol versions clearly",
+      "Provide migration guidance for legacy clients",
+      "Monitor outdated protocol usage patterns",
+      "Phase out insecure protocols gradually",
+      "Test proxy and CDN compatibility thoroughly"
+    ],
+    "advancedArchitecture": {
+      "title": "Multi-Protocol Edge Delivery Fabrics",
+      "description": "Large-scale edge infrastructures dynamically negotiate transport protocols while gradually migrating traffic toward HTTP/3 and QUIC-based communication systems."
+    }
+  }
     ]
   },
   {
@@ -16734,6 +19006,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Transparent Content Negotiation and Variant Selection Failures",
+    "scenario": "A server dynamically selects between multiple content representations based on language, encoding, device type, media format, or geographic region, but cannot determine a single best representation automatically.",
+    "howItWorks": "When transparent content negotiation fails because multiple equally valid representations exist and the server cannot safely choose one, it responds with 'HTTP/1.1 506 Variant Also Negotiates'. This prevents recursive or ambiguous variant selection loops.",
+    "benefits": [
+      "Protects content negotiation consistency",
+      "Prevents recursive representation loops",
+      "Improves multi-variant resource management",
+      "Supports advanced localization systems",
+      "Helps maintain negotiation integrity"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Variant Negotiation Conflict",
+      "code": "GET /content HTTP/1.1\nAccept-Language: en-US\n\nHTTP/1.1 506 Variant Also Negotiates\nContent-Type: application/json\n\n{\n  \"error\": \"variant_negotiation_failed\",\n  \"message\": \"Circular content negotiation detected\"\n}"
+    },
+    "realWorldExample": "Advanced content delivery systems, multilingual publishing platforms, transparent proxy infrastructures, and adaptive representation engines may encounter 506 responses during negotiation conflicts.",
+    "whyUnderrated": "Most developers never work directly with transparent content negotiation systems and are unaware that recursive variant-selection problems even exist.",
+    "developerNotes": [
+      "Strongly related to transparent content negotiation",
+      "Useful for multilingual representation systems",
+      "Can expose misconfigured variant mappings",
+      "Helpful for adaptive media delivery debugging"
+    ],
+    "securityImpact": "Preventing recursive negotiation loops protects servers from uncontrolled representation recursion and excessive processing overhead.",
+    "performanceImpact": "Correct variant resolution improves caching efficiency and avoids repeated negotiation retries.",
+    "bestPractices": [
+      "Avoid recursive variant dependencies",
+      "Validate negotiation mappings carefully",
+      "Provide explicit fallback representations",
+      "Document supported negotiation dimensions clearly",
+      "Test localization and encoding combinations thoroughly"
+    ],
+    "advancedArchitecture": {
+      "title": "Adaptive Representation Delivery Systems",
+      "description": "Sophisticated content platforms dynamically negotiate representations across language, device, network quality, and encoding dimensions while coordinating CDN caching and edge adaptation layers."
+    }
+  }
     ]
   },
   {
@@ -17023,6 +19335,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Quota-Aware Distributed Storage Protection",
+    "scenario": "A cloud platform, collaborative storage system, or distributed backup infrastructure runs out of available storage capacity, inode limits, or tenant-specific quota allocation while processing uploads or synchronization requests.",
+    "howItWorks": "When the server cannot complete the request because insufficient storage space is available, it responds with 'HTTP/1.1 507 Insufficient Storage'. Advanced systems may also include quota details, cleanup recommendations, or alternative upload strategies.",
+    "benefits": [
+      "Prevents unsafe storage overcommitment",
+      "Supports tenant-aware quota governance",
+      "Improves distributed storage reliability",
+      "Protects synchronization consistency",
+      "Enables graceful storage exhaustion handling"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Storage Quota Exhaustion",
+      "code": "POST /upload HTTP/1.1\nContent-Type: video/mp4\nContent-Length: 2147483648\n\nHTTP/1.1 507 Insufficient Storage\nContent-Type: application/json\n\n{\n  \"error\": \"insufficient_storage\",\n  \"remainingQuota\": \"0MB\",\n  \"message\": \"Storage quota exceeded\"\n}"
+    },
+    "realWorldExample": "Cloud storage providers, enterprise NAS systems, backup platforms, collaborative document systems, and WebDAV infrastructures frequently use 507 responses during quota exhaustion events.",
+    "whyUnderrated": "Many developers treat storage exhaustion as a generic 500-level failure instead of distinguishing capacity-governance issues explicitly.",
+    "developerNotes": [
+      "Strongly associated with WebDAV ecosystems",
+      "Useful for multi-tenant quota enforcement",
+      "Can integrate with autoscaling storage systems",
+      "Helpful for distributed synchronization workflows"
+    ],
+    "securityImpact": "Quota-aware rejection protects infrastructures from storage exhaustion attacks and uncontrolled tenant resource consumption.",
+    "performanceImpact": "Early quota validation prevents expensive partial uploads and failed synchronization operations.",
+    "bestPractices": [
+      "Track tenant quotas accurately",
+      "Warn users before storage exhaustion occurs",
+      "Support cleanup and archival workflows",
+      "Use asynchronous storage monitoring",
+      "Implement scalable storage autoscaling strategies"
+    ],
+    "advancedArchitecture": {
+      "title": "Distributed Storage Governance Platforms",
+      "description": "Modern storage infrastructures combine quota engines, object lifecycle management, tiered archival systems, and autoscaling capacity orchestration to manage storage exhaustion safely."
+    }
+  }
     ]
   },
   {
@@ -17311,6 +19663,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Infinite Loop Detection in Distributed Request Routing",
+    "scenario": "A distributed proxy chain, CDN routing layer, service mesh, or workflow orchestration engine accidentally enters a recursive processing loop where requests repeatedly cycle between intermediaries or automation steps.",
+    "howItWorks": "When the server detects an infinite processing loop, it responds with 'HTTP/1.1 508 Loop Detected'. This prevents uncontrolled recursion, runaway routing amplification, or repeated dependency execution from consuming infrastructure resources indefinitely.",
+    "benefits": [
+      "Prevents runaway recursive processing",
+      "Protects service mesh stability",
+      "Improves distributed workflow reliability",
+      "Detects routing misconfigurations early",
+      "Reduces cascading infrastructure failures"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Recursive Workflow Detection",
+      "code": "POST /workflow/execute HTTP/1.1\nContent-Type: application/json\n\n{\n  \"workflow\": \"recursive_sync\"\n}\n\nHTTP/1.1 508 Loop Detected\nContent-Type: application/json\n\n{\n  \"error\": \"loop_detected\",\n  \"message\": \"Recursive dependency cycle identified\"\n}"
+    },
+    "realWorldExample": "Service meshes, orchestration engines, WebDAV infrastructures, CDN routing systems, and distributed workflow platforms may generate 508 responses when recursive dependency loops are detected.",
+    "whyUnderrated": "Many developers focus only on application-level recursion and overlook how distributed infrastructures themselves can accidentally create catastrophic routing or orchestration loops.",
+    "developerNotes": [
+      "Useful for workflow orchestration debugging",
+      "Can expose proxy routing misconfigurations",
+      "Important for distributed dependency analysis",
+      "Helpful for service mesh observability"
+    ],
+    "securityImpact": "Loop detection protects infrastructure from amplification attacks, recursive proxy abuse, and uncontrolled automation cascades.",
+    "performanceImpact": "Early loop detection prevents exponential resource exhaustion and network amplification failures.",
+    "bestPractices": [
+      "Track request traversal identifiers carefully",
+      "Set maximum workflow recursion depths",
+      "Monitor repeated routing paths",
+      "Validate orchestration graphs before execution",
+      "Use distributed tracing for loop analysis"
+    ],
+    "advancedArchitecture": {
+      "title": "Graph-Aware Service Orchestration Systems",
+      "description": "Modern distributed infrastructures use dependency graphs, traversal identifiers, and observability pipelines to detect and prevent recursive routing and orchestration failures dynamically."
+    }
+  }
     ]
   },
   {
@@ -17598,6 +19990,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Dynamic API Capability Discovery and Extension Negotiation",
+    "scenario": "A distributed API ecosystem requires clients to support mandatory protocol extensions, feature flags, schema negotiation rules, or custom capabilities before certain operations can execute safely.",
+    "howItWorks": "When the client fails to include required extension metadata or capability negotiation information, the server responds with 'HTTP/1.1 510 Not Extended'. The response may describe which extensions, headers, or protocol features are required for the request to proceed.",
+    "benefits": [
+      "Supports advanced feature negotiation",
+      "Enforces protocol extension compatibility",
+      "Improves distributed capability management",
+      "Prevents unsupported workflow execution",
+      "Enables modular API evolution"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Missing Extension Requirement",
+      "code": "POST /advanced-sync HTTP/1.1\nContent-Type: application/json\n\n{\n  \"syncMode\": \"incremental\"\n}\n\nHTTP/1.1 510 Not Extended\nContent-Type: application/json\n\n{\n  \"error\": \"extension_required\",\n  \"requiredExtension\": \"X-Sync-Capability\"\n}"
+    },
+    "realWorldExample": "Enterprise APIs, distributed synchronization platforms, protocol-gateway systems, and extensible cloud infrastructures may use 510 responses for capability-aware operations.",
+    "whyUnderrated": "Most developers rarely encounter protocol extension negotiation directly and underestimate its importance in evolving distributed ecosystems.",
+    "developerNotes": [
+      "Useful for capability-aware APIs",
+      "Can integrate with schema negotiation systems",
+      "Helpful for modular protocol evolution",
+      "Important for extensible enterprise infrastructures"
+    ],
+    "securityImpact": "Mandatory capability negotiation prevents clients from invoking unsupported or partially validated advanced operations.",
+    "performanceImpact": "Early extension validation avoids unnecessary processing for incompatible requests.",
+    "bestPractices": [
+      "Document required extensions clearly",
+      "Provide capability discovery endpoints",
+      "Avoid breaking backward compatibility abruptly",
+      "Validate extension metadata consistently",
+      "Monitor unsupported capability usage"
+    ],
+    "advancedArchitecture": {
+      "title": "Capability-Driven Distributed Platforms",
+      "description": "Large distributed ecosystems often evolve through dynamically negotiated feature capabilities, extension registries, and compatibility-aware service orchestration layers."
+    }
+  }
     ]
   },
   {
@@ -17885,6 +20317,46 @@
       "501-not-implemented",
       "502-bad-gateway",
       "503-service-unavailable"
+    ],
+    "advancedUseCases": [
+  {
+    "title": "Captive Portal Authentication and Network Access Control",
+    "scenario": "A user connects to a restricted Wi-Fi network in airports, hotels, campuses, enterprises, or public hotspots where internet access requires authentication, payment, policy acceptance, or device registration before normal traffic is allowed.",
+    "howItWorks": "When the client attempts to access external resources before completing network authentication, the gateway responds with 'HTTP/1.1 511 Network Authentication Required'. The client is then redirected toward a captive portal or network-access workflow.",
+    "benefits": [
+      "Supports controlled network onboarding",
+      "Enables captive portal authentication",
+      "Improves guest network management",
+      "Supports enterprise access governance",
+      "Separates network-level access control from application authentication"
+    ],
+    "implementationExample": {
+      "lang": "http",
+      "label": "Captive Portal Access Enforcement",
+      "code": "GET / HTTP/1.1\nHost: example.com\n\nHTTP/1.1 511 Network Authentication Required\nContent-Type: text/html\n\n<html>\n  <body>\n    <a href=\"https://wifi-login.example.com\">Authenticate to access network</a>\n  </body>\n</html>"
+    },
+    "realWorldExample": "Airport Wi-Fi systems, hotel internet portals, university campuses, enterprise guest networks, and public hotspot providers commonly rely on captive-portal workflows associated with 511 responses.",
+    "whyUnderrated": "Many developers rarely interact with network-layer authentication flows and therefore overlook the distinction between application authentication and network-access control.",
+    "developerNotes": [
+      "Strongly associated with captive portals",
+      "Useful for enterprise guest-network systems",
+      "Can integrate with NAC and identity platforms",
+      "Helpful for public hotspot onboarding workflows"
+    ],
+    "securityImpact": "Network authentication enforcement prevents unauthorized devices from accessing protected infrastructure or consuming network resources.",
+    "performanceImpact": "Captive portals centralize access governance while reducing unauthorized traffic across shared networks.",
+    "bestPractices": [
+      "Use HTTPS carefully in captive portal flows",
+      "Provide clear onboarding instructions",
+      "Avoid intercepting authenticated sessions unexpectedly",
+      "Monitor suspicious onboarding behavior",
+      "Integrate with secure identity verification systems"
+    ],
+    "advancedArchitecture": {
+      "title": "Zero-Trust Network Access Platforms",
+      "description": "Modern enterprise networking increasingly combines captive portal onboarding, device posture verification, identity-aware proxies, and zero-trust access enforcement before granting internet connectivity."
+    }
+  }
     ]
   }
 ]
