@@ -1,8 +1,17 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Hide Footer inside the Sanity Studio workspace to prevent layout overlays
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
 
   return (
     <footer className="bg-surface-high border-t border-outline-variant mt-auto">
@@ -31,6 +40,9 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/" className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-colors">Home</Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-colors">Blog</Link>
               </li>
               <li>
                 <Link href="/contact-us" className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-colors">Contact Us</Link>
