@@ -95,6 +95,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.errorfixer.toolsofsaas.com";
 
   try {
     const isProjectIdConfigured = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && 
@@ -102,13 +103,46 @@ export async function generateMetadata({ params }) {
     
     if (isProjectIdConfigured) {
       const post = await client.fetch(
-        `*[_type == "post" && slug.current == $slug][0] { title, excerpt, description }`,
+        `*[_type == "post" && slug.current == $slug][0] { title, excerpt, description, mainImage }`,
         { slug }
       );
       if (post) {
+        const title = `${post.title} | ErrorFixer Blog`;
+        const description = post.excerpt || post.description || "Read full article details.";
+        
+        let ogImageUrl = `${baseUrl}/assets/brand_logo.png`;
+        if (post.mainImage) {
+          try {
+            ogImageUrl = urlFor(post.mainImage).width(1200).height(630).url();
+          } catch (e) {
+            // fallback to site logo
+          }
+        }
+
         return {
-          title: `${post.title} | ErrorFixer Blog`,
-          description: post.excerpt || post.description || "Read full article details.",
+          title,
+          description,
+          openGraph: {
+            title,
+            description,
+            url: `${baseUrl}/blog/${slug}`,
+            siteName: 'ErrorFixer',
+            images: [
+              {
+                url: ogImageUrl,
+                width: 1200,
+                height: 630,
+                alt: post.title,
+              },
+            ],
+            type: 'article',
+          },
+          twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [ogImageUrl],
+          },
         };
       }
     }
@@ -119,6 +153,27 @@ export async function generateMetadata({ params }) {
   return {
     title: "Article Details | ErrorFixer Blog",
     description: "Read full blog post articles.",
+    openGraph: {
+      title: "Article Details | ErrorFixer Blog",
+      description: "Read full blog post articles.",
+      url: `${baseUrl}/blog/${slug}`,
+      siteName: 'ErrorFixer',
+      images: [
+        {
+          url: `${baseUrl}/assets/brand_logo.png`,
+          width: 1200,
+          height: 630,
+          alt: "ErrorFixer Blog Logo",
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: "Article Details | ErrorFixer Blog",
+      description: "Read full blog post articles.",
+      images: [`${baseUrl}/assets/brand_logo.png`],
+    },
   };
 }
 

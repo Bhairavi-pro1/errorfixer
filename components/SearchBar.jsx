@@ -13,13 +13,66 @@ export default function SearchBar() {
 
   useEffect(() => {
     if (query.trim().length > 0) {
-      const lowerQuery = query.toLowerCase();
-      const results = errorsData.filter(err => 
-        err.code.toString().includes(lowerQuery) || 
-        err.title.toLowerCase().includes(lowerQuery) ||
-        err.shortDescription.toLowerCase().includes(lowerQuery)
-      ).slice(0, 5); // top 5 auto-suggestions
-      setFilteredResults(results);
+      const lowerQuery = query.toLowerCase().trim();
+      
+      const scoredResults = errorsData
+        .map(err => {
+          const errCodeStr = err.code.toString();
+          const errTitleLower = err.title.toLowerCase();
+          let score = 0;
+          
+          // 1. Exact matches (Highest priority)
+          if (lowerQuery === errCodeStr) {
+            score += 100;
+          } else if (lowerQuery === errTitleLower) {
+            score += 90;
+          } else {
+            // 2. Whole word/phrase matches within the query
+            const escapedTitle = errTitleLower.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const titleRegex = new RegExp(`\\b${escapedTitle}\\b`, 'i');
+            const codeRegex = new RegExp(`\\b${errCodeStr}\\b`);
+            
+            if (codeRegex.test(lowerQuery)) {
+              score += 80;
+            }
+            if (titleRegex.test(lowerQuery)) {
+              score += 70;
+            }
+            
+            // 3. Substring matches (Handles cases when user is still typing, e.g. "40", "bad req")
+            if (errTitleLower.includes(lowerQuery)) {
+              score += 50;
+            } else if (errCodeStr.includes(lowerQuery)) {
+              score += 40;
+            }
+            
+            // 4. Variation matches (e.g. "HTTP 400 Bad Request")
+            if (err.variations && err.variations.length > 0) {
+              err.variations.forEach(v => {
+                const vNameLower = v.name.toLowerCase();
+                if (lowerQuery === vNameLower) {
+                  score += 60;
+                } else if (new RegExp(`\\b${vNameLower.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'i').test(lowerQuery)) {
+                  score += 45;
+                } else if (vNameLower.includes(lowerQuery)) {
+                  score += 30;
+                }
+              });
+            }
+            
+            // 5. Description matching (Fallback)
+            if (err.shortDescription.toLowerCase().includes(lowerQuery)) {
+              score += 10;
+            }
+          }
+          
+          return { err, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map(item => item.err);
+
+      setFilteredResults(scoredResults.slice(0, 5));
     } else {
       setFilteredResults([]);
     }

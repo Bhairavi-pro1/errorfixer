@@ -2,9 +2,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "../../lib/sanity";
 
+const baseUrl = "https://www.errorfixer.toolsofsaas.com";
+
 export const metadata = {
   title: "Engineering Blog – HTTP Errors, Fixes & API Best Practices | ErrorFixer",
   description: "Read the latest engineering articles on web standards, HTTP error troubleshooting, REST APIs, security, and developer productivity.",
+  openGraph: {
+    title: "Engineering Blog – HTTP Errors, Fixes & API Best Practices | ErrorFixer",
+    description: "Read the latest engineering articles on web standards, HTTP error troubleshooting, REST APIs, security, and developer productivity.",
+    url: `${baseUrl}/blog`,
+    siteName: 'ErrorFixer',
+    images: [
+      {
+        url: `${baseUrl}/assets/brand_logo.png`,
+        width: 1200,
+        height: 630,
+        alt: "ErrorFixer Blog Logo",
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Engineering Blog – HTTP Errors, Fixes & API Best Practices | ErrorFixer",
+    description: "Read the latest engineering articles on web standards, HTTP error troubleshooting, REST APIs, security, and developer productivity.",
+    images: [`${baseUrl}/assets/brand_logo.png`],
+  },
 };
 
 export default async function BlogPage() {
