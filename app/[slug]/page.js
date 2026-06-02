@@ -62,10 +62,11 @@ export async function generateMetadata({ params }) {
       siteName: 'ErrorFixer',
       images: [
         {
-          url: `${baseUrl}/og-image.jpg`,
+          url: `${baseUrl}/assets/brand_logo.png`,
           width: 1200,
           height: 630,
-        },
+          alt: "ErrorFixer Logo"
+        }
       ],
       type: 'article',
     },
@@ -73,7 +74,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
-      images: [`${baseUrl}/og-image.jpg`],
+      images: [`${baseUrl}/assets/brand_logo.png`],
     },
   };
 }

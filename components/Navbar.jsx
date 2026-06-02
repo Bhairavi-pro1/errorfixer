@@ -3,12 +3,19 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Hide Navbar inside the Sanity Studio workspace to prevent it from blocking the layout
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
 
   const categoriesList = ["1xx", "2xx", "3xx", "4xx", "5xx"];
 
@@ -113,6 +120,8 @@ export default function Navbar() {
             </button>
             <nav className="mt-8 flex flex-col gap-6 font-display">
               <Link href="/" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full">Home</Link>
+              <Link href="/blog" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full">Blog</Link>
+
               
               <div className="flex flex-col">
                 <button 
