@@ -3,6 +3,7 @@ import Image from "next/image";
 import { client, urlFor } from "../../../lib/sanity";
 import { PortableText } from "@portabletext/react";
 import ReadingProgressBar from "../../../components/error-detail/ReadingProgressBar";
+import AdSidebar from "../../../components/AdSidebar";
 
 const portableTextComponents = {
   block: {
@@ -261,8 +262,14 @@ export default async function BlogPostPage({ params }) {
       {/* Scroll indicator */}
       <ReadingProgressBar />
 
-      <article className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
+      <div className="w-full flex justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background min-h-screen">
+        {/* Left Sidebar */}
+        <div className="hidden xl:block w-[160px] flex-shrink-0 sticky top-24 h-[600px] mr-8">
+          <AdSidebar />
+        </div>
+
+        {/* Main Blog Content */}
+        <article className="flex-1 max-w-3xl min-w-0">
           {/* Breadcrumbs Navigation */}
           <nav className="flex items-center gap-2 text-xs font-semibold tracking-wide text-on-surface-variant mb-6 uppercase">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
@@ -343,8 +350,13 @@ export default async function BlogPostPage({ params }) {
             </Link>
             <span className="text-xs text-on-surface-variant">© ErrorFixer Blog</span>
           </div>
+        </article>
+
+        {/* Right Sidebar */}
+        <div className="hidden xl:block w-[160px] flex-shrink-0 sticky top-24 h-[600px] ml-8">
+          <AdSidebar />
         </div>
-      </article>
+      </div>
     </>
   );
 }

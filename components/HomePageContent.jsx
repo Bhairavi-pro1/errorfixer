@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import ErrorCard from "./ErrorCard";
 import AdBanner from "./AdBanner";
 import HomeSEOContent from "./HomeSEOContent";
@@ -9,18 +8,17 @@ import HomeSEOContent from "./HomeSEOContent";
 const CATEGORIES = ["All", "1xx", "2xx", "3xx", "4xx", "5xx"];
 
 export default function HomePageContent({ errors }) {
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category");
-
   const [activeCategory, setActiveCategory] = useState("All");
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get("category");
     if (categoryParam && CATEGORIES.includes(categoryParam)) {
       setActiveCategory(categoryParam);
       // scroll to filter section
       const el = document.getElementById("category-filters");
       if (el) {
-        // give the DOM and Next.js shallow routing a moment to settle
+        // give the DOM a moment to settle
         setTimeout(() => {
           // Use window.scrollTo for a more consistent smooth effect, 
           // accounting for the sticky header (~80px offset)
@@ -30,7 +28,7 @@ export default function HomePageContent({ errors }) {
         }, 150);
       }
     }
-  }, [categoryParam]);
+  }, []);
 
   // Filtering Logic
   const filteredErrors = errors.filter((err) => {

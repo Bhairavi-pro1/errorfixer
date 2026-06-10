@@ -1,5 +1,5 @@
 export default function SchemaScripts({ error }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://errorfixer.com";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://errorfixer.toolsofsaas.com";
   const pageUrl = `${baseUrl}/${error.slug}`;
 
   // 1. Article Schema

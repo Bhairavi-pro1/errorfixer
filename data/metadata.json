@@ -15,11 +15,11 @@
     "openGraph": {
       "title": "ErrorFixer – HTTP Error Code Solutions & Fixes",
       "description": "Understand, identify, and fix HTTP errors instantly with real-world solutions tailored for developers.",
-      "url": "https://www.errorfixer.toolsofsaas.com",
+      "url": "https://errorfixer.toolsofsaas.com",
       "siteName": "ErrorFixer",
       "images": [
         {
-          "url": "https://www.errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
           "width": 1200,
           "height": 630,
           "alt": "ErrorFixer Logo"
@@ -32,7 +32,7 @@
       "card": "summary_large_image",
       "title": "ErrorFixer – HTTP Error Code Solutions & Fixes",
       "description": "Understand, identify, and fix HTTP errors instantly with real-world solutions tailored for developers.",
-      "images": ["https://www.errorfixer.toolsofsaas.com/assets/brand_logo.png"],
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"],
       "creator": "@errorfixer"
     },
     "robots": {
@@ -58,7 +58,7 @@
       "web development troubleshooting"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/"
+      "canonical": "https://errorfixer.toolsofsaas.com/"
     }
   },
   "about-us": {
@@ -71,7 +71,7 @@
       "HTTP error solutions"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/about-us"
+      "canonical": "https://errorfixer.toolsofsaas.com/about-us"
     }
   },
   "contact-us": {
@@ -84,7 +84,7 @@
       "HTTP error help"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/contact-us"
+      "canonical": "https://errorfixer.toolsofsaas.com/contact-us"
     }
   },
   "privacy-policy": {
@@ -97,7 +97,7 @@
       "terms"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/privacy-policy"
+      "canonical": "https://errorfixer.toolsofsaas.com/privacy-policy"
     }
   },
   "terms-and-conditions": {
@@ -109,7 +109,7 @@
       "ErrorFixer terms"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/terms-and-conditions"
+      "canonical": "https://errorfixer.toolsofsaas.com/terms-and-conditions"
     }
   },
   "affiliate-disclosure": {
@@ -121,7 +121,7 @@
       "ErrorFixer transparency"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/affiliate-disclosure"
+      "canonical": "https://errorfixer.toolsofsaas.com/affiliate-disclosure"
     }
   },
   "100-continue": {
@@ -135,7 +135,7 @@
       "1xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/100-continue"
+      "canonical": "https://errorfixer.toolsofsaas.com/100-continue"
     }
   },
   "101-switching-protocols": {
@@ -149,7 +149,7 @@
       "1xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/101-switching-protocols"
+      "canonical": "https://errorfixer.toolsofsaas.com/101-switching-protocols"
     }
   },
   "102-processing": {
@@ -163,7 +163,7 @@
       "1xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/102-processing"
+      "canonical": "https://errorfixer.toolsofsaas.com/102-processing"
     }
   },
   "103-early-hints": {
@@ -177,7 +177,7 @@
       "1xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/103-early-hints"
+      "canonical": "https://errorfixer.toolsofsaas.com/103-early-hints"
     }
   },
   "200-ok": {
@@ -191,7 +191,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/200-ok"
+      "canonical": "https://errorfixer.toolsofsaas.com/200-ok"
     }
   },
   "201-created": {
@@ -205,7 +205,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/201-created"
+      "canonical": "https://errorfixer.toolsofsaas.com/201-created"
     }
   },
   "202-accepted": {
@@ -219,7 +219,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/202-accepted"
+      "canonical": "https://errorfixer.toolsofsaas.com/202-accepted"
     }
   },
   "203-non-authoritative-information": {
@@ -233,7 +233,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/203-non-authoritative-information"
+      "canonical": "https://errorfixer.toolsofsaas.com/203-non-authoritative-information"
     }
   },
   "204-no-content": {
@@ -247,7 +247,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/204-no-content"
+      "canonical": "https://errorfixer.toolsofsaas.com/204-no-content"
     }
   },
   "205-reset-content": {
@@ -261,7 +261,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/205-reset-content"
+      "canonical": "https://errorfixer.toolsofsaas.com/205-reset-content"
     }
   },
   "206-partial-content": {
@@ -275,7 +275,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/206-partial-content"
+      "canonical": "https://errorfixer.toolsofsaas.com/206-partial-content"
     }
   },
   "207-multi-status": {
@@ -289,7 +289,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/207-multi-status"
+      "canonical": "https://errorfixer.toolsofsaas.com/207-multi-status"
     }
   },
   "208-already-reported": {
@@ -303,7 +303,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/208-already-reported"
+      "canonical": "https://errorfixer.toolsofsaas.com/208-already-reported"
     }
   },
   "226-im-used": {
@@ -317,7 +317,7 @@
       "2xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/226-im-used"
+      "canonical": "https://errorfixer.toolsofsaas.com/226-im-used"
     }
   },
   "300-multiple-choices": {
@@ -331,7 +331,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/300-multiple-choices"
+      "canonical": "https://errorfixer.toolsofsaas.com/300-multiple-choices"
     }
   },
   "301-moved-permanently": {
@@ -345,7 +345,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/301-moved-permanently"
+      "canonical": "https://errorfixer.toolsofsaas.com/301-moved-permanently"
     }
   },
   "302-found": {
@@ -359,7 +359,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/302-found"
+      "canonical": "https://errorfixer.toolsofsaas.com/302-found"
     }
   },
   "303-see-other": {
@@ -373,7 +373,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/303-see-other"
+      "canonical": "https://errorfixer.toolsofsaas.com/303-see-other"
     }
   },
   "304-not-modified": {
@@ -387,7 +387,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/304-not-modified"
+      "canonical": "https://errorfixer.toolsofsaas.com/304-not-modified"
     }
   },
   "305-use-proxy": {
@@ -401,7 +401,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/305-use-proxy"
+      "canonical": "https://errorfixer.toolsofsaas.com/305-use-proxy"
     }
   },
   "307-temporary-redirect": {
@@ -415,7 +415,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/307-temporary-redirect"
+      "canonical": "https://errorfixer.toolsofsaas.com/307-temporary-redirect"
     }
   },
   "308-permanent-redirect": {
@@ -429,7 +429,7 @@
       "3xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/308-permanent-redirect"
+      "canonical": "https://errorfixer.toolsofsaas.com/308-permanent-redirect"
     }
   },
   "400-bad-request": {
@@ -443,7 +443,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/400-bad-request"
+      "canonical": "https://errorfixer.toolsofsaas.com/400-bad-request"
     }
   },
   "401-unauthorized": {
@@ -457,7 +457,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/401-unauthorized"
+      "canonical": "https://errorfixer.toolsofsaas.com/401-unauthorized"
     }
   },
   "402-payment-required": {
@@ -471,7 +471,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/402-payment-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/402-payment-required"
     }
   },
   "403-forbidden": {
@@ -485,7 +485,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/403-forbidden"
+      "canonical": "https://errorfixer.toolsofsaas.com/403-forbidden"
     }
   },
   "404-not-found": {
@@ -499,7 +499,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/404-not-found"
+      "canonical": "https://errorfixer.toolsofsaas.com/404-not-found"
     }
   },
   "405-method-not-allowed": {
@@ -513,7 +513,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/405-method-not-allowed"
+      "canonical": "https://errorfixer.toolsofsaas.com/405-method-not-allowed"
     }
   },
   "406-not-acceptable": {
@@ -527,7 +527,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/406-not-acceptable"
+      "canonical": "https://errorfixer.toolsofsaas.com/406-not-acceptable"
     }
   },
   "407-proxy-authentication-required": {
@@ -541,7 +541,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/407-proxy-authentication-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/407-proxy-authentication-required"
     }
   },
   "408-request-timeout": {
@@ -555,7 +555,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/408-request-timeout"
+      "canonical": "https://errorfixer.toolsofsaas.com/408-request-timeout"
     }
   },
   "409-conflict": {
@@ -569,7 +569,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/409-conflict"
+      "canonical": "https://errorfixer.toolsofsaas.com/409-conflict"
     }
   },
   "410-gone": {
@@ -583,7 +583,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/410-gone"
+      "canonical": "https://errorfixer.toolsofsaas.com/410-gone"
     }
   },
   "411-length-required": {
@@ -597,7 +597,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/411-length-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/411-length-required"
     }
   },
   "412-precondition-failed": {
@@ -611,7 +611,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/412-precondition-failed"
+      "canonical": "https://errorfixer.toolsofsaas.com/412-precondition-failed"
     }
   },
   "413-payload-too-large": {
@@ -625,7 +625,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/413-payload-too-large"
+      "canonical": "https://errorfixer.toolsofsaas.com/413-payload-too-large"
     }
   },
   "414-uri-too-long": {
@@ -639,7 +639,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/414-uri-too-long"
+      "canonical": "https://errorfixer.toolsofsaas.com/414-uri-too-long"
     }
   },
   "415-unsupported-media-type": {
@@ -653,7 +653,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/415-unsupported-media-type"
+      "canonical": "https://errorfixer.toolsofsaas.com/415-unsupported-media-type"
     }
   },
   "416-range-not-satisfiable": {
@@ -667,7 +667,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/416-range-not-satisfiable"
+      "canonical": "https://errorfixer.toolsofsaas.com/416-range-not-satisfiable"
     }
   },
   "417-expectation-failed": {
@@ -681,7 +681,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/417-expectation-failed"
+      "canonical": "https://errorfixer.toolsofsaas.com/417-expectation-failed"
     }
   },
   "418-im-a-teapot": {
@@ -695,7 +695,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/418-im-a-teapot"
+      "canonical": "https://errorfixer.toolsofsaas.com/418-im-a-teapot"
     }
   },
   "421-misdirected-request": {
@@ -709,7 +709,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/421-misdirected-request"
+      "canonical": "https://errorfixer.toolsofsaas.com/421-misdirected-request"
     }
   },
   "422-unprocessable-entity": {
@@ -723,7 +723,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/422-unprocessable-entity"
+      "canonical": "https://errorfixer.toolsofsaas.com/422-unprocessable-entity"
     }
   },
   "423-locked": {
@@ -737,7 +737,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/423-locked"
+      "canonical": "https://errorfixer.toolsofsaas.com/423-locked"
     }
   },
   "424-failed-dependency": {
@@ -751,7 +751,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/424-failed-dependency"
+      "canonical": "https://errorfixer.toolsofsaas.com/424-failed-dependency"
     }
   },
   "425-too-early": {
@@ -765,7 +765,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/425-too-early"
+      "canonical": "https://errorfixer.toolsofsaas.com/425-too-early"
     }
   },
   "426-upgrade-required": {
@@ -779,7 +779,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/426-upgrade-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/426-upgrade-required"
     }
   },
   "428-precondition-required": {
@@ -793,7 +793,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/428-precondition-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/428-precondition-required"
     }
   },
   "429-too-many-requests": {
@@ -807,7 +807,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/429-too-many-requests"
+      "canonical": "https://errorfixer.toolsofsaas.com/429-too-many-requests"
     }
   },
   "431-request-header-fields-too-large": {
@@ -821,7 +821,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/431-request-header-fields-too-large"
+      "canonical": "https://errorfixer.toolsofsaas.com/431-request-header-fields-too-large"
     }
   },
   "451-unavailable-for-legal-reasons": {
@@ -835,7 +835,7 @@
       "4xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/451-unavailable-for-legal-reasons"
+      "canonical": "https://errorfixer.toolsofsaas.com/451-unavailable-for-legal-reasons"
     }
   },
   "500-internal-server-error": {
@@ -849,7 +849,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/500-internal-server-error"
+      "canonical": "https://errorfixer.toolsofsaas.com/500-internal-server-error"
     }
   },
   "501-not-implemented": {
@@ -863,7 +863,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/501-not-implemented"
+      "canonical": "https://errorfixer.toolsofsaas.com/501-not-implemented"
     }
   },
   "502-bad-gateway": {
@@ -877,7 +877,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/502-bad-gateway"
+      "canonical": "https://errorfixer.toolsofsaas.com/502-bad-gateway"
     }
   },
   "503-service-unavailable": {
@@ -891,7 +891,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/503-service-unavailable"
+      "canonical": "https://errorfixer.toolsofsaas.com/503-service-unavailable"
     }
   },
   "504-gateway-timeout": {
@@ -905,7 +905,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/504-gateway-timeout"
+      "canonical": "https://errorfixer.toolsofsaas.com/504-gateway-timeout"
     }
   },
   "505-http-version-not-supported": {
@@ -919,7 +919,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/505-http-version-not-supported"
+      "canonical": "https://errorfixer.toolsofsaas.com/505-http-version-not-supported"
     }
   },
   "506-variant-also-negotiates": {
@@ -933,7 +933,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/506-variant-also-negotiates"
+      "canonical": "https://errorfixer.toolsofsaas.com/506-variant-also-negotiates"
     }
   },
   "507-insufficient-storage": {
@@ -947,7 +947,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/507-insufficient-storage"
+      "canonical": "https://errorfixer.toolsofsaas.com/507-insufficient-storage"
     }
   },
   "508-loop-detected": {
@@ -961,7 +961,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/508-loop-detected"
+      "canonical": "https://errorfixer.toolsofsaas.com/508-loop-detected"
     }
   },
   "510-not-extended": {
@@ -975,7 +975,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/510-not-extended"
+      "canonical": "https://errorfixer.toolsofsaas.com/510-not-extended"
     }
   },
   "511-network-authentication-required": {
@@ -989,7 +989,7 @@
       "5xx error"
     ],
     "alternates": {
-      "canonical": "https://www.errorfixer.toolsofsaas.com/511-network-authentication-required"
+      "canonical": "https://errorfixer.toolsofsaas.com/511-network-authentication-required"
     }
   }
 }

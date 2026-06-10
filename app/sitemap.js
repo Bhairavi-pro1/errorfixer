@@ -2,7 +2,7 @@ import errorsData from '../data/errors.json';
 import { client } from '../lib/sanity';
 
 export default async function sitemap() {
-  const baseUrl = "https://www.errorfixer.toolsofsaas.com";
+  const baseUrl = "https://errorfixer.toolsofsaas.com";
 
   // Static routes
   const staticRoutes = [
