@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: "How do I look up a specific HTTP error code?",
-    a: "Simply use the category filter buttons on this page (1xx, 2xx, 3xx, 4xx, 5xx) to narrow down the list, then click the error card that matches your code. Each error has its own dedicated page with a plain-English explanation, common causes, and copy-paste solutions for Node.js, React, Apache, and Nginx. You can also browse directly by URL — for example, errorfixer.com/404-not-found.",
+    a: "Simply use the category filter buttons on this page (1xx, 2xx, 3xx, 4xx, 5xx) to narrow down the list, then click the error card that matches your code. Each error has its own dedicated page with a plain-English explanation, common causes, and copy-paste solutions for Node.js, React, Apache, and Nginx. You can also browse directly by URL — for example, errorfixer.toolsofsaas.com/404-not-found.",
   },
   {
     q: "Does ErrorFixer cover all HTTP status codes?",
@@ -42,7 +42,7 @@ const FAQS = [
   },
   {
     q: "Is there a way to search for an error code directly?",
-    a: "Yes — you can type the numeric code or the status name directly into the search bar at the top of the page. The filter buttons also let you quickly isolate a category. For direct access, every error has a clean, predictable URL structure at errorfixer.com/[code]-[name] (e.g. /500-internal-server-error), which you can navigate to directly from your browser address bar or bookmark for quick reference.",
+    a: "Yes — you can type the numeric code or the status name directly into the search bar at the top of the page. The filter buttons also let you quickly isolate a category. For direct access, every error has a clean, predictable URL structure at errorfixer.toolsofsaas.com/[code]-[name] (e.g. /500-internal-server-error), which you can navigate to directly from your browser address bar or bookmark for quick reference.",
   },
   {
     q: "Does ErrorFixer explain informational (1xx) status codes too?",
