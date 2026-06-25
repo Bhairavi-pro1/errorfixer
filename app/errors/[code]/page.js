@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import errorsData from "../../../data/errors.json";
 
 export async function generateStaticParams() {
@@ -14,6 +14,6 @@ export default async function ErrorCodeRedirectPage({ params }) {
   if (error) {
     redirect(`/${error.slug}`);
   } else {
-    redirect('/');
+    notFound();
   }
 }

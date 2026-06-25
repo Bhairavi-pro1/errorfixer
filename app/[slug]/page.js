@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import errorsData from "../../data/errors.json";
 import siteMetadata from "../../data/metadata.json";
 import AdBanner from "../../components/AdBanner";
@@ -85,15 +86,7 @@ export default async function ErrorDetailPage({ params }) {
   const error = errorsData.find((e) => e.slug === slug);
 
   if (!error) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-4xl font-display font-bold text-foreground mb-4">Error Code Not Found</h1>
-        <p className="text-on-surface-variant mb-8">We couldn't find the solution for this specific error.</p>
-        <Link href="/" className="px-6 py-3 bg-surface-high hover:bg-surface-highest rounded-md font-semibold text-foreground transition-colors border border-outline-variant">
-          Back to Homepage
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   // Check if error has Phase 1 enriched data

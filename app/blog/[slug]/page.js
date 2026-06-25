@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import { client, urlFor } from "../../../lib/sanity";
 import { PortableText } from "@portabletext/react";
@@ -206,15 +207,7 @@ export default async function BlogPostPage({ params }) {
   }
 
   if (!post) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-24 text-center">
-        <h1 className="text-4xl font-display font-bold text-foreground mb-4">Article Not Found</h1>
-        <p className="text-on-surface-variant mb-8">We could not find the article you are looking for.</p>
-        <Link href="/blog" className="px-6 py-3 bg-surface-high hover:bg-surface-highest text-foreground border border-outline-variant font-semibold rounded-lg transition-colors">
-          Back to Blog List
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
