@@ -13,20 +13,14 @@ export default function SchemaScripts({ error }) {
     "dateModified": new Date().toISOString(),
     "author": {
       "@type": "Organization",
-      "@id": `${baseUrl}/#organization`,
-      "name": "ErrorFixer",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${baseUrl}/assets/brand_logo.png`
-      }
+      "name": "ErrorFixer"
     },
     "publisher": {
       "@type": "Organization",
-      "@id": `${baseUrl}/#organization`,
       "name": "ErrorFixer",
       "logo": {
         "@type": "ImageObject",
-        "url": `${baseUrl}/assets/brand_logo.png`
+        "url": `${baseUrl}/logo.png`
       }
     }
   };
