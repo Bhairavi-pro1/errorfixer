@@ -15,7 +15,29 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata = siteMetadata.layout;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://errorfixer.toolsofsaas.com";
+
+export const metadata = {
+  metadataBase: new URL(baseUrl),
+  ...siteMetadata.layout,
+  openGraph: {
+    ...siteMetadata.layout?.openGraph,
+    url: baseUrl,
+    images: [
+      {
+        url: "/assets/brand_logo.png",
+        width: 1200,
+        height: 630,
+        alt: "ErrorFixer Logo",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    ...siteMetadata.layout?.twitter,
+    images: ["/assets/brand_logo.png"],
+  },
+};
 
 export default function RootLayout({ children }) {
   return (

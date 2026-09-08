@@ -9,14 +9,14 @@ export default function AdSidebar() {
   <body>
     <script type="text/javascript">
       atOptions = {
-        'key' : 'b90c099ee17a36286a02b5f60fecf58a',
+        'key' : 'd1720e24b3eaaa5aa2f04f6480f4f69c',
         'format' : 'iframe',
         'height' : 600,
         'width' : 160,
         'params' : {}
       };
     </script>
-    <script type="text/javascript" src="https://www.highperformanceformat.com/b90c099ee17a36286a02b5f60fecf58a/invoke.js"></script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/d1720e24b3eaaa5aa2f04f6480f4f69c/invoke.js"></script>
   </body>
 </html>`;
 

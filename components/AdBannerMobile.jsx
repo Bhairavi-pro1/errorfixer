@@ -1,4 +1,4 @@
-export default function AdBanner() {
+export default function AdBannerMobile() {
   const iframeHtml = `<!DOCTYPE html>
 <html>
   <head>
@@ -9,28 +9,28 @@ export default function AdBanner() {
   <body>
     <script type="text/javascript">
       atOptions = {
-        'key' : 'e2051dca3c2bb317ee62af29706f4816',
+        'key' : '08c962ba39cc51ed22ba2dd21a43b419',
         'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
+        'height' : 50,
+        'width' : 320,
         'params' : {}
       };
     </script>
-    <script type="text/javascript" src="https://www.highperformanceformat.com/e2051dca3c2bb317ee62af29706f4816/invoke.js"></script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/08c962ba39cc51ed22ba2dd21a43b419/invoke.js"></script>
   </body>
 </html>`;
 
   return (
-    <div className="w-full py-6 flex justify-center">
-      <div className="max-w-[728px] w-full min-h-[90px] flex justify-center items-center overflow-hidden">
+    <div className="w-full py-4 flex justify-center">
+      <div className="max-w-[320px] w-full min-h-[50px] flex justify-center items-center overflow-hidden">
         <iframe
           srcDoc={iframeHtml}
-          width="728"
-          height="90"
+          width="320"
+          height="50"
           frameBorder="0"
           scrolling="no"
           style={{ border: 'none', overflow: 'hidden', backgroundColor: 'transparent' }}
-          title="Advertisement"
+          title="Mobile Advertisement"
         />
       </div>
     </div>

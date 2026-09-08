@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export default function StickyTOC({ error }) {
+export default function MobileTOC({ error }) {
   const [activeId, setActiveId] = useState("");
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const sections = [
     { id: "overview", label: "Overview" },
@@ -29,7 +30,7 @@ export default function StickyTOC({ error }) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" } // trigger active state closer to top
+      { rootMargin: "-20% 0px -80% 0px" }
     );
 
     sections.forEach(({ id }) => {
@@ -41,6 +42,7 @@ export default function StickyTOC({ error }) {
   }, [sections]);
 
   const handleNavClick = (id) => {
+    setIsMobileOpen(false);
     const el = document.getElementById(id);
     if (el) {
       const yOffset = -90;
@@ -50,25 +52,41 @@ export default function StickyTOC({ error }) {
   };
 
   return (
-    <nav className="hidden lg:block w-64 flex-shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-hide pr-4">
-      <h3 className="font-display font-bold text-foreground mb-4 uppercase tracking-wider text-xs border-b border-outline-variant pb-2">Contents</h3>
-      <ul className="space-y-3 border-l border-outline-variant/50 pl-4 relative">
-        {sections.map(({ id, label }) => (
-          <li key={id} className="relative">
-            {activeId === id && (
-              <div className="absolute -left-[17px] top-1 w-[2px] h-4 bg-primary rounded-r"></div>
-            )}
+    <div className="lg:hidden mb-4 bg-surface-high border border-outline-variant rounded-lg p-3 sm:p-4 glass shadow-sm">
+      <button 
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        className="w-full flex items-center justify-between text-foreground font-bold font-display text-sm sm:text-base focus:outline-none"
+        aria-expanded={isMobileOpen}
+      >
+        <span className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+          Table of Contents
+        </span>
+        <svg className={`w-4 h-4 sm:w-5 sm:h-5 text-tertiary transition-transform duration-300 ${isMobileOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileOpen ? "max-h-[500px] mt-3 pt-3 border-t border-outline-variant" : "max-h-0"}`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 py-1">
+          {sections.map(({ id, label }) => (
             <button
+              key={id}
               onClick={() => handleNavClick(id)}
-              className={`text-sm w-full text-left transition-colors hover:text-foreground ${
-                activeId === id ? "text-primary font-bold" : "text-on-surface-variant hover:text-on-surface-variant/80"
+              className={`text-xs sm:text-sm w-full text-left px-2.5 py-1.5 rounded-md transition-colors flex items-center justify-between ${
+                activeId === id 
+                  ? "bg-primary/10 text-primary font-bold border border-primary/20" 
+                  : "text-on-surface-variant hover:bg-surface-highest hover:text-foreground"
               }`}
             >
-              {label}
+              <span>{label}</span>
+              <span className="text-[10px] text-outline-variant">&rarr;</span>
             </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
