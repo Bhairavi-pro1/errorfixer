@@ -2,6 +2,7 @@ import Link from "next/link";
 import errorsData from "../../data/errors.json";
 import siteMetadata from "../../data/metadata.json";
 import AdBanner from "../../components/AdBanner";
+import AdBannerMobile from "../../components/AdBannerMobile";
 import AdSidebar from "../../components/AdSidebar";
 import Tabs from "../../components/Tabs";
 import DebugChecklist from "../../components/DebugChecklist";
@@ -25,6 +26,7 @@ import DevNotes from "../../components/error-detail/DevNotes";
 import AdvancedUseCases from "../../components/error-detail/AdvancedUseCases";
 import ShareCopyBar from "../../components/error-detail/ShareCopyBar";
 import StickyTOC from "../../components/error-detail/StickyTOC";
+import MobileTOC from "../../components/error-detail/MobileTOC";
 import SchemaScripts from "../../components/error-detail/SchemaScripts";
 
 export async function generateStaticParams() {
@@ -111,13 +113,18 @@ export default async function ErrorDetailPage({ params }) {
         </div>
 
         {/* Main Layout (Content + TOC) */}
-        <div className="flex-1 max-w-6xl min-w-0 flex flex-col lg:flex-row gap-12 py-12 pb-24 relative">
+        <div className="flex-1 max-w-6xl min-w-0 flex flex-col lg:flex-row gap-6 md:gap-12 py-6 md:py-12 pb-16 md:pb-24 relative">
           
           {/* Main Content Column */}
           <div className="flex-1 max-w-3xl min-w-0">
             <Breadcrumbs error={error} />
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6">
+            {/* Mobile Table of Contents (Top of page on mobile) */}
+            {isEnriched && (
+              <MobileTOC error={error} />
+            )}
+
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-3 sm:mb-6 tracking-tight">
               <span className="text-primary">{error.code}</span> - {error.title}
             </h1>
             
@@ -129,14 +136,20 @@ export default async function ErrorDetailPage({ params }) {
                 <ErrorOverview error={error} />
                 <SymptomsSection error={error} />
                 
-                <div className="mb-12"><AdBanner /></div>
+                <div className="mb-6 sm:mb-12">
+                  <div className="hidden md:block"><AdBanner /></div>
+                  <div className="block md:hidden"><AdBannerMobile /></div>
+                </div>
                 
                 <CausesAccordion error={error} />
                 <StepByStepSolutions error={error} />
                 <AdvancedFixes error={error} />
                 <PlatformTabs error={error} />
                 
-                <div className="mb-12"><AdBanner /></div>
+                <div className="mb-6 sm:mb-12">
+                  <div className="hidden md:block"><AdBanner /></div>
+                  <div className="block md:hidden"><AdBannerMobile /></div>
+                </div>
                 
                 <ErrorVariations error={error} />
                 <PreventionTips error={error} />
@@ -146,28 +159,34 @@ export default async function ErrorDetailPage({ params }) {
                 <DevNotes error={error} />
                 <AdvancedUseCases error={error} />
                 
-                <div className="mb-12"><AdBanner /></div>
+                <div className="mb-6 sm:mb-12">
+                  <div className="hidden md:block"><AdBanner /></div>
+                  <div className="block md:hidden"><AdBannerMobile /></div>
+                </div>
               </>
             ) : (
               // Fallback for legacy layout if an error somehow wasn't enriched
               <>
-                <p className="text-xl md:text-2xl text-foreground/90 leading-relaxed mb-6 font-medium">
+                <p className="text-sm sm:text-xl md:text-2xl text-foreground/90 leading-relaxed mb-4 sm:mb-6 font-medium text-justify hyphens-auto">
                   {error.shortDescription}
                 </p>
-                <div className="mb-8"><AdBanner /></div>
-                <section className="mb-12">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-6 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-md bg-surface-high flex items-center justify-center border border-outline-variant text-primary font-mono text-sm">?</span>
+                <div className="mb-6 sm:mb-8">
+                  <div className="hidden md:block"><AdBanner /></div>
+                  <div className="block md:hidden"><AdBannerMobile /></div>
+                </div>
+                <section className="mb-6 sm:mb-12">
+                  <h2 className="text-base sm:text-2xl font-display font-bold text-foreground mb-3 sm:mb-6 flex items-center gap-2">
+                    <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-surface-high flex items-center justify-center border border-outline-variant text-primary font-mono text-xs sm:text-sm">?</span>
                     Why This Happens
                   </h2>
-                  <div className="bg-surface-low border border-outline-variant rounded-md p-6 glass">
-                    <ul className="space-y-3">
+                  <div className="bg-surface-low border border-outline-variant rounded-md p-3 sm:p-6 glass">
+                    <ul className="space-y-2 sm:space-y-3">
                       {error.causes.map((cause, idx) => (
-                        <li key={idx} className="flex items-start text-foreground/90">
-                          <svg className="w-5 h-5 text-tertiary mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <li key={idx} className="flex items-start text-foreground/90 text-xs sm:text-base">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-tertiary mr-2 sm:mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>{cause}</span>
+                          <span className="text-justify hyphens-auto">{cause}</span>
                         </li>
                       ))}
                     </ul>

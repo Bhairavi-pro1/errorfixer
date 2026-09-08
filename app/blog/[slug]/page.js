@@ -7,28 +7,28 @@ import AdSidebar from "../../../components/AdSidebar";
 
 const portableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-base md:text-lg text-foreground/90 leading-relaxed mb-6 font-sans">{children}</p>,
-    h1: ({ children }) => <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mt-12 mb-6">{children}</h1>,
+    normal: ({ children }) => <p className="text-xs sm:text-base md:text-lg text-foreground/90 leading-relaxed mb-3 sm:mb-6 font-sans text-justify hyphens-auto">{children}</p>,
+    h1: ({ children }) => <h1 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mt-6 sm:mt-12 mb-3 sm:mb-6">{children}</h1>,
     h2: ({ children }) => (
-      <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mt-10 mb-5 flex items-center gap-2 border-b border-outline-variant pb-2">
-        <span className="w-1.5 h-6 rounded-full bg-primary inline-block"></span>
+      <h2 className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-foreground mt-5 sm:mt-10 mb-2.5 sm:mb-5 flex items-center gap-2 border-b border-outline-variant pb-1.5 sm:pb-2">
+        <span className="w-1.5 h-4 sm:h-6 rounded-full bg-primary inline-block"></span>
         {children}
       </h2>
     ),
-    h3: ({ children }) => <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mt-8 mb-4">{children}</h3>,
+    h3: ({ children }) => <h3 className="text-sm sm:text-xl md:text-2xl font-display font-bold text-foreground mt-4 sm:mt-8 mb-2 sm:mb-4">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-5 pl-6 rounded-r-xl italic my-8 text-foreground/95 border-l-primary/80">
+      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-3 sm:p-5 pl-4 sm:pl-6 rounded-r-xl italic my-4 sm:my-8 text-foreground/95 border-l-primary/80 text-xs sm:text-base text-justify hyphens-auto">
         {children}
       </blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-3 text-base md:text-lg text-foreground/90 font-sans">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-3 text-base md:text-lg text-foreground/90 font-sans">{children}</ol>,
+    bullet: ({ children }) => <ul className="list-disc pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-xs sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-xs sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
+    bullet: ({ children }) => <li className="text-justify hyphens-auto">{children}</li>,
+    number: ({ children }) => <li className="text-justify hyphens-auto">{children}</li>,
   },
   marks: {
     link: ({ children, value }) => {
@@ -45,7 +45,7 @@ const portableTextComponents = {
       );
     },
     code: ({ children }) => (
-      <code className="px-1.5 py-0.5 rounded bg-surface-highest border border-outline-variant font-mono text-sm text-tertiary font-medium">
+      <code className="px-1.5 py-0.5 rounded bg-surface-highest border border-outline-variant font-mono text-[11px] sm:text-sm text-tertiary font-medium">
         {children}
       </code>
     ),
@@ -56,7 +56,7 @@ const portableTextComponents = {
       try {
         const imageUrl = urlFor(value).width(900).url();
         return (
-          <div className="relative w-full aspect-video my-8 rounded-2xl overflow-hidden border border-outline-variant bg-surface-high">
+          <div className="relative w-full aspect-video my-4 sm:my-8 rounded-xl sm:rounded-2xl overflow-hidden border border-outline-variant bg-surface-high">
             <Image
               src={imageUrl}
               alt={value.alt || "Article Image"}
@@ -73,7 +73,7 @@ const portableTextComponents = {
     code: ({ value }) => {
       if (!value || !value.code) return null;
       return (
-        <pre className="p-5 rounded-2xl bg-surface-low border border-outline-variant font-mono text-sm overflow-x-auto my-8 text-foreground/95 leading-relaxed shadow-inner">
+        <pre className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-low border border-outline-variant font-mono text-[11px] sm:text-sm overflow-x-auto my-4 sm:my-8 text-foreground/95 leading-relaxed shadow-inner">
           <code>{value.code}</code>
         </pre>
       );
@@ -262,7 +262,7 @@ export default async function BlogPostPage({ params }) {
       {/* Scroll indicator */}
       <ReadingProgressBar />
 
-      <div className="w-full flex justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background min-h-screen">
+      <div className="w-full flex justify-center py-6 sm:py-12 px-3 sm:px-6 lg:px-8 bg-background min-h-screen">
         {/* Left Sidebar */}
         <div className="hidden xl:block w-[160px] flex-shrink-0 sticky top-24 h-[600px] mr-8">
           <AdSidebar />
@@ -271,53 +271,53 @@ export default async function BlogPostPage({ params }) {
         {/* Main Blog Content */}
         <article className="flex-1 max-w-3xl min-w-0">
           {/* Breadcrumbs Navigation */}
-          <nav className="flex items-center gap-2 text-xs font-semibold tracking-wide text-on-surface-variant mb-6 uppercase">
+          <nav className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-semibold tracking-wide text-on-surface-variant mb-3 sm:mb-6 uppercase">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
             <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
             <span>/</span>
-            <span className="text-foreground truncate max-w-[200px] md:max-w-xs">{post.title}</span>
+            <span className="text-foreground truncate max-w-[160px] sm:max-w-xs">{post.title}</span>
           </nav>
 
           {/* Post Header */}
-          <header className="mb-8">
+          <header className="mb-4 sm:mb-8">
             {post.category && (
-              <span className="px-3 py-1 text-xs font-bold tracking-wider text-primary bg-primary-container/10 border border-primary/20 rounded-md uppercase">
+              <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold tracking-wider text-primary bg-primary-container/10 border border-primary/20 rounded-md uppercase">
                 {post.category}
               </span>
             )}
             
-            <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground leading-tight">
+            <h1 className="mt-2.5 sm:mt-4 text-xl sm:text-3xl md:text-5xl font-display font-bold text-foreground leading-tight tracking-tight">
               {post.title}
             </h1>
 
             {/* Default Author Profile and Metadata */}
-            <div className="mt-6 flex items-center justify-between gap-4 py-4 border-y border-outline-variant/60">
-              <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-outline-variant bg-surface-high flex items-center justify-center">
+            <div className="mt-3 sm:mt-6 flex items-center justify-between gap-3 sm:gap-4 py-2.5 sm:py-4 border-y border-outline-variant/60">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="relative w-8 h-8 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-outline-variant bg-surface-high flex items-center justify-center flex-shrink-0">
                   <Image
                     src="/assets/brand_logo.png"
                     alt="ErrorFixer"
                     fill
                     sizes="48px"
-                    className="object-contain p-1.5"
+                    className="object-contain p-1 sm:p-1.5"
                   />
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-foreground">ErrorFixer</div>
-                  <div className="text-xs text-on-surface-variant">Official Publisher</div>
+                  <div className="text-xs sm:text-sm font-bold text-foreground">ErrorFixer</div>
+                  <div className="text-[10px] sm:text-xs text-on-surface-variant">Official Publisher</div>
                 </div>
               </div>
 
-              <div className="text-right text-xs md:text-sm text-on-surface-variant font-medium">
+              <div className="text-right text-[10px] sm:text-xs md:text-sm text-on-surface-variant font-medium">
                 <time dateTime={post.publishedAt}>{formattedDate}</time>
-                <div className="mt-0.5 text-xs text-on-surface-variant/80">{getDynamicReadTime(post)}</div>
+                <div className="mt-0.5 text-[10px] sm:text-xs text-on-surface-variant/80">{getDynamicReadTime(post)}</div>
               </div>
             </div>
           </header>
 
           {/* Hero Main Image */}
-          <div className="relative aspect-video w-full mb-10 overflow-hidden rounded-2xl border border-outline-variant shadow-xl bg-surface-high">
+          <div className="relative aspect-video w-full mb-4 sm:mb-8 overflow-hidden rounded-xl sm:rounded-2xl border border-outline-variant shadow-xl bg-surface-high">
             <Image
               src={getPostImageUrl(post)}
               alt={post.title}
@@ -338,17 +338,17 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           {/* Footer Back Button */}
-          <div className="mt-16 pt-8 border-t border-outline-variant/60 flex justify-between items-center">
+          <div className="mt-8 sm:mt-16 pt-4 sm:pt-8 border-t border-outline-variant/60 flex justify-between items-center">
             <Link 
               href="/blog" 
-              className="group flex items-center gap-2 text-sm font-bold text-primary hover:text-tertiary transition-colors"
+              className="group flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-primary hover:text-tertiary transition-colors"
             >
-              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               Back to Blog Listing
             </Link>
-            <span className="text-xs text-on-surface-variant">© ErrorFixer Blog</span>
+            <span className="text-[10px] sm:text-xs text-on-surface-variant">© ErrorFixer Blog</span>
           </div>
         </article>
 

@@ -1,74 +1,164 @@
 import siteMetadata from "../../data/metadata.json";
+import Link from "next/link";
 
-export const metadata = siteMetadata["terms-and-conditions"];
+export const metadata = siteMetadata["terms-and-conditions"] || {
+  title: "Terms and Conditions | ErrorFixer",
+  description: "Read the complete terms and conditions for using ErrorFixer's HTTP status code and diagnostic database.",
+};
 
 export default function TermsAndConditions() {
   return (
-    <div className="w-full">
-      <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
-          Terms and <span className="gradient-text">Conditions</span>
-        </h1>
-        <p className="text-sm text-on-surface-variant mb-10">Last Updated: May 1, 2026</p>
+    <div className="w-full bg-background min-h-screen py-6 sm:py-12">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
+        
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6">
+          <ol className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm text-on-surface-variant">
+            <li>
+              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            </li>
+            <li><span className="text-outline-variant">/</span></li>
+            <li className="text-foreground font-semibold" aria-current="page">Terms & Conditions</li>
+          </ol>
+        </nav>
 
-        <div className="space-y-8 text-on-surface-variant leading-relaxed">
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">1. Acceptance of Terms</h2>
-            <p>
-              By accessing and using ErrorFixer ("the Website"), you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">2. Description of Service</h2>
-            <p>
-              ErrorFixer provides users with access to a rich collection of resources related to understanding, identifying, and resolving HTTP error codes. You understand and agree that the service is provided "AS-IS" and that ErrorFixer assumes no responsibility for the timeliness, deletion, mis-delivery, or failure to store any user communications or personalization settings.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">3. Third-Party Services and Advertising</h2>
-            <p className="mb-3">
-              To provide, maintain, and improve our services, ErrorFixer utilizes certain third-party platforms:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong className="text-foreground">Google Analytics & Search Console:</strong> We use these tools to understand site traffic and usage patterns. This data helps us improve the user experience.</li>
-              <li><strong className="text-foreground">Google AdSense:</strong> We use third-party advertising companies to serve ads when you visit our website. These companies may use information about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.</li>
-            </ul>
-            <p className="mt-3">
-              By using ErrorFixer, you consent to the processing of data about you by these third parties in the manner and for the purposes set out above and in our Privacy Policy.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">4. Intellectual Property</h2>
-            <p>
-              All content included on this site, such as text, graphics, logos, and button icons, is the property of ErrorFixer or its content suppliers and protected by international copyright laws. The compilation of all content on this site is the exclusive property of ErrorFixer.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">5. Limitation of Liability</h2>
-            <p>
-              ErrorFixer shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or the inability to use the service or for cost of procurement of substitute goods and services or resulting from any goods or services purchased or obtained or messages received or transactions entered into through the service.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">6. Modifications to Terms</h2>
-            <p>
-              ErrorFixer reserves the right to change these conditions from time to time as it sees fit and your continued use of the site will signify your acceptance of any adjustment to these terms. If there are any changes to our privacy policy, we will announce that these changes have been made on our home page and on other key pages on our site.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-display font-bold mb-4 text-foreground">7. Contact Information</h2>
-            <p>
-              If you have any questions or concerns regarding these Terms and Conditions, please contact us at <a href="mailto:Bhairavi.co@gmail.com" className="text-primary hover:underline">Bhairavi.co@gmail.com</a>.
-            </p>
-          </section>
+        {/* Header */}
+        <div className="mb-6 sm:mb-10 border-b border-outline-variant pb-4 sm:pb-8">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] sm:text-xs font-semibold mb-3 border border-primary/20">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Terms of Service
+          </div>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-2 sm:mb-4">
+            Terms and <span className="gradient-text">Conditions</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-on-surface-variant">
+            Last Updated: May 1, 2026 &bull; Agreement for Platform Use
+          </p>
         </div>
-      </section>
+
+        {/* Quick Highlights Box */}
+        <div className="bg-surface-low border border-outline-variant rounded-lg p-3 sm:p-6 mb-6 sm:mb-10 shadow-sm">
+          <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-primary mb-2 flex items-center gap-1.5">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Overview of Terms
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 text-xs sm:text-sm text-on-surface-variant">
+            <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
+              <strong className="text-foreground block mb-0.5">Educational Purpose</strong>
+              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">All code samples, diagnostic commands, and server configurations are provided for technical reference.</p>
+            </div>
+            <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
+              <strong className="text-foreground block mb-0.5">Fair Usage</strong>
+              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">You may freely use our guides and solutions for building, debugging, and maintaining software applications.</p>
+            </div>
+            <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
+              <strong className="text-foreground block mb-0.5">No Warranty</strong>
+              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">Content is provided on an "as-is" basis; always test configuration changes in sandbox staging environments first.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Detailed Sections */}
+        <div className="space-y-4 sm:space-y-8 text-on-surface-variant">
+          
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">1</span>
+              Acceptance of Terms
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+              By accessing and using ErrorFixer ("the Website"), you acknowledge and agree to comply with these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the platform immediately.
+            </p>
+          </section>
+
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">2</span>
+              Description of Service & Scope
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+              ErrorFixer provides software engineers, web developers, sysadmins, and students with educational documentation, troubleshooting checklists, and architectural best practices covering standard and non-standard HTTP response status codes. The service is provided on an "as-is" and "as-available" basis.
+            </p>
+          </section>
+
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">3</span>
+              Third-Party Integrations & Advertising
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+              To keep our diagnostic guides 100% free and publicly accessible, ErrorFixer integrates third-party analytics and advertising services:
+            </p>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
+                <span className="flex-1 text-justify hyphens-auto">
+                  <strong className="text-foreground">Analytics Partners:</strong> Tools such as Google Analytics help evaluate site reliability and popular error documentation trends.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
+                <span className="flex-1 text-justify hyphens-auto">
+                  <strong className="text-foreground">Ad Networks:</strong> Contextual advertisement providers may deliver sponsored links or banners according to our Privacy Policy.
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">4</span>
+              Intellectual Property Rights
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+              All proprietary brand graphics, custom descriptions, diagrams, and site design are the intellectual property of ErrorFixer. Standard IETF/RFC specification excerpts and generic code patterns remain governed by their respective public and open-source licenses.
+            </p>
+          </section>
+
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">5</span>
+              Limitation of Liability
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+              Under no circumstances shall ErrorFixer or its contributors be held liable for any direct, indirect, incidental, special, or consequential damages resulting from system downtime, data loss, or server misconfiguration arising out of applying troubleshooting recommendations found on this website. Always verify configuration changes in controlled testing environments.
+            </p>
+          </section>
+
+          <section className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">6</span>
+              Changes to These Terms
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+              We reserve the right to revise and amend these Terms and Conditions at any time. Material updates will be reflected with an updated revision date at the top of this page.
+            </p>
+          </section>
+
+          <section className="bg-surface-low border border-primary/20 rounded-lg p-3.5 sm:p-6 shadow-sm">
+            <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold mb-2 sm:mb-3 text-foreground flex items-center gap-2">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary text-white text-xs flex items-center justify-center font-mono">7</span>
+              Legal & Support Inquiries
+            </h2>
+            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+              For any questions regarding these Terms and Conditions or to submit a legal notice, contact our team:
+            </p>
+            <div className="inline-flex items-center gap-2 p-2.5 sm:p-3 rounded-md bg-surface-container border border-outline-variant">
+              <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:Bairavi.co@gmail.com" className="text-xs sm:text-sm font-semibold text-primary hover:underline">
+                Bairavi.co@gmail.com
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
     </div>
   );
 }

@@ -72,6 +72,27 @@
     ],
     "alternates": {
       "canonical": "https://errorfixer.toolsofsaas.com/about-us"
+    },
+    "openGraph": {
+      "title": "About Us | ErrorFixer",
+      "description": "Learn more about ErrorFixer. A platform built by developers for developers to understand and resolve HTTP error codes instantly and accurately.",
+      "url": "https://errorfixer.toolsofsaas.com/about-us",
+      "siteName": "ErrorFixer",
+      "images": [
+        {
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "width": 1200,
+          "height": 630,
+          "alt": "ErrorFixer Logo"
+        }
+      ],
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "About Us | ErrorFixer",
+      "description": "Learn more about ErrorFixer. A platform built by developers for developers to understand and resolve HTTP error codes instantly and accurately.",
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"]
     }
   },
   "contact-us": {
@@ -85,6 +106,27 @@
     ],
     "alternates": {
       "canonical": "https://errorfixer.toolsofsaas.com/contact-us"
+    },
+    "openGraph": {
+      "title": "Contact Us | ErrorFixer",
+      "description": "Get in touch with the ErrorFixer team. Send us your questions, feedback, or report an issue with our HTTP error platform.",
+      "url": "https://errorfixer.toolsofsaas.com/contact-us",
+      "siteName": "ErrorFixer",
+      "images": [
+        {
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "width": 1200,
+          "height": 630,
+          "alt": "ErrorFixer Logo"
+        }
+      ],
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Contact Us | ErrorFixer",
+      "description": "Get in touch with the ErrorFixer team. Send us your questions, feedback, or report an issue with our HTTP error platform.",
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"]
     }
   },
   "privacy-policy": {
@@ -98,6 +140,27 @@
     ],
     "alternates": {
       "canonical": "https://errorfixer.toolsofsaas.com/privacy-policy"
+    },
+    "openGraph": {
+      "title": "Privacy Policy | ErrorFixer",
+      "description": "Read the Privacy Policy for ErrorFixer. Learn how we collect, use, and protect your data while you use our HTTP error solving platform.",
+      "url": "https://errorfixer.toolsofsaas.com/privacy-policy",
+      "siteName": "ErrorFixer",
+      "images": [
+        {
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "width": 1200,
+          "height": 630,
+          "alt": "ErrorFixer Logo"
+        }
+      ],
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Privacy Policy | ErrorFixer",
+      "description": "Read the Privacy Policy for ErrorFixer. Learn how we collect, use, and protect your data while you use our HTTP error solving platform.",
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"]
     }
   },
   "terms-and-conditions": {
@@ -110,6 +173,27 @@
     ],
     "alternates": {
       "canonical": "https://errorfixer.toolsofsaas.com/terms-and-conditions"
+    },
+    "openGraph": {
+      "title": "Terms and Conditions | ErrorFixer",
+      "description": "Read the Terms and Conditions for using ErrorFixer. Understand the rules and regulations for accessing our HTTP error solutions.",
+      "url": "https://errorfixer.toolsofsaas.com/terms-and-conditions",
+      "siteName": "ErrorFixer",
+      "images": [
+        {
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "width": 1200,
+          "height": 630,
+          "alt": "ErrorFixer Logo"
+        }
+      ],
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Terms and Conditions | ErrorFixer",
+      "description": "Read the Terms and Conditions for using ErrorFixer. Understand the rules and regulations for accessing our HTTP error solutions.",
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"]
     }
   },
   "affiliate-disclosure": {
@@ -122,6 +206,27 @@
     ],
     "alternates": {
       "canonical": "https://errorfixer.toolsofsaas.com/affiliate-disclosure"
+    },
+    "openGraph": {
+      "title": "Affiliate Disclosure | ErrorFixer",
+      "description": "Read our Affiliate Disclosure to understand how ErrorFixer may earn commissions through affiliate links to keep the platform free.",
+      "url": "https://errorfixer.toolsofsaas.com/affiliate-disclosure",
+      "siteName": "ErrorFixer",
+      "images": [
+        {
+          "url": "https://errorfixer.toolsofsaas.com/assets/brand_logo.png",
+          "width": 1200,
+          "height": 630,
+          "alt": "ErrorFixer Logo"
+        }
+      ],
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Affiliate Disclosure | ErrorFixer",
+      "description": "Read our Affiliate Disclosure to understand how ErrorFixer may earn commissions through affiliate links to keep the platform free.",
+      "images": ["https://errorfixer.toolsofsaas.com/assets/brand_logo.png"]
     }
   },
   "100-continue": {
