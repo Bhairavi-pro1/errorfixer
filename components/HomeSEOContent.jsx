@@ -119,14 +119,14 @@ function FAQItem({ item, index, openIdx, setOpenIdx }) {
     <div className="border border-outline-variant rounded-md overflow-hidden transition-all duration-200">
       <button
         onClick={() => setOpenIdx(isOpen ? null : index)}
-        className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left bg-surface-low hover:bg-surface-high transition-colors duration-200 focus:outline-none"
+        className="w-full flex items-center justify-between gap-3 px-3.5 sm:px-6 py-2.5 sm:py-4 text-left bg-surface-low hover:bg-surface-high transition-colors duration-200 focus:outline-none"
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-foreground text-sm md:text-base leading-snug">
+        <span className="font-semibold text-foreground text-xs sm:text-sm md:text-base leading-snug pr-2">
           {item.q}
         </span>
         <span
-          className={`flex-shrink-0 w-5 h-5 text-tertiary transition-transform duration-300 ${
+          className={`flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 text-tertiary transition-transform duration-300 ${
             isOpen ? "rotate-45" : "rotate-0"
           }`}
         >
@@ -141,7 +141,7 @@ function FAQItem({ item, index, openIdx, setOpenIdx }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-6 py-4 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant bg-surface-container">
+          <p className="px-3.5 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant bg-surface-container text-justify hyphens-auto">
             {item.a}
           </p>
         </div>
@@ -156,17 +156,17 @@ export default function HomeSEOContent() {
 
   return (
     <div className="w-full bg-surface-low border-t border-outline-variant mt-4">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-24">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-16 md:py-20 space-y-8 sm:space-y-16 md:space-y-24">
 
         {/* ── What Is ErrorFixer ── */}
         <section aria-labelledby="what-is-errorfixer">
           <h2
             id="what-is-errorfixer"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-2.5 sm:mb-4 tracking-tight"
           >
             What Is <span className="gradient-text">ErrorFixer</span>?
           </h2>
-          <div className="space-y-4 text-on-surface-variant leading-relaxed text-base md:text-lg">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base text-justify hyphens-auto">
             <p>
               ErrorFixer is a free, always-on HTTP status code reference designed for developers who need answers fast. When a broken request is blocking a deployment, slowing down a client demo, or waking you up with an on-call alert, you don't have time to wade through dry specification documents or generic Stack Overflow threads.
             </p>
@@ -183,26 +183,26 @@ export default function HomeSEOContent() {
         <section aria-labelledby="how-to-use-errorfixer">
           <h2
             id="how-to-use-errorfixer"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-1.5 sm:mb-2 tracking-tight"
           >
             How to Use <span className="gradient-text">ErrorFixer</span>
           </h2>
-          <p className="text-on-surface-variant mb-10 text-base md:text-lg leading-relaxed">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
             Getting from error code to working fix takes four simple steps.
           </p>
-          <ol className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+          <ol className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6" role="list">
             {HOW_TO_STEPS.map((step) => (
               <li
                 key={step.num}
-                className="bg-surface-container border border-outline-variant rounded-md p-6 relative overflow-hidden group hover:border-primary/40 transition-colors duration-300"
+                className="bg-surface-container border border-outline-variant rounded-md p-3.5 sm:p-5 md:p-6 relative overflow-hidden group hover:border-primary/40 transition-colors duration-300"
               >
-                <span className="absolute top-4 right-5 text-5xl font-display font-black text-primary/10 select-none group-hover:text-primary/15 transition-colors">
+                <span className="absolute top-3 right-4 sm:top-4 sm:right-5 text-3xl sm:text-5xl font-display font-black text-primary/10 select-none group-hover:text-primary/15 transition-colors">
                   {step.num}
                 </span>
-                <h3 className="text-lg font-display font-bold text-foreground mb-2 relative z-10">
+                <h3 className="text-sm sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2 relative z-10">
                   {step.title}
                 </h3>
-                <p className="text-sm text-on-surface-variant leading-relaxed relative z-10">
+                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed relative z-10 text-justify hyphens-auto">
                   {step.desc}
                 </p>
               </li>
@@ -214,11 +214,11 @@ export default function HomeSEOContent() {
         <section aria-labelledby="why-errorfixer">
           <h2
             id="why-errorfixer"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-2.5 sm:mb-4 tracking-tight"
           >
             Why Choose <span className="gradient-text">ErrorFixer</span>?
           </h2>
-          <div className="space-y-4 text-on-surface-variant leading-relaxed text-base md:text-lg mb-8">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-justify hyphens-auto">
             <p>
               HTTP status codes are a foundational layer of the web. Every browser, every API, every load balancer, and every mobile app communicates using them — yet they are often misunderstood or looked up on the fly. A mishandled status code can mean silent data loss, degraded user experience, broken integrations, or a SEO ranking hit that takes months to recover from.
             </p>
@@ -226,7 +226,7 @@ export default function HomeSEOContent() {
               The official HTTP specifications (RFC 9110 and its predecessors) are comprehensive but dense. Searching for answers on forums gives you a mix of correct, outdated, and outright wrong information. ErrorFixer bridges that gap: <strong className="text-foreground">specification-accurate content</strong> presented in a <strong className="text-foreground">practical, actionable format</strong> that saves you time every single day.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
             {[
               { label: "Status codes covered", value: "60+" },
               { label: "Tech stacks supported", value: "4" },
@@ -234,12 +234,12 @@ export default function HomeSEOContent() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-surface-high border border-outline-variant rounded-md p-6 text-center"
+                className="bg-surface-high border border-outline-variant rounded-md p-3.5 sm:p-5 md:p-6 text-center"
               >
-                <div className="text-4xl font-display font-black gradient-text mb-1">
+                <div className="text-2xl sm:text-4xl font-display font-black gradient-text mb-0.5 sm:mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-on-surface-variant font-medium">
+                <div className="text-xs sm:text-sm text-on-surface-variant font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -251,24 +251,24 @@ export default function HomeSEOContent() {
         <section aria-labelledby="use-cases">
           <h2
             id="use-cases"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-1.5 sm:mb-2 tracking-tight"
           >
             Common <span className="gradient-text">Use Cases</span>
           </h2>
-          <p className="text-on-surface-variant mb-10 text-base md:text-lg leading-relaxed">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
             ErrorFixer fits naturally into every part of the development lifecycle.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             {USE_CASES.map((uc) => (
               <div
                 key={uc.title}
-                className="bg-surface-container border border-outline-variant rounded-md p-6 hover:bg-surface-high hover:border-primary/30 transition-all duration-300 group"
+                className="bg-surface-container border border-outline-variant rounded-md p-3.5 sm:p-5 md:p-6 hover:bg-surface-high hover:border-primary/30 transition-all duration-300 group"
               >
-                <div className="text-3xl mb-3">{uc.icon}</div>
-                <h3 className="font-display font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                <div className="text-2xl sm:text-3xl mb-1.5 sm:mb-3">{uc.icon}</div>
+                <h3 className="text-sm sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors">
                   {uc.title}
                 </h3>
-                <p className="text-sm text-on-surface-variant leading-relaxed">
+                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
                   {uc.desc}
                 </p>
               </div>
@@ -280,17 +280,17 @@ export default function HomeSEOContent() {
         <section aria-labelledby="http-categories">
           <h2
             id="http-categories"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-2.5 sm:mb-4 tracking-tight"
           >
             Understanding HTTP Status Code{" "}
             <span className="gradient-text">Categories</span>
           </h2>
-          <div className="space-y-4 text-on-surface-variant leading-relaxed text-base md:text-lg mb-8">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-justify hyphens-auto">
             <p>
               The HTTP protocol organises status codes into five classes, each identified by its leading digit. Knowing which class a code belongs to immediately tells you the nature of the problem and where to look for the solution.
             </p>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {[
               {
                 range: "1xx",
@@ -335,18 +335,18 @@ export default function HomeSEOContent() {
             ].map((cat) => (
               <div
                 key={cat.range}
-                className={`flex gap-4 items-start p-5 rounded-md border ${cat.border} ${cat.bg}`}
+                className={`flex gap-2.5 sm:gap-4 items-start p-3.5 sm:p-5 rounded-md border ${cat.border} ${cat.bg}`}
               >
                 <span
-                  className={`font-mono font-black text-lg flex-shrink-0 w-10 pt-0.5 ${cat.color}`}
+                  className={`font-mono font-black text-sm sm:text-lg flex-shrink-0 w-8 sm:w-10 pt-0.5 ${cat.color}`}
                 >
                   {cat.range}
                 </span>
                 <div>
-                  <span className={`font-display font-bold text-base ${cat.color}`}>
+                  <span className={`font-display font-bold text-xs sm:text-base ${cat.color}`}>
                     {cat.name}
                   </span>
-                  <p className="text-sm text-on-surface-variant leading-relaxed mt-1">
+                  <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mt-0.5 sm:mt-1 text-justify hyphens-auto">
                     {cat.desc}
                   </p>
                 </div>
@@ -359,36 +359,22 @@ export default function HomeSEOContent() {
         <section aria-labelledby="faq">
           <h2
             id="faq"
-            className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2 tracking-tight"
+            className="text-xl sm:text-2xl md:text-4xl font-display font-bold text-foreground mb-1.5 sm:mb-2 tracking-tight"
           >
             Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
-          <p className="text-on-surface-variant mb-10 text-base md:text-lg leading-relaxed">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
             Everything you need to know about HTTP status codes and ErrorFixer.
           </p>
-          <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
+          <div className="space-y-2 sm:space-y-3">
             {FAQS.map((item, i) => (
-              <div
+              <FAQItem
                 key={i}
-                itemScope
-                itemProp="mainEntity"
-                itemType="https://schema.org/Question"
-              >
-                <meta itemProp="name" content={item.q} />
-                <div
-                  itemScope
-                  itemProp="acceptedAnswer"
-                  itemType="https://schema.org/Answer"
-                >
-                  <meta itemProp="text" content={item.a} />
-                </div>
-                <FAQItem
-                  item={item}
-                  index={i}
-                  openIdx={openIdx}
-                  setOpenIdx={setOpenIdx}
-                />
-              </div>
+                item={item}
+                index={i}
+                openIdx={openIdx}
+                setOpenIdx={setOpenIdx}
+              />
             ))}
           </div>
         </section>
@@ -396,30 +382,25 @@ export default function HomeSEOContent() {
         {/* ── CTA ── */}
         <section
           aria-labelledby="cta-heading"
-          className="bg-surface-high border border-outline-variant rounded-md p-8 md:p-12 text-center glass"
+          className="bg-surface-high border border-outline-variant rounded-md p-5 sm:p-8 md:p-12 text-center glass"
         >
           <h2
             id="cta-heading"
-            className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3"
+            className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-foreground mb-2 sm:mb-3"
           >
             Ready to fix your next error?
           </h2>
-          <p className="text-on-surface-variant mb-6 max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-on-surface-variant mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-justify sm:text-center hyphens-auto">
             Scroll up to browse all HTTP status codes or use the category filter to jump straight to the error class you're investigating.
           </p>
           <button
             onClick={() => {
-              const el = document.getElementById("category-filters");
-              if (el) {
-                const y =
-                  el.getBoundingClientRect().top + window.scrollY - 90;
-                window.scrollTo({ top: y, behavior: "smooth" });
-              }
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-md font-semibold text-white bg-gradient-btn hover:opacity-90 transition-opacity duration-200 shadow-lg"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-md text-xs sm:text-sm font-semibold text-white bg-gradient-btn hover:opacity-90 transition-opacity duration-200 shadow-lg"
           >
             Browse Error Codes
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" transform="rotate(180 12 12)" />
             </svg>
           </button>

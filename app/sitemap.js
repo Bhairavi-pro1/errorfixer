@@ -16,8 +16,15 @@ export default async function sitemap() {
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: route === '' || route === '/blog' ? 'weekly' : 'monthly',
     priority: route === '' ? 1 : 0.8,
+  }));
+
+  // Category Hub routes
+  const categoryRoutes = ["1xx", "2xx", "3xx", "4xx", "5xx"].map((cat) => ({
+    url: `${baseUrl}/category/${cat}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
   }));
 
   // Dynamic HTTP Error pages
@@ -48,6 +55,6 @@ export default async function sitemap() {
     console.error("Error fetching Sanity blogs for sitemap:", error);
   }
 
-  return [...staticRoutes, ...dynamicRoutes, ...blogRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...dynamicRoutes, ...blogRoutes];
 }
 

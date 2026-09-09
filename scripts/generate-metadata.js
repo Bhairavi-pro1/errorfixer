@@ -1,0 +1,479 @@
+const fs = require('fs');
+const path = require('path');
+
+const errors = require('../data/errors.json');
+const existingMetadata = require('../data/metadata.json');
+
+const baseUrl = 'https://errorfixer.toolsofsaas.com';
+
+// Handcrafted framework-specific profiles for HTTP status codes
+const specificErrorProfiles = {
+  // 1xx Informational
+  '100-continue': {
+    title: '100 Continue: Meaning, Axios & Node.js HTTP Headers | ErrorFixer',
+    description: 'Learn how HTTP 100 Continue works with large payloads. Step-by-step header configuration for Node.js http, Axios, Nginx, and Apache.',
+    keywords: ['100 continue http', 'expect 100-continue header', 'axios 100 continue', 'node js 100 continue', 'nginx 100 continue large upload']
+  },
+  '101-switching-protocols': {
+    title: '101 Switching Protocols Fix: WebSockets, Nginx & Node.js | ErrorFixer',
+    description: 'How to configure HTTP 101 Switching Protocols for WebSockets (ws/wss), Nginx proxy_set_header Upgrade, Apache mod_proxy_wstunnel, and Node.js.',
+    keywords: ['101 switching protocols', 'nginx websocket upgrade 101', 'node ws switching protocols', 'apache mod_proxy_wstunnel', 'websocket handshake 101']
+  },
+  '102-processing': {
+    title: '102 Processing: WebDAV & Long-Running Server Requests | ErrorFixer',
+    description: 'Understand HTTP 102 Processing status for WebDAV and asynchronous server processing. Solutions for Node.js, Nginx timeouts, and background tasks.',
+    keywords: ['102 processing http', 'webdav 102 status', 'long running http request 102', 'node js async processing 102', 'nginx keep alive 102']
+  },
+  '103-early-hints': {
+    title: '103 Early Hints: Link Preload Setup in Nginx, Cloudflare & Node | ErrorFixer',
+    description: 'Optimize Core Web Vitals with HTTP 103 Early Hints. Configuration guide for Nginx 103 headers, Cloudflare Early Hints, and Node.js link preloading.',
+    keywords: ['103 early hints', 'nginx early hints 103', 'cloudflare early hints preload', 'link rel preload 103', 'node js early hints response']
+  },
+
+  // 2xx Success / Custom handling
+  '200-ok': {
+    title: '200 OK Status: API Response Optimization & Caching Guide | ErrorFixer',
+    description: 'Best practices for HTTP 200 OK responses. Configure Cache-Control, ETag headers, and JSON serialization in Express, Next.js, and Nginx.',
+    keywords: ['http 200 ok best practices', 'cache control 200 ok', 'express res status 200', 'nextjs api 200 response', 'nginx etag 200 caching']
+  },
+  '201-created': {
+    title: '201 Created Status: REST API Location Headers & POST Responses | ErrorFixer',
+    description: 'How to properly return HTTP 201 Created with Location headers in REST APIs built with Express, Django, Spring Boot, and Next.js.',
+    keywords: ['201 created status code', 'rest api 201 location header', 'express res status 201', 'post request 201 created', 'api post response 201']
+  },
+  '202-accepted': {
+    title: '202 Accepted: Async Task Queues, BullMQ & Webhook Patterns | ErrorFixer',
+    description: 'Implement HTTP 202 Accepted for async background processing. Architecture patterns for BullMQ, Celery, Express webhooks, and polling endpoints.',
+    keywords: ['202 accepted async processing', 'express 202 background job', 'bullmq 202 accepted', 'webhook 202 accepted status', 'async api design 202']
+  },
+  '203-non-authoritative-information': {
+    title: '203 Non-Authoritative Info: Proxy & CDN Header Handling | ErrorFixer',
+    description: 'Understanding HTTP 203 Non-Authoritative Information returned by transforming proxies, CDNs, and middleware in Node.js and Nginx.',
+    keywords: ['203 non authoritative information', 'transforming proxy 203', 'cdn 203 header', 'nginx reverse proxy 203', 'http proxy transformation']
+  },
+  '204-no-content': {
+    title: '204 No Content: DELETE Requests, CORS & Axios Empty Responses | ErrorFixer',
+    description: 'Fix common Axios and fetch issues with HTTP 204 No Content. Correct response handling for DELETE/PUT endpoints and CORS preflight options.',
+    keywords: ['204 no content axios error', 'cors preflight 204 no content', 'express res status 204 end', 'rest api delete 204', 'fetch empty response 204']
+  },
+  '205-reset-content': {
+    title: '205 Reset Content: Form Reset & SPA State Management Guide | ErrorFixer',
+    description: 'How to use HTTP 205 Reset Content to trigger form resets and UI state clearing in React, Vue, and Angular applications.',
+    keywords: ['205 reset content http', 'form reset 205 status', 'react reset form 205', 'clear ui state 205', 'rest api 205 response']
+  },
+  '206-partial-content': {
+    title: '206 Partial Content: Video Streaming & Range Header Fixes | ErrorFixer',
+    description: 'Fix video streaming, audio, and large download issues with HTTP 206 Partial Content. Byte-range configuration for Nginx, Node.js fs, and Safari.',
+    keywords: ['206 partial content video streaming', 'range header 206 safari fix', 'nginx byte range 206', 'node js createReadStream 206', 'http range requests']
+  },
+  '207-multi-status': {
+    title: '207 Multi-Status: WebDAV & Batch API Operations Guide | ErrorFixer',
+    description: 'Learn how to structure HTTP 207 Multi-Status XML/JSON payloads for batch processing and WebDAV operations in Node.js and Python APIs.',
+    keywords: ['207 multi status http', 'batch api 207 multi-status', 'webdav 207 xml response', 'express batch operations 207', 'rest api bulk update status']
+  },
+  '208-already-reported': {
+    title: '208 Already Reported: WebDAV DAV:response Loop Handling | ErrorFixer',
+    description: 'Understanding HTTP 208 Already Reported in WebDAV bindings to prevent internal tree traversal loops in server applications.',
+    keywords: ['208 already reported', 'webdav 208 status', 'dav response 208', 'webdav tree binding 208', 'http 208 loop prevention']
+  },
+  '226-im-used': {
+    title: '226 IM Used: HTTP Delta Encoding & Cache Optimization | ErrorFixer',
+    description: 'How HTTP 226 IM Used works with instance manipulations and delta encoding (RFC 3229) for bandwidth-efficient API updates.',
+    keywords: ['226 im used http', 'rfc 3229 delta encoding', 'http instance manipulation 226', 'api bandwidth optimization 226', 'delta compression http']
+  },
+
+  // 3xx Redirection
+  '300-multiple-choices': {
+    title: '300 Multiple Choices: Content Negotiation & API Versioning | ErrorFixer',
+    description: 'Resolve HTTP 300 Multiple Choices. Best practices for content negotiation (Accept headers), multi-format responses, and API versioning.',
+    keywords: ['300 multiple choices', 'content negotiation 300', 'api versioning 300', 'accept header multiple choices', 'rest api 300 status']
+  },
+  '301-moved-permanently': {
+    title: '301 Moved Permanently Fix: Nginx, Apache .htaccess & Next.js SEO | ErrorFixer',
+    description: 'Set up seamless 301 permanent redirects without losing SEO ranking. Configuration recipes for Nginx return 301, Apache RewriteRule, and Next.js.',
+    keywords: ['301 moved permanently fix', 'nginx 301 redirect https', 'apache htaccess 301 rewrite', 'next js 301 redirect', 'seo 301 redirect preserve equity']
+  },
+  '302-found': {
+    title: '302 Found (Temporary Redirect) Fix: Node.js, Nginx & Auth Flows | ErrorFixer',
+    description: 'Fix unintended HTTP 302 redirect loops in OAuth login, Express res.redirect(), Nginx configs, and prevent SEO indexation issues.',
+    keywords: ['302 found redirect fix', '302 redirect loop oauth', 'express res redirect 302', 'nginx 302 temporary redirect', '302 vs 301 seo impact']
+  },
+  '303-see-other': {
+    title: '303 See Other: Post/Redirect/Get Pattern in Express & Django | ErrorFixer',
+    description: 'Prevent double form submission using HTTP 303 See Other. Implement the PRG (Post/Redirect/Get) pattern in Node.js Express, Django, and Rails.',
+    keywords: ['303 see other status', 'post redirect get pattern 303', 'express 303 redirect', 'prevent double form submit 303', 'rest api 303 see other']
+  },
+  '304-not-modified': {
+    title: '304 Not Modified: ETag, If-Modified-Since & Cache Debugging | ErrorFixer',
+    description: 'Debug HTTP 304 Not Modified cache issues. Configure ETag, If-None-Match, Cache-Control headers in Nginx, Express, and Cloudflare.',
+    keywords: ['304 not modified debugging', 'etag if-none-match 304', 'nginx 304 cache control', 'express etag disabled 304', 'browser cache 304 200 difference']
+  },
+  '305-use-proxy': {
+    title: '305 Use Proxy: Deprecation Notice & Modern Reverse Proxy Guide | ErrorFixer',
+    description: 'Why HTTP 305 Use Proxy is deprecated for security reasons, and how to migrate to modern Nginx reverse proxy and API Gateway architectures.',
+    keywords: ['305 use proxy deprecated', 'http 305 security vulnerability', 'migrate 305 to reverse proxy', 'nginx forward proxy替代', 'modern api gateway proxy']
+  },
+  '307-temporary-redirect': {
+    title: '307 Temporary Redirect: Preserve POST Body in Express & Nginx | ErrorFixer',
+    description: 'How to use HTTP 307 to redirect POST/PUT requests while preserving HTTP method and request payload in Node.js, Nginx, and Next.js.',
+    keywords: ['307 temporary redirect preserve post', 'http 307 vs 302', 'nginx 307 redirect', 'express 307 post body redirect', 'rest api 307 method preservation']
+  },
+  '308-permanent-redirect': {
+    title: '308 Permanent Redirect: Preserve POST Method & HTTPS Migration | ErrorFixer',
+    description: 'Migrate to HTTPS without losing POST/PUT data using HTTP 308 Permanent Redirect. Complete guide for Nginx, Apache, and Next.js redirects.',
+    keywords: ['308 permanent redirect', 'nginx 308 redirect post data', '308 vs 301 http redirect', 'nextjs 308 permanent redirect', 'https migration 308 preserve payload']
+  },
+
+  // 4xx Client Errors
+  '400-bad-request': {
+    title: 'How to Fix 400 Bad Request: Node.js, JSON Payload & Nginx Fixes | ErrorFixer',
+    description: 'Fix HTTP 400 Bad Request errors fast. Solutions for malformed JSON in Express, invalid request headers, cookie size limits, and Nginx buffer sizes.',
+    keywords: ['400 bad request fix', 'express json parse error 400', 'nginx 400 bad request request line', 'axios 400 bad request payload', 'large cookies 400 error']
+  },
+  '401-unauthorized': {
+    title: '401 Unauthorized Fix: JWT, Bearer Tokens, Axios & Passport.js | ErrorFixer',
+    description: 'Fix HTTP 401 Unauthorized errors in seconds. Debug expired JWTs, missing Bearer headers in Axios interceptors, Passport.js, and auth_basic in Nginx.',
+    keywords: ['401 unauthorized fix', 'axios 401 interceptor token refresh', 'jwt expired 401 error', 'passport js 401 unauthorized', 'nginx auth_basic 401 htpasswd']
+  },
+  '402-payment-required': {
+    title: '402 Payment Required: Stripe API, Micro-Billing & Paywall Setup | ErrorFixer',
+    description: 'Implement and handle HTTP 402 Payment Required status code. Integration recipes for Stripe webhooks, paywalled APIs, and SaaS rate tiers.',
+    keywords: ['402 payment required http', 'stripe 402 api error', 'saas paywall 402 status', 'handling 402 in react frontend', 'microtransactions http 402']
+  },
+  '403-forbidden': {
+    title: '403 Forbidden Fix: Nginx Permissions, Apache & Node.js CORS | ErrorFixer',
+    description: 'Resolve HTTP 403 Forbidden fast. Fix Linux file permissions (chmod 755), Apache "Require all granted", Nginx directory deny rules, and CORS blocks.',
+    keywords: ['403 forbidden fix', 'nginx 403 forbidden directory index', 'apache 403 require all granted', 'react 403 forbidden cors', 'linux chmod 755 403 fix']
+  },
+  '404-not-found': {
+    title: 'How to Fix 404 Not Found: Nginx, React Router & Node.js Guide | ErrorFixer',
+    description: 'Fix 404 Not Found errors fast. Code solutions for Nginx try_files $uri /index.html, React Router SPA refreshes, Express catch-all, and Apache .htaccess.',
+    keywords: ['404 not found fix', 'nginx try_files react 404', 'react router 404 on refresh', 'express 404 error handler', 'apache htaccess 404 redirect rewrite']
+  },
+  '405-method-not-allowed': {
+    title: '405 Method Not Allowed Fix: Next.js API, Express & Nginx POST | ErrorFixer',
+    description: 'Fix HTTP 405 Method Not Allowed errors. Solutions for Next.js App Router Route Handlers, Express router method mismatches, and Nginx static POST blocks.',
+    keywords: ['405 method not allowed fix', 'nextjs route handler 405', 'nginx 405 not allowed on post', 'express method not allowed 405', 'rest api allow header 405']
+  },
+  '406-not-acceptable': {
+    title: '406 Not Acceptable Fix: Accept Headers, JSON & ModSecurity | ErrorFixer',
+    description: 'Resolve HTTP 406 Not Acceptable errors. Fix Accept / Content-Type mismatches, Apache ModSecurity WAF false positives, and Express JSON responses.',
+    keywords: ['406 not acceptable fix', 'accept application json 406', 'apache modsecurity 406 error', 'axios accept header 406', 'express res format 406']
+  },
+  '407-proxy-authentication-required': {
+    title: '407 Proxy Authentication Required: Squid, Axios & Corporate VPN | ErrorFixer',
+    description: 'Fix HTTP 407 Proxy Authentication Required errors in corporate networks. Configure Proxy-Authorization headers in Axios, cURL, Git, and npm.',
+    keywords: ['407 proxy authentication required', 'npm proxy 407 error', 'git 407 proxy authentication', 'axios proxy authorization header', 'squid proxy 407 fix']
+  },
+  '408-request-timeout': {
+    title: '408 Request Timeout Fix: Axios Timeout, Node.js & Nginx Keepalive | ErrorFixer',
+    description: 'Fix HTTP 408 Request Timeout errors. Configure keepalive_timeout in Nginx, client_body_timeout, Axios request timeout settings, and Node.js server.timeout.',
+    keywords: ['408 request timeout fix', 'axios timeout 408', 'nginx client_body_timeout 408', 'node js server timeout 408', 'slow uploads 408 timeout']
+  },
+  '409-conflict': {
+    title: '409 Conflict Fix: Database Deadlocks, Optimistic Locking & Prisma | ErrorFixer',
+    description: 'Resolve HTTP 409 Conflict errors. Handle unique constraint violations, Prisma/TypeORM deadlocks, optimistic locking with version fields, and git push.',
+    keywords: ['409 conflict error fix', 'prisma unique constraint 409', 'optimistic locking 409 conflict', 'rest api 409 resource conflict', 'duplicate entry 409 error']
+  },
+  '410-gone': {
+    title: '410 Gone Fix: Delete Outdated SEO URLs in Nginx & Apache | ErrorFixer',
+    description: 'How to use HTTP 410 Gone to permanently remove deleted content from Google index faster than 404. Configuration for Nginx, Apache, and Next.js.',
+    keywords: ['410 gone status fix', 'nginx return 410 permanently deleted', 'apache htaccess 410 gone', 'seo 410 vs 404 remove from index', 'rest api 410 gone response']
+  },
+  '411-length-required': {
+    title: '411 Length Required Fix: Content-Length Header in POST/PUT Requests | ErrorFixer',
+    description: 'Fix HTTP 411 Length Required errors. Add missing Content-Length headers in cURL, Postman, Node.js http.request, and Nginx chunked transfer configs.',
+    keywords: ['411 length required fix', 'content-length header missing 411', 'curl 411 length required', 'node js http request content length', 'nginx chunked encoding 411']
+  },
+  '412-precondition-failed': {
+    title: '412 Precondition Failed Fix: If-Match & ETag Mid-Air Collisions | ErrorFixer',
+    description: 'Resolve HTTP 412 Precondition Failed errors. Debug If-Match, If-Unmodified-Since headers, and optimistic concurrency control in REST APIs.',
+    keywords: ['412 precondition failed fix', 'if-match etag 412', 'rest api optimistic concurrency 412', 'conditional put 412 failed', 'mid-air collision prevention 412']
+  },
+  '413-payload-too-large': {
+    title: 'How to Fix 413 Payload Too Large: Nginx client_max_body_size & Express | ErrorFixer',
+    description: 'Fix HTTP 413 Payload Too Large error. Increase Nginx client_max_body_size, Express express.json({ limit: "50mb" }), and Next.js body parser limits.',
+    keywords: ['413 payload too large fix', 'nginx client_max_body_size 413', 'express body parser limit 413', 'nextjs api body size 413', 'file upload 413 entity too large']
+  },
+  '414-uri-too-long': {
+    title: '414 URI Too Long Fix: Nginx large_client_header_buffers & GET to POST | ErrorFixer',
+    description: 'Fix HTTP 414 URI Too Long errors. Increase Nginx large_client_header_buffers, Apache LimitRequestLine, and refactor bloated GET queries to POST bodies.',
+    keywords: ['414 uri too long fix', 'nginx large_client_header_buffers 414', 'apache LimitRequestLine 414', 'query param too long 414', 'convert get query to post payload']
+  },
+  '415-unsupported-media-type': {
+    title: '415 Unsupported Media Type Fix: Content-Type JSON & Multipart Uploads | ErrorFixer',
+    description: 'Fix HTTP 415 Unsupported Media Type errors. Set correct "Content-Type: application/json" or multipart/form-data headers in Axios, Fetch, and Multer.',
+    keywords: ['415 unsupported media type fix', 'axios content-type application json 415', 'multer multipart form data 415', 'rest api 415 media type', 'postman 415 unsupported media']
+  },
+  '416-range-not-satisfiable': {
+    title: '416 Range Not Satisfiable Fix: Byte Range Requests in Video/Audio | ErrorFixer',
+    description: 'Resolve HTTP 416 Range Not Satisfiable errors in media streaming and PDF downloads. Configure Content-Range headers in Node.js fs and Nginx.',
+    keywords: ['416 range not satisfiable fix', 'content-range header 416', 'video streaming 416 error', 'node js range request 416', 'safari audio range 416']
+  },
+  '417-expectation-failed': {
+    title: '417 Expectation Failed Fix: Expect 100-continue & Reverse Proxy | ErrorFixer',
+    description: 'Fix HTTP 417 Expectation Failed errors. Configure Expect: 100-continue header handling in cURL, cPython urllib, Apache mod_proxy, and Nginx.',
+    keywords: ['417 expectation failed fix', 'expect 100 continue 417 error', 'curl expect header 417', 'apache mod_proxy 417', 'python requests 417 fix']
+  },
+  '418-im-a-teapot': {
+    title: "418 I'm a Teapot: HTCPCP RFC 2324 Origin, Easter Eggs & API Uses | ErrorFixer",
+    description: "Explore the HTTP 418 I'm a Teapot status code (RFC 2324). Learn its history, web framework implementations, and fun developer easter eggs.",
+    keywords: ['418 im a teapot', 'rfc 2324 htcpcp', 'http 418 easter egg', 'express res status 418', 'teapot error code meaning']
+  },
+  '421-misdirected-request': {
+    title: '421 Misdirected Request Fix: HTTP/2 Connection Reuse & TLS Certs | ErrorFixer',
+    description: 'Fix HTTP 421 Misdirected Request errors caused by HTTP/2 connection pooling with wildcard SSL certificates in Nginx, Cloudflare, and Kubernetes.',
+    keywords: ['421 misdirected request fix', 'http2 connection reuse 421', 'wildcard certificate 421 error', 'nginx http2 421 misdirected', 'kubernetes ingress 421 error']
+  },
+  '422-unprocessable-entity': {
+    title: '422 Unprocessable Entity Fix: Zod, Joi & Express Validation Errors | ErrorFixer',
+    description: 'Fix HTTP 422 Unprocessable Entity validation errors. Debug Zod / Yup / Joi schema validation issues in Express, Next.js, and FastAPI payloads.',
+    keywords: ['422 unprocessable entity fix', 'zod validation 422 error', 'express validator 422', 'fastapi 422 unprocessable entity', 'axios 422 response data']
+  },
+  '423-locked': {
+    title: '423 Locked Fix: WebDAV Resource Locks & Distributed Redis Locks | ErrorFixer',
+    description: 'Resolve HTTP 423 Locked errors. Manage WebDAV lock tokens, release stuck Redis Redlock mutexes, and prevent database record deadlocks.',
+    keywords: ['423 locked error fix', 'webdav 423 locked resource', 'redis distributed lock 423', 'database row lock 423', 'unlock http 423 resource']
+  },
+  '424-failed-dependency': {
+    title: '424 Failed Dependency Fix: Microservices & WebDAV Cascade Failures | ErrorFixer',
+    description: 'Fix HTTP 424 Failed Dependency errors in WebDAV PROPPATCH and distributed microservice sagas when upstream prerequisite requests fail.',
+    keywords: ['424 failed dependency fix', 'webdav 424 status', 'microservice dependency failure 424', 'saga pattern 424 error', 'cascading request failure 424']
+  },
+  '425-too-early': {
+    title: '425 Too Early Fix: TLS 1.3 0-RTT Early Data Replay Protection | ErrorFixer',
+    description: 'Understand and resolve HTTP 425 Too Early errors. Protect non-idempotent POST/PUT requests from TLS 1.3 0-RTT replay attacks in Nginx and Cloudflare.',
+    keywords: ['425 too early fix', 'tls 1.3 0-rtt replay 425', 'nginx ssl_early_data 425', 'early-data header 425', 'cloudflare 0-rtt 425 error']
+  },
+  '426-upgrade-required': {
+    title: '426 Upgrade Required Fix: WebSocket Handshakes & HTTP/2 Upgrades | ErrorFixer',
+    description: 'Fix HTTP 426 Upgrade Required errors. Configure Upgrade headers for WebSockets, TLS protocols, and modern HTTP/2 transitions in Node.js and Nginx.',
+    keywords: ['426 upgrade required fix', 'websocket upgrade 426', 'nginx upgrade header 426', 'tls upgrade required 426', 'node js ws 426 status']
+  },
+  '428-precondition-required': {
+    title: '428 Precondition Required Fix: Prevent Lost Updates with If-Match | ErrorFixer',
+    description: 'Resolve HTTP 428 Precondition Required errors. Add If-Match and If-Unmodified-Since request headers to prevent mid-air collision overwrites.',
+    keywords: ['428 precondition required fix', 'prevent lost updates 428', 'if-match header required 428', 'optimistic concurrency 428', 'rest api 428 status']
+  },
+  '429-too-many-requests': {
+    title: 'How to Fix 429 Too Many Requests: Express Rate Limit & Nginx Burst | ErrorFixer',
+    description: 'Fix HTTP 429 Too Many Requests errors. Implement exponential backoff, configure express-rate-limit with Redis, and tune Nginx limit_req zone burst.',
+    keywords: ['429 too many requests fix', 'express rate limit 429', 'nginx limit_req 429 burst', 'retry-after header 429', 'exponential backoff 429 axios']
+  },
+  '431-request-header-fields-too-large': {
+    title: '431 Request Header Fields Too Large Fix: Large Cookies & Nginx Buffers | ErrorFixer',
+    description: 'Fix HTTP 431 Request Header Fields Too Large. Clear bloated session cookies, increase Node.js --max-http-header-size, and tune Nginx header buffers.',
+    keywords: ['431 request header fields too large', 'node max-http-header-size 431', 'nginx large_client_header_buffers 431', 'clear auth cookies 431', 'cookie size limit 431']
+  },
+  '451-unavailable-for-legal-reasons': {
+    title: '451 Unavailable For Legal Reasons: DMCA, Geo-Blocks & Censorship | ErrorFixer',
+    description: 'Understanding HTTP 451 Unavailable For Legal Reasons (RFC 7725). How to implement legal takedown notices, DMCA compliance, and geo-blocking in APIs.',
+    keywords: ['451 unavailable for legal reasons', 'rfc 7725 http 451', 'dmca takedown 451 status', 'geo blocking http 451', 'legal notice api response']
+  },
+
+  // 5xx Server Errors
+  '500-internal-server-error': {
+    title: 'How to Fix 500 Internal Server Error: Node.js, Nginx & Apache Guide | ErrorFixer',
+    description: 'Fix 500 Internal Server Error fast. Step-by-step diagnostic guide for uncaught exceptions in Express, Nginx error.log, Apache .htaccess syntax errors & Sentry.',
+    keywords: ['500 internal server error fix', 'node js express 500 error handler', 'nginx 500 internal server error log', 'apache htaccess syntax error 500', 'sentry error tracking 500']
+  },
+  '501-not-implemented': {
+    title: '501 Not Implemented Fix: Unsupported HTTP Methods & Web Server Setup | ErrorFixer',
+    description: 'Resolve HTTP 501 Not Implemented errors. Fix unsupported HTTP verbs in reverse proxies, REST routing gaps, and web server protocol configurations.',
+    keywords: ['501 not implemented fix', 'unsupported http method 501', 'nginx 501 not implemented', 'express 501 status code', 'rest api method stub 501']
+  },
+  '502-bad-gateway': {
+    title: 'How to Fix 502 Bad Gateway: Nginx Upstream, Node.js PM2 & Docker | ErrorFixer',
+    description: 'Fix 502 Bad Gateway errors fast. Diagnostic steps for Nginx proxy_pass upstream crashes, Node.js PM2 memory exits, Docker container ports & Cloudflare 502.',
+    keywords: ['502 bad gateway fix', 'nginx 502 bad gateway upstream', 'pm2 node js 502 restart', 'docker container 502 connection refused', 'cloudflare 502 bad gateway host']
+  },
+  '503-service-unavailable': {
+    title: 'How to Fix 503 Service Unavailable: High CPU, Maintenance & Nginx | ErrorFixer',
+    description: 'Fix HTTP 503 Service Unavailable errors. Solutions for high server load, database connection pool exhaustion, graceful maintenance pages, and autoscaling.',
+    keywords: ['503 service unavailable fix', 'nginx 503 maintenance page', 'database connection pool exhausted 503', 'retry-after 503 header', 'aws ec2 503 service unavailable']
+  },
+  '504-gateway-timeout': {
+    title: 'How to Fix 504 Gateway Timeout: Nginx proxy_read_timeout & Slow APIs | ErrorFixer',
+    description: 'Fix 504 Gateway Timeout fast. Tune Nginx proxy_read_timeout & fastcgi_read_timeout, optimize slow SQL database queries, and offload async jobs.',
+    keywords: ['504 gateway timeout fix', 'nginx proxy_read_timeout 504', 'apache ProxyTimeout 504', 'slow database query 504 timeout', 'cloudflare 504 gateway timeout fix']
+  },
+  '505-http-version-not-supported': {
+    title: '505 HTTP Version Not Supported Fix: HTTP/2, HTTP/3 & Nginx Config | ErrorFixer',
+    description: 'Resolve HTTP 505 Version Not Supported errors. Enable HTTP/2 (ALPN) and HTTP/3 (QUIC) support in Nginx, Apache httpd, and custom HTTP clients.',
+    keywords: ['505 http version not supported', 'nginx http2 enable 505', 'apache http 505 error', 'http3 quic version 505', 'alpn negotiation 505']
+  },
+  '506-variant-also-negotiates': {
+    title: '506 Variant Also Negotiates Fix: Transparent Content Negotiation Loop | ErrorFixer',
+    description: 'Fix HTTP 506 Variant Also Negotiates errors in Apache mod_negotiation and Nginx caused by circular content negotiation references.',
+    keywords: ['506 variant also negotiates fix', 'apache mod_negotiation 506', 'transparent content negotiation loop 506', 'type map recursion 506', 'http 506 configuration']
+  },
+  '507-insufficient-storage': {
+    title: '507 Insufficient Storage Fix: Disk Space, Inodes & WebDAV Quotas | ErrorFixer',
+    description: 'Fix HTTP 507 Insufficient Storage errors. Free server disk space (df -h), clear exhausted Linux inodes (df -i), and configure upload storage quotas.',
+    keywords: ['507 insufficient storage fix', 'linux disk full 507', 'inode exhaustion 507 error', 'webdav 507 storage quota', 'docker disk prune 507']
+  },
+  '508-loop-detected': {
+    title: '508 Loop Detected Fix: WebDAV Binding Loops & Rewrite Recursion | ErrorFixer',
+    description: 'Resolve HTTP 508 Loop Detected errors. Break infinite WebDAV folder binding references and Apache .htaccess infinite RewriteRule loops.',
+    keywords: ['508 loop detected fix', 'webdav binding loop 508', 'htaccess infinite redirect loop 508', 'depth infinity 508 error', 'server recursion loop 508']
+  },
+  '510-not-extended': {
+    title: '510 Not Extended Fix: HTTP Extension Framework (RFC 2774) & Headers | ErrorFixer',
+    description: 'Understanding HTTP 510 Not Extended (RFC 2774). Fix missing HTTP extension headers and policy compliance in enterprise proxy gateways.',
+    keywords: ['510 not extended fix', 'rfc 2774 http extension', 'mandatory extension header 510', 'enterprise gateway 510 error', 'http 510 status meaning']
+  },
+  '511-network-authentication-required': {
+    title: '511 Network Auth Required: Captive Portals, Wi-Fi Logins & Proxy Fix | ErrorFixer',
+    description: 'How to handle HTTP 511 Network Authentication Required status code for captive portal Wi-Fi networks, hotel logins, and enterprise firewalls.',
+    keywords: ['511 network authentication required', 'captive portal 511 wi-fi', 'hotel wifi 511 login page', 'network intercept 511 error', 'detect captive portal 511']
+  }
+};
+
+// Generate complete metadata object
+const newMetadata = {
+  ...existingMetadata,
+  layout: {
+    ...existingMetadata.layout,
+    title: {
+      template: '%s | ErrorFixer',
+      default: 'ErrorFixer – Framework-Specific HTTP Error Code Solutions & Fixes'
+    },
+    description: 'Step-by-step code solutions, config recipes, and diagnostic fixes for HTTP errors across Nginx, Node.js, React, Apache, Next.js, and Docker.',
+    keywords: [
+      'HTTP errors fix',
+      'nginx error troubleshooting',
+      'node js express errors',
+      'react router http errors',
+      'apache htaccess solutions',
+      'REST API error status codes'
+    ]
+  },
+  home: {
+    title: 'ErrorFixer – Fix HTTP Errors in Nginx, Node.js, React & Apache',
+    description: 'Stop guessing server bugs. Find copy-paste code fixes, Nginx configs, Express error handlers, and React Router solutions for all 62 HTTP status codes.',
+    keywords: [
+      'HTTP error solutions',
+      'fix nginx errors',
+      'fix node express errors',
+      'fix react router 404',
+      '502 bad gateway nginx fix',
+      '500 internal server error fix',
+      '403 forbidden cors solution'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/`
+    }
+  },
+  'category-1xx': {
+    title: '1xx Informational Status Codes (100–103) – Protocol & Headers Guide | ErrorFixer',
+    description: 'Complete guide to 1xx Informational HTTP status codes. Understand 100 Continue, 101 WebSocket upgrades, 103 Early Hints, and server configs.',
+    keywords: [
+      '1xx informational status codes',
+      'http 1xx codes list',
+      '100 continue meaning',
+      '101 switching protocols websocket',
+      '103 early hints nginx'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/category/1xx`
+    }
+  },
+  'category-2xx': {
+    title: '2xx Success HTTP Status Codes (200–226) – REST API Standards | ErrorFixer',
+    description: 'Master 2xx Success HTTP codes. Best practices for REST API response standards, 201 Created location headers, 204 No Content, and byte-range streaming.',
+    keywords: [
+      '2xx success status codes',
+      'http 2xx codes list',
+      'rest api 201 created',
+      '204 no content cors',
+      '206 partial content streaming'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/category/2xx`
+    }
+  },
+  'category-3xx': {
+    title: '3xx Redirection Status Codes (300–308) – SEO & Method Preservation | ErrorFixer',
+    description: 'Guide to 3xx Redirection HTTP status codes. Fix redirect loops, preserve POST request bodies with 307/308, and maintain SEO ranking with 301 redirects.',
+    keywords: [
+      '3xx redirection status codes',
+      'http 3xx codes list',
+      '301 vs 302 redirect seo',
+      '307 temporary redirect post',
+      'fix redirect loops nginx'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/category/3xx`
+    }
+  },
+  'category-4xx': {
+    title: '4xx Client Error Codes (400–451) – Fix 404, 403, 401 & 429 | ErrorFixer',
+    description: 'Troubleshoot and fix 4xx Client HTTP Errors. Step-by-step code solutions for 404 routing, 403 CORS, 401 JWT auth, and 429 rate limits in Node.js & Nginx.',
+    keywords: [
+      '4xx client error codes',
+      'http 4xx errors list',
+      'how to fix 404 not found',
+      '403 forbidden permissions fix',
+      '429 too many requests express'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/category/4xx`
+    }
+  },
+  'category-5xx': {
+    title: '5xx Server Error Codes (500–511) – Fix 500, 502, 503 & 504 | ErrorFixer',
+    description: 'Diagnose and fix 5xx Server HTTP Errors. Solutions for Nginx upstream crashes (502), database timeouts (504), Node.js PM2 exits, and high server load.',
+    keywords: [
+      '5xx server error codes',
+      'http 5xx errors list',
+      'how to fix 500 internal server error',
+      '502 bad gateway nginx fix',
+      '504 gateway timeout solution'
+    ],
+    alternates: {
+      canonical: `${baseUrl}/category/5xx`
+    }
+  }
+};
+
+// Ensure all errors in errors.json are populated
+errors.forEach((err) => {
+  const slug = err.slug;
+  const custom = specificErrorProfiles[slug];
+
+  if (custom) {
+    newMetadata[slug] = {
+      title: custom.title,
+      description: custom.description,
+      keywords: custom.keywords,
+      alternates: {
+        canonical: `${baseUrl}/${slug}`
+      }
+    };
+  } else {
+    // High-quality programmatic fallback for any missing custom profile
+    newMetadata[slug] = {
+      title: `How to Fix ${err.code} ${err.title}: Nginx, Node.js & React Guide | ErrorFixer`,
+      description: `Complete developer troubleshooting guide for HTTP ${err.code} (${err.title}). Step-by-step code solutions and configs for Node.js, React, Nginx, and Apache.`,
+      keywords: [
+        `${err.code} ${err.title.toLowerCase()} fix`,
+        `fix ${err.code} nginx`,
+        `${err.code} node express solution`,
+        `react ${err.code} error handler`,
+        `apache ${err.code} status`
+      ],
+      alternates: {
+        canonical: `${baseUrl}/${slug}`
+      }
+    };
+  }
+});
+
+// Write to metadata.json
+fs.writeFileSync(
+  path.join(__dirname, '../data/metadata.json'),
+  JSON.stringify(newMetadata, null, 2),
+  'utf8'
+);
+
+console.log(`Successfully generated metadata for ${errors.length} error codes.`);

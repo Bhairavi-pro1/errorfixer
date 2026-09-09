@@ -135,9 +135,9 @@ export default function Navbar() {
                 </button>
                 {categoriesOpen && (
                   <div className="mt-3 ml-4 flex flex-col gap-4">
-                    <Link href="/?category=All" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">All Categories</Link>
+                    <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">All Categories</Link>
                     {categoriesList.map(cat => (
-                      <Link key={cat} href={`/?category=${cat}`} onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">{cat} Errors</Link>
+                      <Link key={cat} href={`/category/${cat}`} onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">{cat} Errors</Link>
                     ))}
                   </div>
                 )}

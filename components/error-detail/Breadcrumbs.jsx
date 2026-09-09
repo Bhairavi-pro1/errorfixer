@@ -14,7 +14,7 @@ export default function Breadcrumbs({ error }) {
         </li>
         <li><span className="text-outline-variant">/</span></li>
         <li>
-          <Link href={`/?category=${error.category}`} className="hover:text-primary transition-colors">
+          <Link href={`/category/${error.category}`} className="hover:text-primary transition-colors">
             {error.category} Errors
           </Link>
         </li>
