@@ -43,10 +43,10 @@ export async function generateMetadata({ params }) {
   let metadata = siteMetadata[slug] || {};
 
   if (!metadata.title && error) {
-    metadata.title = `${error.code} ${error.title} – Causes, Fixes & Solutions | ErrorFixer`;
+    metadata.title = `How to Fix ${error.code} ${error.title}: Nginx, Node.js & React Guide | ErrorFixer`;
   }
   if (!metadata.description && error) {
-    metadata.description = error.overview?.what?.substring(0, 155) || error.shortDescription;
+    metadata.description = `Fix HTTP ${error.code} (${error.title}) with step-by-step code solutions, Nginx configurations, Node.js fixes, and React troubleshooting guide.`;
   }
   
   if (!error && Object.keys(metadata).length === 0) {

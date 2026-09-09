@@ -25,7 +25,11 @@ export default function StepByStepSolutions({ error }) {
       
       <div className="space-y-3 sm:space-y-6">
         {steps.map((step, idx) => (
-          <div key={idx} className="bg-surface-container rounded-lg border border-outline-variant p-2.5 sm:p-5 relative overflow-hidden group shadow-md transition-shadow hover:shadow-lg">
+          <div 
+            key={idx} 
+            id={`step-${step.step || idx + 1}`}
+            className="scroll-mt-24 bg-surface-container rounded-lg border border-outline-variant p-2.5 sm:p-5 relative overflow-hidden group shadow-md transition-shadow hover:shadow-lg"
+          >
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors pointer-events-none -mr-16 -mt-16"></div>
             
             <div className="flex flex-col md:flex-row items-start gap-2 sm:gap-4 md:gap-5 relative z-10">

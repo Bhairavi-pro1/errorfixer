@@ -58,11 +58,11 @@ export default function Footer() {
             <h3 className="text-[11px] sm:text-sm font-semibold text-primary uppercase tracking-wider mb-2 sm:mb-4">Categories</h3>
             <ul className="space-y-1.5 sm:space-y-3">
               <li>
-                <Link href="/?category=All" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors">All Categories</Link>
+                <Link href="/" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors">All Categories</Link>
               </li>
               {["1xx", "2xx", "3xx", "4xx", "5xx"].map((cat) => (
                 <li key={cat}>
-                  <Link href={`/?category=${cat}`} className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors">{cat} Errors</Link>
+                  <Link href={`/category/${cat}`} className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors">{cat} Errors</Link>
                 </li>
               ))}
             </ul>
