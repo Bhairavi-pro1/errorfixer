@@ -142,8 +142,8 @@ body {
 
 /* iOS Safari & WebKit backdrop-filter compatibility */
 .backdrop-blur-none {
-  -webkit-backdrop-filter: blur(0);
-  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 .backdrop-blur-sm {
   -webkit-backdrop-filter: blur(4px);
