@@ -24,7 +24,7 @@ export default function FAQSection({ error }) {
             >
               <button
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
-                className="w-full flex items-center justify-between px-3 py-2 sm:px-6 sm:py-3.5 text-left hover:bg-surface-high focus:outline-none"
+                className="w-full flex items-center justify-between px-3 py-2 sm:px-6 sm:py-3.5 text-left hover:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 aria-expanded={isOpen}
               >
                 <span className="font-semibold text-foreground text-xs sm:text-sm md:text-base pr-2 sm:pr-4">{item.q}</span>
@@ -37,7 +37,7 @@ export default function FAQSection({ error }) {
               >
                 <div className="overflow-hidden">
                   <div className="px-3 py-2.5 sm:px-6 sm:py-4 border-t border-outline-variant bg-surface-container">
-                    <p className="text-on-surface-variant leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">
+                    <p className="text-on-surface-variant leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
                       {item.a}
                     </p>
                   </div>

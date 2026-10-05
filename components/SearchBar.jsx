@@ -113,7 +113,7 @@ export default function SearchBar() {
           onFocus={() => setIsFocused(true)}
           onKeyDown={handleKeyDown}
           placeholder="Search by code (404), message, or issue..."
-          className="w-full bg-surface-low border-b-2 border-transparent focus:border-primary text-foreground pl-12 pr-4 py-3 rounded-t-md outline-none transition-colors shadow-sm placeholder:text-on-surface-variant text-sm md:text-base font-sans"
+          className="w-full bg-surface-low border-b-2 border-transparent focus:border-primary text-foreground pl-12 pr-4 py-3 rounded-t-md outline-none focus-visible:ring-2 focus-visible:ring-primary/40 transition-colors shadow-sm placeholder:text-on-surface-variant text-sm md:text-base font-sans"
         />
       </div>
 
@@ -126,19 +126,19 @@ export default function SearchBar() {
                 <li key={err.code}>
                   <button 
                     onClick={() => handleResultClick(err.slug)}
-                    className="w-full text-left px-4 py-3 hover:bg-surface-high transition-colors flex flex-col gap-1 focus:bg-surface-high focus:outline-none"
+                    className="w-full text-left px-4 py-3 hover:bg-surface-high transition-colors flex flex-col gap-1 focus:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
                   >
                     <div className="flex items-center gap-2">
                       <span className="bg-primary/10 border border-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-md">{err.code}</span>
                       <span className="font-display font-semibold text-foreground">{err.title}</span>
                     </div>
-                    <span className="text-sm text-foreground/70 truncate">{err.shortDescription}</span>
+                    <span className="text-sm text-on-surface-variant truncate">{err.shortDescription}</span>
                   </button>
                 </li>
               ))}
             </ul>
           ) : (
-            <div className="px-4 py-4 text-sm text-foreground/70">
+            <div className="px-4 py-4 text-sm text-on-surface-variant">
               No results found for "{query}".
             </div>
           )}

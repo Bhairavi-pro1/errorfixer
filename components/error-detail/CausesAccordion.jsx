@@ -9,7 +9,7 @@ export default function CausesAccordion({ error }) {
 
   const getSeverityBadge = (sev) => {
     switch (sev?.toLowerCase()) {
-      case 'low': return 'text-green-400 border-green-400/20 bg-green-400/5';
+      case 'low': return 'text-emerald-400 border-emerald-400/20 bg-emerald-400/5';
       case 'medium': return 'text-yellow-400 border-yellow-400/20 bg-yellow-400/5';
       case 'high': return 'text-orange-400 border-orange-400/20 bg-orange-400/5';
       case 'critical': return 'text-red-400 border-red-400/20 bg-red-400/5';
@@ -25,7 +25,7 @@ export default function CausesAccordion({ error }) {
         </svg>
         Main Causes
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
         Understanding why a {error.code} happens is the first step to resolving it. Here are the most common deep technical causes:
       </p>
       <div className="space-y-1.5 sm:space-y-3">
@@ -35,7 +35,7 @@ export default function CausesAccordion({ error }) {
             <div key={idx} className="border border-outline-variant rounded-md overflow-hidden bg-surface-low transition-colors duration-200 shadow-sm">
               <button
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
-                className="w-full flex items-center justify-between px-3 py-2 sm:px-6 sm:py-3.5 text-left hover:bg-surface-high focus:outline-none"
+                className="w-full flex items-center justify-between px-3 py-2 sm:px-6 sm:py-3.5 text-left hover:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 aria-expanded={isOpen}
               >
                 <div className="flex items-center gap-2 sm:gap-3 pr-2 sm:pr-4">
@@ -55,11 +55,11 @@ export default function CausesAccordion({ error }) {
               <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                   <div className="px-3 py-2.5 sm:px-6 sm:py-4 border-t border-outline-variant bg-surface-container space-y-2 sm:space-y-3.5">
-                    <p className="text-on-surface-variant leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">{cause.explanation}</p>
+                    <p className="text-on-surface-variant leading-relaxed text-[11px] sm:text-sm md:text-base text-left">{cause.explanation}</p>
                     {cause.example && (
                       <div className="bg-surface-high border-l-2 border-primary p-2 sm:p-3.5 text-[11px] sm:text-sm text-foreground/90 rounded-r-md">
                         <strong className="text-primary not-italic block mb-0.5 sm:mb-1 text-[10px] sm:text-xs">Example Scenario:</strong>
-                        <span className="text-justify hyphens-auto block not-italic leading-relaxed">{cause.example}</span>
+                        <span className="text-left block not-italic leading-relaxed">{cause.example}</span>
                       </div>
                     )}
                   </div>

@@ -19,7 +19,7 @@ export default function StepByStepSolutions({ error }) {
         <span className="w-5 h-5 sm:w-8 sm:h-8 rounded-md bg-primary-container flex items-center justify-center border border-outline-variant text-white font-mono text-[10px] sm:text-sm shadow-sm flex-shrink-0">!</span>
         Step-by-Step Solutions
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
         Follow these step-by-step instructions to resolve the {error.code} error. Start with the first step and proceed sequentially.
       </p>
       
@@ -38,7 +38,7 @@ export default function StepByStepSolutions({ error }) {
               </span>
               <div className="flex-1 min-w-0 w-full">
                 <h3 className="text-xs sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2">{step.title}</h3>
-                <p className="text-foreground/90 mb-2 sm:mb-4 leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">{step.description}</p>
+                <p className="text-foreground/90 mb-2 sm:mb-4 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">{step.description}</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 mb-2.5 sm:mb-5">
                   <div className="bg-surface-low p-2 sm:p-3.5 rounded-md border border-outline-variant/50">
@@ -48,7 +48,7 @@ export default function StepByStepSolutions({ error }) {
                       </svg>
                       Why this works
                     </h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{step.whyItWorks}</p>
+                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{step.whyItWorks}</p>
                   </div>
                   <div className="bg-surface-low p-2 sm:p-3.5 rounded-md border border-outline-variant/50">
                     <h4 className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1">
@@ -57,7 +57,7 @@ export default function StepByStepSolutions({ error }) {
                       </svg>
                       Expected result
                     </h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{step.expectedResult}</p>
+                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{step.expectedResult}</p>
                   </div>
                 </div>
 
@@ -71,12 +71,12 @@ export default function StepByStepSolutions({ error }) {
                             <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant font-semibold">{block.label || block.lang}</span>
                             <button 
                               onClick={() => handleCopy(block.code, blockId)}
-                              className="text-[10px] sm:text-xs font-medium text-on-surface-variant hover:text-white transition-colors flex items-center gap-1"
+                              className="text-[10px] sm:text-xs font-medium text-on-surface-variant hover:text-white transition-colors flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5"
                             >
                               {copied === blockId ? (
                                 <>
-                                  <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                                  Copied!
+                                  <svg className="w-3 h-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                                  <span className="text-emerald-400">Copied!</span>
                                 </>
                               ) : (
                                 <>

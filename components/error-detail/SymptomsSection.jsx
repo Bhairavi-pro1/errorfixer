@@ -10,14 +10,14 @@ export default function SymptomsSection({ error }) {
         Common Symptoms
       </h2>
       <div className="bg-surface-container rounded-lg p-2.5 sm:p-5 border border-outline-variant">
-        <p className="text-on-surface-variant text-[11px] sm:text-sm mb-2 sm:mb-3.5 text-justify hyphens-auto">When a {error.code} error occurs, users and systems typically experience the following behaviors:</p>
+        <p className="text-on-surface-variant text-[11px] sm:text-sm mb-2 sm:mb-3.5 text-left">When a {error.code} error occurs, users and systems typically experience the following behaviors:</p>
         <ul className="space-y-1.5 sm:space-y-3">
           {error.symptoms.map((symptom, idx) => (
             <li key={idx} className="flex items-start bg-surface-low p-2 sm:p-3.5 rounded-md border border-outline-variant/50 hover:border-primary/30 transition-colors gap-2 sm:gap-3">
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-tertiary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="flex-1 text-foreground/90 text-[11px] sm:text-sm md:text-base leading-relaxed text-justify hyphens-auto">{symptom}</span>
+              <span className="flex-1 text-foreground/90 text-[11px] sm:text-sm md:text-base leading-relaxed text-left">{symptom}</span>
             </li>
           ))}
         </ul>

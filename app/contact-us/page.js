@@ -34,7 +34,7 @@ export default function ContactUs() {
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-2 sm:mb-4 tracking-tight">
             Contact <span className="gradient-text">ErrorFixer</span>
           </h1>
-          <p className="text-xs sm:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed text-justify hyphens-auto sm:text-center">
+          <p className="text-xs sm:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed text-center">
             We value direct, unhindered communication. Connect with our engineering and editorial team directly via our official email address.
           </p>
         </div>
@@ -75,18 +75,18 @@ export default function ContactUs() {
             </div>
             <span className="text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider block font-semibold mb-0.5">Response Time</span>
             <span className="text-xs sm:text-sm font-bold text-foreground">Under 24 Hours</span>
-            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-justify hyphens-auto sm:text-center">Every technical email is reviewed by active software maintainers.</p>
+            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-center">Every technical email is reviewed by active software maintainers.</p>
           </div>
 
           <div className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-5 text-center shadow-sm">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-400/10 text-green-400 mx-auto mb-2 sm:mb-3 flex items-center justify-center border border-green-400/20">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-400/10 text-emerald-400 mx-auto mb-2 sm:mb-3 flex items-center justify-center border border-emerald-400/20">
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <span className="text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider block font-semibold mb-0.5">Availability</span>
             <span className="text-xs sm:text-sm font-bold text-foreground">Mon &ndash; Fri Global</span>
-            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-justify hyphens-auto sm:text-center">Worldwide coverage across standard UTC development time zones.</p>
+            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-center">Worldwide coverage across standard UTC development time zones.</p>
           </div>
 
           <div className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-5 text-center shadow-sm">
@@ -97,7 +97,7 @@ export default function ContactUs() {
             </div>
             <span className="text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider block font-semibold mb-0.5">Direct Collaboration</span>
             <span className="text-xs sm:text-sm font-bold text-foreground">Open Submissions</span>
-            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-justify hyphens-auto sm:text-center">Send code corrections, new RFC links, or API case studies.</p>
+            <p className="text-[10px] sm:text-xs text-on-surface-variant mt-1 text-center">Send code corrections, new RFC links, or API case studies.</p>
           </div>
         </div>
 
@@ -112,7 +112,7 @@ export default function ContactUs() {
                 <span className="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs font-bold font-mono">1</span>
                 <h3 className="font-semibold text-xs sm:text-base text-foreground">Fix Corrections & Updates</h3>
               </div>
-              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
+              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-left">
                 Noticed a newer syntax for Node.js, Python, or Nginx? Let us know and we'll update the live troubleshooting guide to help fellow developers.
               </p>
             </div>
@@ -122,17 +122,17 @@ export default function ContactUs() {
                 <span className="w-6 h-6 rounded bg-tertiary/10 text-tertiary flex items-center justify-center text-xs font-bold font-mono">2</span>
                 <h3 className="font-semibold text-xs sm:text-base text-foreground">New HTTP Code Requests</h3>
               </div>
-              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
+              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-left">
                 Encountering an unlisted experimental status code or custom cloud provider error? Share the specification and we'll add comprehensive documentation.
               </p>
             </div>
 
             <div className="bg-surface-low border border-outline-variant rounded-lg p-3.5 sm:p-5 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-6 h-6 rounded bg-green-400/10 text-green-400 flex items-center justify-center text-xs font-bold font-mono">3</span>
+                <span className="w-6 h-6 rounded bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-xs font-bold font-mono">3</span>
                 <h3 className="font-semibold text-xs sm:text-base text-foreground">Partnerships & Tools</h3>
               </div>
-              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
+              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-left">
                 Interested in sponsoring diagnostic content or featuring an API testing tool? We welcome constructive developer tooling partnerships.
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function ContactUs() {
                 <span className="w-6 h-6 rounded bg-orange-400/10 text-orange-400 flex items-center justify-center text-xs font-bold font-mono">4</span>
                 <h3 className="font-semibold text-xs sm:text-base text-foreground">General Inquiries & Feedback</h3>
               </div>
-              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
+              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-left">
                 Have UX feedback, dark mode display questions, or site usability suggestions? Send your thoughts directly to our inbox.
               </p>
             </div>

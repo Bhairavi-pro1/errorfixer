@@ -119,7 +119,7 @@ function FAQItem({ item, index, openIdx, setOpenIdx }) {
     <div className="border border-outline-variant rounded-md overflow-hidden transition-all duration-200">
       <button
         onClick={() => setOpenIdx(isOpen ? null : index)}
-        className="w-full flex items-center justify-between gap-3 px-3.5 sm:px-6 py-2.5 sm:py-4 text-left bg-surface-low hover:bg-surface-high transition-colors duration-200 focus:outline-none"
+        className="w-full flex items-center justify-between gap-3 px-3.5 sm:px-6 py-2.5 sm:py-4 text-left bg-surface-low hover:bg-surface-high transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
         aria-expanded={isOpen}
       >
         <span className="font-semibold text-foreground text-xs sm:text-sm md:text-base leading-snug pr-2">
@@ -141,7 +141,7 @@ function FAQItem({ item, index, openIdx, setOpenIdx }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-3.5 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant bg-surface-container text-justify hyphens-auto">
+          <p className="px-3.5 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant bg-surface-container text-left">
             {item.a}
           </p>
         </div>
@@ -166,7 +166,7 @@ export default function HomeSEOContent() {
           >
             What Is <span className="gradient-text">ErrorFixer</span>?
           </h2>
-          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base text-justify hyphens-auto">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base text-left">
             <p>
               ErrorFixer is a free, always-on HTTP status code reference designed for developers who need answers fast. When a broken request is blocking a deployment, slowing down a client demo, or waking you up with an on-call alert, you don't have time to wade through dry specification documents or generic Stack Overflow threads.
             </p>
@@ -187,7 +187,7 @@ export default function HomeSEOContent() {
           >
             How to Use <span className="gradient-text">ErrorFixer</span>
           </h2>
-          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-left">
             Getting from error code to working fix takes four simple steps.
           </p>
           <ol className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6" role="list">
@@ -202,7 +202,7 @@ export default function HomeSEOContent() {
                 <h3 className="text-sm sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2 relative z-10">
                   {step.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed relative z-10 text-justify hyphens-auto">
+                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed relative z-10 text-left">
                   {step.desc}
                 </p>
               </li>
@@ -218,7 +218,7 @@ export default function HomeSEOContent() {
           >
             Why Choose <span className="gradient-text">ErrorFixer</span>?
           </h2>
-          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-justify hyphens-auto">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-left">
             <p>
               HTTP status codes are a foundational layer of the web. Every browser, every API, every load balancer, and every mobile app communicates using them — yet they are often misunderstood or looked up on the fly. A mishandled status code can mean silent data loss, degraded user experience, broken integrations, or a SEO ranking hit that takes months to recover from.
             </p>
@@ -255,7 +255,7 @@ export default function HomeSEOContent() {
           >
             Common <span className="gradient-text">Use Cases</span>
           </h2>
-          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-left">
             ErrorFixer fits naturally into every part of the development lifecycle.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
@@ -268,7 +268,7 @@ export default function HomeSEOContent() {
                 <h3 className="text-sm sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors">
                   {uc.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">
+                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed text-left">
                   {uc.desc}
                 </p>
               </div>
@@ -285,7 +285,7 @@ export default function HomeSEOContent() {
             Understanding HTTP Status Code{" "}
             <span className="gradient-text">Categories</span>
           </h2>
-          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-justify hyphens-auto">
+          <div className="space-y-3 sm:space-y-4 text-on-surface-variant leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-8 text-left">
             <p>
               The HTTP protocol organises status codes into five classes, each identified by its leading digit. Knowing which class a code belongs to immediately tells you the nature of the problem and where to look for the solution.
             </p>
@@ -303,9 +303,9 @@ export default function HomeSEOContent() {
               {
                 range: "2xx",
                 name: "Success",
-                color: "text-green-400",
-                border: "border-green-500/30",
-                bg: "bg-green-500/5",
+                color: "text-emerald-400",
+                border: "border-emerald-500/30",
+                bg: "bg-emerald-500/5",
                 desc: "The request was successfully received, understood, and accepted. 200 OK is the most common, but 201 Created, 204 No Content, and 206 Partial Content each carry specific semantic meaning that well-designed APIs rely on.",
               },
               {
@@ -346,7 +346,7 @@ export default function HomeSEOContent() {
                   <span className={`font-display font-bold text-xs sm:text-base ${cat.color}`}>
                     {cat.name}
                   </span>
-                  <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mt-0.5 sm:mt-1 text-justify hyphens-auto">
+                  <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mt-0.5 sm:mt-1 text-left">
                     {cat.desc}
                   </p>
                 </div>
@@ -363,7 +363,7 @@ export default function HomeSEOContent() {
           >
             Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
-          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-justify sm:text-left hyphens-auto">
+          <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-left">
             Everything you need to know about HTTP status codes and ErrorFixer.
           </p>
           <div className="space-y-2 sm:space-y-3">
@@ -390,14 +390,14 @@ export default function HomeSEOContent() {
           >
             Ready to fix your next error?
           </h2>
-          <p className="text-xs sm:text-sm md:text-base text-on-surface-variant mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-justify sm:text-center hyphens-auto">
+          <p className="text-xs sm:text-sm md:text-base text-on-surface-variant mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-center">
             Scroll up to browse all HTTP status codes or use the category filter to jump straight to the error class you're investigating.
           </p>
           <button
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-md text-xs sm:text-sm font-semibold text-white bg-gradient-btn hover:opacity-90 transition-opacity duration-200 shadow-lg"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-md text-xs sm:text-sm font-semibold text-white bg-gradient-btn hover:opacity-90 transition-opacity duration-200 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Browse Error Codes
             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

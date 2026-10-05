@@ -26,8 +26,8 @@ export default function DevNotes({ error }) {
           <div className="bg-[#0d1117] rounded-lg overflow-hidden border border-outline-variant shadow-sm">
             <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#161b22] border-b border-outline-variant flex justify-between items-center">
               <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant font-semibold">HTTP Headers Example</span>
-              <button onClick={() => handleCopy(error.devNotes.httpHeaders, 'headers')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors">
-                {copied === 'headers' ? <span className="text-green-400">Copied!</span> : 'Copy'}
+              <button onClick={() => handleCopy(error.devNotes.httpHeaders, 'headers')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
+                {copied === 'headers' ? <span className="text-emerald-400">Copied!</span> : 'Copy'}
               </button>
             </div>
             <div className="p-2.5 sm:p-4 overflow-x-auto">
@@ -41,8 +41,8 @@ export default function DevNotes({ error }) {
           <div className="bg-[#0d1117] rounded-lg overflow-hidden border border-outline-variant shadow-sm">
             <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#161b22] border-b border-outline-variant flex justify-between items-center">
               <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant font-semibold">JSON Response Example</span>
-              <button onClick={() => handleCopy(error.devNotes.responseExample, 'response')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors">
-                {copied === 'response' ? <span className="text-green-400">Copied!</span> : 'Copy'}
+              <button onClick={() => handleCopy(error.devNotes.responseExample, 'response')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
+                {copied === 'response' ? <span className="text-emerald-400">Copied!</span> : 'Copy'}
               </button>
             </div>
             <div className="p-2.5 sm:p-4 overflow-x-auto">

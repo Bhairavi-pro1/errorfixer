@@ -18,7 +18,7 @@ export default function RealWorldScenarios({ error }) {
               </span>
               {scenario.title}
             </h3>
-            <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-justify hyphens-auto">{scenario.description}</p>
+            <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-left">{scenario.description}</p>
           </div>
         ))}
       </div>

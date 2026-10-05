@@ -71,7 +71,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md text-foreground hover:bg-surface-high transition-colors focus:outline-none"
+              className="p-2 rounded-md text-foreground hover:bg-surface-high transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {isDarkMode ? (
@@ -86,7 +86,7 @@ export default function Navbar() {
             </button>
             <button 
               onClick={() => setMenuOpen(true)}
-              className="p-2 rounded-md text-foreground hover:bg-surface-high transition-colors focus:outline-none"
+              className="p-2 rounded-md text-foreground hover:bg-surface-high transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Open menu"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,21 +112,22 @@ export default function Navbar() {
           <div className="relative w-72 h-full bg-surface-high shadow-xl flex flex-col p-6 animate-slide-in-right">
             <button 
               onClick={() => setMenuOpen(false)}
-              className="self-end p-2 text-foreground hover:bg-surface-highest rounded-md transition-colors"
+              className="self-end p-2 text-foreground hover:bg-surface-highest rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              aria-label="Close menu"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
             <nav className="mt-8 flex flex-col gap-6 font-display">
-              <Link href="/" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full">Home</Link>
-              <Link href="/blog" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full">Blog</Link>
+              <Link href="/" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">Home</Link>
+              <Link href="/blog" onClick={() => setMenuOpen(false)} className="text-xl font-bold text-foreground hover:text-primary transition-colors block w-full rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">Blog</Link>
 
               
               <div className="flex flex-col">
                 <button 
                   onClick={() => setCategoriesOpen(!categoriesOpen)} 
-                  className="flex items-center justify-between text-xl font-bold text-foreground hover:text-primary transition-colors focus:outline-none w-full"
+                  className="flex items-center justify-between text-xl font-bold text-foreground hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm w-full"
                 >
                   <span>Categories</span>
                   <svg className={`h-5 w-5 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,9 +136,9 @@ export default function Navbar() {
                 </button>
                 {categoriesOpen && (
                   <div className="mt-3 ml-4 flex flex-col gap-4">
-                    <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">All Categories</Link>
+                    <Link href="/" onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">All Categories</Link>
                     {categoriesList.map(cat => (
-                      <Link key={cat} href={`/category/${cat}`} onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full">{cat} Errors</Link>
+                      <Link key={cat} href={`/category/${cat}`} onClick={() => setMenuOpen(false)} className="text-lg font-semibold text-on-surface-variant hover:text-primary transition-colors block w-full rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">{cat} Errors</Link>
                     ))}
                   </div>
                 )}

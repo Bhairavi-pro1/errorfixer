@@ -21,7 +21,7 @@ export default function AdvancedFixes({ error }) {
         </svg>
         Advanced Developer Fixes
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
         If you have server access, you can implement these backend configurations or middleware patterns to handle or prevent {error.code} errors.
       </p>
 
@@ -42,7 +42,7 @@ export default function AdvancedFixes({ error }) {
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-tertiary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="flex-1 text-justify hyphens-auto">{fix.note}</span>
+                    <span className="flex-1 text-left">{fix.note}</span>
                   </p>
                 )}
                 {fix.warning && (
@@ -50,7 +50,7 @@ export default function AdvancedFixes({ error }) {
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    <span className="flex-1 text-justify hyphens-auto"><strong>Warning:</strong> {fix.warning}</span>
+                    <span className="flex-1 text-left"><strong>Warning:</strong> {fix.warning}</span>
                   </p>
                 )}
               </div>
@@ -59,11 +59,11 @@ export default function AdvancedFixes({ error }) {
             <div className="bg-[#0d1117] relative">
               <button 
                 onClick={() => handleCopy(fix.code, idx)}
-                className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1 rounded-md bg-[#161b22] text-on-surface-variant hover:text-white border border-outline-variant transition-colors"
+                className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1 rounded-md bg-[#161b22] text-on-surface-variant hover:text-white border border-outline-variant transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 title="Copy code"
               >
                 {copied === idx ? (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                 ) : (
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                 )}

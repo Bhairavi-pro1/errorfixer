@@ -23,14 +23,14 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-4 sm:p-6 text-center">
-        <div className="w-10 h-10 rounded-full bg-green-400/20 text-green-400 mx-auto mb-2 flex items-center justify-center">
+      <div className="bg-emerald-400/10 border border-emerald-400/30 rounded-lg p-4 sm:p-6 text-center">
+        <div className="w-10 h-10 rounded-full bg-emerald-400/20 text-emerald-400 mx-auto mb-2 flex items-center justify-center">
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
         <h3 className="text-sm sm:text-lg font-bold text-foreground mb-1">Thank You!</h3>
-        <p className="text-xs sm:text-sm text-on-surface-variant mb-4 text-justify hyphens-auto sm:text-center">
+        <p className="text-xs sm:text-sm text-on-surface-variant mb-4 text-center">
           Your message has been received. Our technical team will review your inquiry and get back to you shortly.
         </p>
         <button
@@ -38,7 +38,7 @@ export default function ContactForm() {
             setSubmitted(false);
             setFormData({ name: "", email: "", subject: "General Inquiry", message: "" });
           }}
-          className="px-4 py-1.5 rounded-md bg-surface-high border border-outline-variant text-xs sm:text-sm font-medium text-foreground hover:bg-surface-highest transition-colors"
+          className="px-4 py-1.5 rounded-md bg-surface-high border border-outline-variant text-xs sm:text-sm font-medium text-foreground hover:bg-surface-highest transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           Send Another Message
         </button>
@@ -59,7 +59,7 @@ export default function ContactForm() {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="e.g. Alex Developer"
-            className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
+            className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-colors"
           />
         </div>
         <div>
@@ -72,7 +72,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="name@company.com"
-            className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
+            className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-colors"
           />
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function ContactForm() {
         <select
           value={formData.subject}
           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-          className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+          className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-colors"
         >
           <option value="General Inquiry">General Inquiry</option>
           <option value="Bug Report / Error Fix Correction">Bug Report / Error Fix Correction</option>
@@ -104,7 +104,7 @@ export default function ContactForm() {
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Describe your question, error feedback, or request..."
-          className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
+          className="w-full px-3 py-2 rounded-md bg-surface-container border border-outline-variant text-xs sm:text-sm text-foreground placeholder:text-on-surface-variant/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition-colors"
         ></textarea>
       </div>
 
@@ -112,7 +112,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full sm:w-auto px-6 py-2.5 rounded-md bg-primary-container text-white text-xs sm:text-sm font-semibold hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-50"
+          className="w-full sm:w-auto px-6 py-2.5 rounded-md bg-primary-container text-white text-xs sm:text-sm font-semibold hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {loading ? (
             <span>Sending...</span>

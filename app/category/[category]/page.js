@@ -292,7 +292,7 @@ export default async function CategoryPage({ params }) {
           <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold text-foreground mb-2.5 sm:mb-5 tracking-tight">
             {info.name} <span className="gradient-text">HTTP Codes</span>
           </h1>
-          <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-justify sm:text-center hyphens-auto">
+          <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
             {info.overview}
           </p>
         </section>
@@ -303,7 +303,7 @@ export default async function CategoryPage({ params }) {
             <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
               <Link
                 href="/"
-                className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold bg-surface text-on-surface-variant border border-outline-variant hover:bg-surface-highest hover:text-foreground transition-all"
+                className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold bg-surface text-on-surface-variant border border-outline-variant hover:bg-surface-highest hover:text-foreground transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 All Categories
               </Link>
@@ -311,7 +311,7 @@ export default async function CategoryPage({ params }) {
                 <Link
                   key={cat}
                   href={`/category/${cat}`}
-                  className={`px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border ${
+                  className={`px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                     category === cat
                       ? "bg-surface-highest text-tertiary border-tertiary shadow-[0_0_10px_rgba(76,215,246,0.2)]"
                       : "bg-surface text-on-surface-variant border-outline-variant hover:bg-surface-highest hover:text-foreground"
@@ -357,7 +357,7 @@ export default async function CategoryPage({ params }) {
               Understanding {info.name} Codes
             </h2>
             
-            <div className="space-y-4 sm:space-y-6 text-xs sm:text-sm md:text-base text-foreground/90 leading-relaxed text-justify hyphens-auto">
+            <div className="space-y-4 sm:space-y-6 text-xs sm:text-sm md:text-base text-foreground/90 leading-relaxed text-left">
               <div>
                 <h3 className="text-sm sm:text-base md:text-lg font-bold text-tertiary mb-1 sm:mb-2">Why These Status Codes Matter</h3>
                 <p>{info.whyImportant}</p>
@@ -385,7 +385,7 @@ export default async function CategoryPage({ params }) {
                   <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground mb-1 sm:mb-2">
                     {faq.q}
                   </h3>
-                  <p className="text-on-surface-variant text-xs sm:text-sm md:text-base leading-relaxed text-justify hyphens-auto">
+                  <p className="text-on-surface-variant text-xs sm:text-sm md:text-base leading-relaxed text-left">
                     {faq.a}
                   </p>
                 </div>

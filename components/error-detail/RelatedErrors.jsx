@@ -24,14 +24,14 @@ export default function RelatedErrors({ error }) {
           <Link 
             key={idx} 
             href={`/${rel.slug}`}
-            className="bg-surface-high p-2.5 sm:p-4 rounded-lg border border-outline-variant hover:border-tertiary transition-colors group relative overflow-hidden shadow-sm"
+            className="bg-surface-high p-2.5 sm:p-4 rounded-lg border border-outline-variant hover:border-tertiary transition-colors group relative overflow-hidden shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <div className="absolute top-0 right-0 w-16 h-16 bg-tertiary/5 rounded-full blur-xl group-hover:bg-tertiary/10 transition-colors pointer-events-none -mr-8 -mt-8"></div>
             <div className="flex items-center gap-1.5 sm:gap-2.5 mb-1 relative z-10">
               <span className="text-sm sm:text-base md:text-lg font-bold text-tertiary">{rel.code}</span>
               <span className="font-semibold text-foreground text-[11px] sm:text-sm truncate">{rel.title}</span>
             </div>
-            <p className="text-[11px] sm:text-sm text-on-surface-variant line-clamp-2 relative z-10 text-justify hyphens-auto">{rel.shortDescription}</p>
+            <p className="text-[11px] sm:text-sm text-on-surface-variant line-clamp-2 relative z-10 text-left">{rel.shortDescription}</p>
           </Link>
         ))}
       </div>

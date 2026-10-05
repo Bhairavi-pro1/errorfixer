@@ -26,11 +26,20 @@ export default function DebugChecklist() {
           <div 
             key={item.id} 
             onClick={() => toggleCheck(item.id)}
-            className={`flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-md cursor-pointer transition-colors border border-transparent hover:border-outline-variant hover:bg-surface-high ${
-              item.checked ? "bg-surface text-foreground opacity-50 line-through" : "bg-surface-container text-foreground"
+            onKeyDown={(e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                toggleCheck(item.id);
+              }
+            }}
+            tabIndex={0}
+            role="checkbox"
+            aria-checked={item.checked}
+            className={`flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-md cursor-pointer transition-colors border border-transparent hover:border-outline-variant hover:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+              item.checked ? "bg-surface text-foreground/70 line-through" : "bg-surface-container text-foreground"
             }`}
           >
-            <span className="text-xs sm:text-sm select-none flex-1 text-justify hyphens-auto">{item.text}</span>
+            <span className="text-xs sm:text-sm select-none flex-1 text-left">{item.text}</span>
           </div>
         ))}
       </div>

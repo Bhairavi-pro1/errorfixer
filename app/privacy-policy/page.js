@@ -49,15 +49,15 @@ export default function PrivacyPolicy() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 text-xs sm:text-sm text-on-surface-variant">
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">No Account Required</strong>
-              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">You can access all HTTP diagnostic guides without registering an account or providing financial credentials.</p>
+              <p className="text-[11px] sm:text-xs text-left">You can access all HTTP diagnostic guides without registering an account or providing financial credentials.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Analytics & Ads</strong>
-              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">We use anonymized technical analytics and third-party advertising partners to sustain free open-access tools.</p>
+              <p className="text-[11px] sm:text-xs text-left">We use anonymized technical analytics and third-party advertising partners to sustain free open-access tools.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Your Privacy Rights</strong>
-              <p className="text-[11px] sm:text-xs text-justify hyphens-auto">We fully honor GDPR, CCPA, and global data rights requests promptly via our designated email contact.</p>
+              <p className="text-[11px] sm:text-xs text-left">We fully honor GDPR, CCPA, and global data rights requests promptly via our designated email contact.</p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">1</span>
               Introduction
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+            <p className="text-xs sm:text-sm leading-relaxed text-left">
               Welcome to ErrorFixer. We respect your privacy and are committed to protecting your personal data. This Privacy Policy informs you how we manage and safeguard information when you visit our website, regardless of where you access it from, and explains your statutory privacy rights under global data protection frameworks.
             </p>
           </section>
@@ -80,19 +80,19 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">2</span>
               The Data We Collect
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
               We may process different categories of technical and interaction data when you browse our platform:
             </p>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
-                <span className="flex-1 text-justify hyphens-auto">
+                <span className="flex-1 text-left">
                   <strong className="text-foreground">Usage Data:</strong> Pages viewed, HTTP error codes searched, diagnostic steps clicked, and general navigation flows.
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
-                <span className="flex-1 text-justify hyphens-auto">
+                <span className="flex-1 text-left">
                   <strong className="text-foreground">Technical Data:</strong> Internet Protocol (IP) address, browser type and engine version, operating system, device screen resolution, and time zone setting.
                 </span>
               </li>
@@ -104,21 +104,21 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">3</span>
               How We Use Your Data
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
               We process technical information only under lawful bases, including legitimate interests and user consent:
             </p>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
-                <span className="flex-1 text-justify hyphens-auto">To operate, optimize, and maintain high server reliability across global networks.</span>
+                <span className="flex-1 text-left">To operate, optimize, and maintain high server reliability across global networks.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
-                <span className="flex-1 text-justify hyphens-auto">To analyze search patterns and identify missing HTTP status code documentation.</span>
+                <span className="flex-1 text-left">To analyze search patterns and identify missing HTTP status code documentation.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
-                <span className="flex-1 text-justify hyphens-auto">To display non-intrusive contextual advertising to fund platform operations.</span>
+                <span className="flex-1 text-left">To display non-intrusive contextual advertising to fund platform operations.</span>
               </li>
             </ul>
           </section>
@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">4</span>
               Cookies & Advertising Partners
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+            <p className="text-xs sm:text-sm leading-relaxed text-left">
               Our website uses standard browser cookies to retain user preferences (such as light/dark mode choices). We may also collaborate with vetted advertising partners who utilize web beacons or cookies to serve relevant technical advertisements. You can disable or modify cookie handling at any time through your browser settings without losing access to core error documentation.
             </p>
           </section>
@@ -138,7 +138,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">5</span>
               Data Security & Retention
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto">
+            <p className="text-xs sm:text-sm leading-relaxed text-left">
               We implement industry-grade encryption, HTTPS protocols, and server firewalls to prevent unauthorized access or interception. We do not sell, rent, or lease personal user lists to third-party brokers under any circumstances.
             </p>
           </section>
@@ -148,7 +148,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">6</span>
               Your Global Privacy Rights (GDPR / CCPA)
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
               Depending on your regional jurisdiction, you possess specific legal rights over your personal information:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
@@ -176,14 +176,14 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary text-white text-xs flex items-center justify-center font-mono">7</span>
               Contact Data Protection
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-justify hyphens-auto mb-3">
+            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
               If you have inquiries, concerns, or requests regarding this Privacy Policy or our security measures, please reach out to our privacy team directly:
             </p>
             <div className="inline-flex items-center gap-2 p-2.5 sm:p-3 rounded-md bg-surface-container border border-outline-variant">
               <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <a href="mailto:Bairavi.co@gmail.com" className="text-xs sm:text-sm font-semibold text-primary hover:underline">
+              <a href="mailto:Bairavi.co@gmail.com" className="text-xs sm:text-sm font-semibold text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">
                 Bairavi.co@gmail.com
               </a>
             </div>

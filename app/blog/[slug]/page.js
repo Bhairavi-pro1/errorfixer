@@ -7,7 +7,7 @@ import AdSidebar from "../../../components/AdSidebar";
 
 const portableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-xs sm:text-base md:text-lg text-foreground/90 leading-relaxed mb-3 sm:mb-6 font-sans text-justify hyphens-auto">{children}</p>,
+    normal: ({ children }) => <p className="text-xs sm:text-base md:text-lg text-foreground/90 leading-relaxed mb-3 sm:mb-6 font-sans text-left">{children}</p>,
     h1: ({ children }) => <h1 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mt-6 sm:mt-12 mb-3 sm:mb-6">{children}</h1>,
     h2: ({ children }) => (
       <h2 className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-foreground mt-5 sm:mt-10 mb-2.5 sm:mb-5 flex items-center gap-2 border-b border-outline-variant pb-1.5 sm:pb-2">
@@ -17,7 +17,7 @@ const portableTextComponents = {
     ),
     h3: ({ children }) => <h3 className="text-sm sm:text-xl md:text-2xl font-display font-bold text-foreground mt-4 sm:mt-8 mb-2 sm:mb-4">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-3 sm:p-5 pl-4 sm:pl-6 rounded-r-xl italic my-4 sm:my-8 text-foreground/95 border-l-primary/80 text-xs sm:text-base text-justify hyphens-auto">
+      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-3 sm:p-5 pl-4 sm:pl-6 rounded-r-xl italic my-4 sm:my-8 text-foreground/95 border-l-primary/80 text-xs sm:text-base text-left">
         {children}
       </blockquote>
     ),
@@ -27,8 +27,8 @@ const portableTextComponents = {
     number: ({ children }) => <ol className="list-decimal pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-xs sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="text-justify hyphens-auto">{children}</li>,
-    number: ({ children }) => <li className="text-justify hyphens-auto">{children}</li>,
+    bullet: ({ children }) => <li className="text-left">{children}</li>,
+    number: ({ children }) => <li className="text-left">{children}</li>,
   },
   marks: {
     link: ({ children, value }) => {
@@ -38,7 +38,7 @@ const portableTextComponents = {
           href={value.href} 
           target="_blank" 
           rel={rel} 
-          className="text-primary hover:text-tertiary underline decoration-primary/30 hover:decoration-tertiary/60 transition-colors font-semibold"
+          className="text-primary hover:text-tertiary underline decoration-primary/30 hover:decoration-tertiary/60 transition-colors font-semibold focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none rounded"
         >
           {children}
         </a>
@@ -272,9 +272,9 @@ export default async function BlogPostPage({ params }) {
         <article className="flex-1 max-w-3xl min-w-0">
           {/* Breadcrumbs Navigation */}
           <nav className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-semibold tracking-wide text-on-surface-variant mb-3 sm:mb-6 uppercase">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none rounded">Home</Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
+            <Link href="/blog" className="hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none rounded">Blog</Link>
             <span>/</span>
             <span className="text-foreground truncate max-w-[160px] sm:max-w-xs">{post.title}</span>
           </nav>
@@ -341,7 +341,7 @@ export default async function BlogPostPage({ params }) {
           <div className="mt-8 sm:mt-16 pt-4 sm:pt-8 border-t border-outline-variant/60 flex justify-between items-center">
             <Link 
               href="/blog" 
-              className="group flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-primary hover:text-tertiary transition-colors"
+              className="group flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-primary hover:text-tertiary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none rounded"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

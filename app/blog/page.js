@@ -98,7 +98,7 @@ export default async function BlogPage() {
         <h1 className="mt-2 sm:mt-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground tracking-tight">
           The Error<span className="gradient-text font-bold">Fixer</span> Blog
         </h1>
-        <p className="mt-2 sm:mt-4 text-xs sm:text-base md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-justify hyphens-auto sm:text-center">
+        <p className="mt-2 sm:mt-4 text-xs sm:text-base md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-center">
           Deep dives into HTTP error code resolution, Web architectures, API design best practices, and performance optimization.
         </p>
       </div>
@@ -164,14 +164,14 @@ export default async function BlogPage() {
 
                     {/* Title */}
                     <h2 className="text-sm sm:text-lg md:text-xl font-display font-bold text-foreground mb-1.5 sm:mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                      <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                      <Link href={`/blog/${post.slug}`} className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md">
                         <span className="absolute inset-0" aria-hidden="true" />
                         {post.title}
                       </Link>
                     </h2>
 
                     {/* Excerpt */}
-                    <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-3 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-justify hyphens-auto">
+                    <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-3 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-left">
                       {post.excerpt || post.description || "Click to read this article's full troubleshooting guides and solutions."}
                     </p>
 

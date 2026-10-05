@@ -28,7 +28,7 @@ export default function Tabs({ solutions }) {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 border ${
+              className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeTab === tab
                   ? "bg-primary-container text-white border-primary-container shadow-[0_0_15px_rgba(79,70,229,0.4)]"
                   : "bg-surface-low text-on-surface-variant border-outline-variant hover:bg-surface-highest hover:text-foreground hover:border-surface-highest"
@@ -52,7 +52,7 @@ export default function Tabs({ solutions }) {
                 {idx + 1}
               </span>
               <div className="flex-1">
-                <p className="text-foreground text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">{step}</p>
+                <p className="text-foreground text-[11px] sm:text-sm md:text-base text-left">{step}</p>
               </div>
             </li>
           ))}

@@ -4,7 +4,7 @@ export default function ErrorCard({ error }) {
   return (
     <Link 
       href={`/${error.slug}`}
-      className="block group bg-surface-container hover:bg-surface-highest transition-all duration-300 rounded-md p-3.5 sm:p-5 md:p-6 border border-outline-variant/60 hover:border-outline-variant hover:shadow-lg relative overflow-hidden"
+      className="block group bg-surface-container hover:bg-surface-highest transition-all duration-300 rounded-md p-3.5 sm:p-5 md:p-6 border border-outline-variant/60 hover:border-outline-variant hover:shadow-lg relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors pointer-events-none -mr-12 -mt-12"></div>
       
@@ -22,7 +22,7 @@ export default function ErrorCard({ error }) {
           {error.title}
         </h3>
         
-        <p className="text-xs sm:text-sm text-foreground/80 mb-3 sm:mb-5 flex-grow leading-relaxed text-justify hyphens-auto">
+        <p className="text-xs sm:text-sm text-foreground/80 mb-3 sm:mb-5 flex-grow leading-relaxed text-left">
           {error.shortDescription}
         </p>
 

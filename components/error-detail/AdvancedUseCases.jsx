@@ -21,7 +21,7 @@ export default function AdvancedUseCases({ error }) {
         </svg>
         Advanced Use Cases
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-justify hyphens-auto">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
         Explore advanced scenarios, distributed system implementations, and infrastructure considerations for {error.code} errors.
       </p>
 
@@ -42,7 +42,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     Scenario
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.scenario}</p>
+                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.scenario}</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1 flex items-center gap-1.5 text-xs sm:text-sm">
@@ -51,7 +51,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     How it Works
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.howItWorks}</p>
+                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.howItWorks}</p>
                 </div>
               </div>
 
@@ -64,11 +64,11 @@ export default function AdvancedUseCases({ error }) {
                       <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant">{useCase.implementationExample.lang}</span>
                       <button 
                         onClick={() => handleCopy(useCase.implementationExample.code, idx)}
-                        className="p-1 rounded text-on-surface-variant hover:text-white transition-colors"
+                        className="p-1 rounded text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         title="Copy code"
                       >
                         {copied === idx ? (
-                          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                         ) : (
                           <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                         )}
@@ -88,7 +88,7 @@ export default function AdvancedUseCases({ error }) {
                 {useCase.benefits && useCase.benefits.length > 0 && (
                   <div>
                     <h4 className="font-semibold text-xs sm:text-sm text-foreground mb-1.5 flex items-center gap-1.5 sm:gap-2">
-                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       Benefits
@@ -96,8 +96,8 @@ export default function AdvancedUseCases({ error }) {
                     <ul className="space-y-1 sm:space-y-2">
                       {useCase.benefits.map((benefit, i) => (
                         <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1 sm:mt-1.5 flex-shrink-0"></span>
-                          <span className="flex-1 text-justify hyphens-auto">{benefit}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1 sm:mt-1.5 flex-shrink-0"></span>
+                          <span className="flex-1 text-left">{benefit}</span>
                         </li>
                       ))}
                     </ul>
@@ -116,7 +116,7 @@ export default function AdvancedUseCases({ error }) {
                       {useCase.bestPractices.map((practice, i) => (
                         <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1 sm:mt-1.5 flex-shrink-0"></span>
-                          <span className="flex-1 text-justify hyphens-auto">{practice}</span>
+                          <span className="flex-1 text-left">{practice}</span>
                         </li>
                       ))}
                     </ul>
@@ -137,7 +137,7 @@ export default function AdvancedUseCases({ error }) {
                     {useCase.developerNotes.map((note, i) => (
                       <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-1.5">
                         <span className="text-tertiary flex-shrink-0">•</span>
-                        <span className="flex-1 text-justify hyphens-auto">{note}</span>
+                        <span className="flex-1 text-left">{note}</span>
                       </li>
                     ))}
                   </ul>
@@ -149,13 +149,13 @@ export default function AdvancedUseCases({ error }) {
                 {useCase.realWorldExample && (
                   <div>
                     <h4 className="font-semibold text-foreground mb-1 text-xs sm:text-sm">Real World Example</h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.realWorldExample}</p>
+                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.realWorldExample}</p>
                   </div>
                 )}
                 {useCase.whyUnderrated && (
                   <div>
                     <h4 className="font-semibold text-foreground mb-1 text-xs sm:text-sm">Why It's Underrated</h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.whyUnderrated}</p>
+                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.whyUnderrated}</p>
                   </div>
                 )}
               </div>
@@ -171,7 +171,7 @@ export default function AdvancedUseCases({ error }) {
                         </svg>
                         Security Impact
                       </h4>
-                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.securityImpact}</p>
+                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.securityImpact}</p>
                     </div>
                   )}
                   {useCase.performanceImpact && (
@@ -182,7 +182,7 @@ export default function AdvancedUseCases({ error }) {
                         </svg>
                         Performance Impact
                       </h4>
-                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.performanceImpact}</p>
+                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.performanceImpact}</p>
                     </div>
                   )}
                 </div>
@@ -197,7 +197,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     Advanced Architecture: {useCase.advancedArchitecture.title}
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-justify hyphens-auto">{useCase.advancedArchitecture.description}</p>
+                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.advancedArchitecture.description}</p>
                 </div>
               )}
             </div>

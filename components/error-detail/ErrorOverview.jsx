@@ -12,19 +12,19 @@ export default function ErrorOverview({ error }) {
       <div className="space-y-2 sm:space-y-3.5 text-foreground/90 leading-relaxed text-[11px] sm:text-sm md:text-base">
         <div className="bg-surface-low p-2.5 sm:p-4 rounded-md border-l-2 border-primary">
           <h3 className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider mb-1">What it means</h3>
-          <p className="text-justify hyphens-auto">{error.overview.what}</p>
+          <p className="text-left">{error.overview.what}</p>
         </div>
         <div className="bg-surface-low p-2.5 sm:p-4 rounded-md border-l-2 border-tertiary">
           <h3 className="text-[10px] sm:text-xs font-bold text-tertiary uppercase tracking-wider mb-1">Why it occurs</h3>
-          <p className="text-justify hyphens-auto">{error.overview.why}</p>
+          <p className="text-left">{error.overview.why}</p>
         </div>
         <div className="bg-surface-low p-2.5 sm:p-4 rounded-md border-l-2 border-on-secondary-container">
           <h3 className="text-[10px] sm:text-xs font-bold text-on-secondary-container uppercase tracking-wider mb-1">Where you'll see it</h3>
-          <p className="text-justify hyphens-auto">{error.overview.where}</p>
+          <p className="text-left">{error.overview.where}</p>
         </div>
         <div className="bg-surface-low p-2.5 sm:p-4 rounded-md border-l-2 border-orange-400">
           <h3 className="text-[10px] sm:text-xs font-bold text-orange-400 uppercase tracking-wider mb-1">Real-world impact</h3>
-          <p className="text-justify hyphens-auto">{error.overview.impact}</p>
+          <p className="text-left">{error.overview.impact}</p>
         </div>
       </div>
     </section>

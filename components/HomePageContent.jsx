@@ -27,7 +27,7 @@ export default function HomePageContent({ errors }) {
         <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold text-foreground mb-2.5 sm:mb-5 tracking-tight">
           Fix HTTP Errors <span className="gradient-text">Instantly</span>
         </h1>
-        <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-justify sm:text-center hyphens-auto">
+        <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
           Stop guessing what went wrong. Search your error code, understand the cause, and copy-paste real-world solutions tailored to your tech stack.
         </p>
       </section>
@@ -38,7 +38,7 @@ export default function HomePageContent({ errors }) {
           <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
             <Link
               href="/"
-              className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border bg-surface-highest text-tertiary border-tertiary shadow-[0_0_10px_rgba(76,215,246,0.2)]"
+              className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border bg-surface-highest text-tertiary border-tertiary shadow-[0_0_10px_rgba(76,215,246,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               All Categories
             </Link>
@@ -46,7 +46,7 @@ export default function HomePageContent({ errors }) {
               <Link
                 key={cat}
                 href={`/category/${cat}`}
-                className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border bg-surface text-on-surface-variant border-outline-variant hover:bg-surface-highest hover:text-foreground"
+                className="px-2.5 py-1 sm:px-4 sm:py-2 rounded-md text-[11px] sm:text-sm font-mono font-bold transition-all duration-300 border bg-surface text-on-surface-variant border-outline-variant hover:bg-surface-highest hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {cat} Codes
               </Link>

@@ -24,7 +24,7 @@ export default function PlatformTabs({ error }) {
               <button
                 key={tab}
                 onClick={() => setActivePlatform(tab)}
-                className={`px-2 py-0.5 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 border ${
+                className={`px-2 py-0.5 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   activePlatform === tab
                     ? "bg-primary-container text-white border-primary-container shadow-[0_0_10px_rgba(79,70,229,0.3)]"
                     : "bg-surface-low text-on-surface-variant border-outline-variant hover:bg-surface-highest hover:text-foreground"
@@ -47,7 +47,7 @@ export default function PlatformTabs({ error }) {
                   {idx + 1}
                 </span>
                 <div className="flex-1">
-                  <p className="text-foreground/90 text-[11px] sm:text-sm md:text-base leading-relaxed text-justify hyphens-auto">{step}</p>
+                  <p className="text-foreground/90 text-[11px] sm:text-sm md:text-base leading-relaxed text-left">{step}</p>
                 </div>
               </li>
             ))}
