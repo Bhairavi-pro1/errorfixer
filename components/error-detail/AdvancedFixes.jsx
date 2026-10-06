@@ -36,13 +36,13 @@ export default function AdvancedFixes({ error }) {
             </div>
             
             {(fix.note || fix.warning) && (
-              <div className="px-3 sm:px-5 py-2 sm:py-3.5 space-y-1.5 sm:space-y-3 bg-surface-container/50">
+              <div className="px-3 sm:px-5 py-2 sm:py-3.5 space-y-1.5 sm:space-y-3 bg-surface-container border-b border-outline-variant/40">
                 {fix.note && (
-                  <p className="text-[11px] sm:text-sm text-foreground/80 flex items-start gap-1.5 sm:gap-2">
+                  <p className="text-[11px] sm:text-sm text-foreground/90 flex items-start gap-1.5 sm:gap-2">
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-tertiary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="flex-1 text-left">{fix.note}</span>
+                    <span className="flex-1 text-left text-foreground/90">{fix.note}</span>
                   </p>
                 )}
                 {fix.warning && (

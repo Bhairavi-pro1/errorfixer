@@ -190,7 +190,7 @@ export default function HomeSEOContent() {
           <p className="text-on-surface-variant mb-4 sm:mb-8 text-xs sm:text-sm md:text-base leading-relaxed text-left">
             Getting from error code to working fix takes four simple steps.
           </p>
-          <ol className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6" role="list">
+          <ol className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
             {HOW_TO_STEPS.map((step) => (
               <li
                 key={step.num}

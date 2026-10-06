@@ -39,16 +39,16 @@ export default function Footer() {
             <h3 className="text-[11px] sm:text-sm font-semibold text-primary uppercase tracking-wider mb-2 sm:mb-4">Quick Links</h3>
             <ul className="space-y-1.5 sm:space-y-3">
               <li>
-                <Link href="/" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Home</Link>
+                <Link href="/" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Home</Link>
               </li>
               <li>
-                <Link href="/blog" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Blog</Link>
+                <Link href="/blog" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Blog</Link>
               </li>
               <li>
-                <Link href="/contact-us" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Contact Us</Link>
+                <Link href="/contact-us" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Contact Us</Link>
               </li>
               <li>
-                <Link href="/about-us" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">About Us</Link>
+                <Link href="/about-us" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">About Us</Link>
               </li>
             </ul>
           </div>
@@ -58,11 +58,11 @@ export default function Footer() {
             <h3 className="text-[11px] sm:text-sm font-semibold text-primary uppercase tracking-wider mb-2 sm:mb-4">Categories</h3>
             <ul className="space-y-1.5 sm:space-y-3">
               <li>
-                <Link href="/" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">All Categories</Link>
+                <Link href="/" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">All Categories</Link>
               </li>
               {["1xx", "2xx", "3xx", "4xx", "5xx"].map((cat) => (
                 <li key={cat}>
-                  <Link href={`/category/${cat}`} className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">{cat} Errors</Link>
+                  <Link href={`/category/${cat}`} className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">{cat} Errors</Link>
                 </li>
               ))}
             </ul>
@@ -73,13 +73,13 @@ export default function Footer() {
             <h3 className="text-[11px] sm:text-sm font-semibold text-primary uppercase tracking-wider mb-2 sm:mb-4">Company</h3>
             <ul className="grid grid-cols-2 sm:grid-cols-1 gap-1.5 sm:gap-3">
               <li>
-                <Link href="/privacy-policy" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Privacy Policy</Link>
+                <Link href="/privacy-policy" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/terms-and-conditions" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Terms and Conditions</Link>
+                <Link href="/terms-and-conditions" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Terms and Conditions</Link>
               </li>
               <li className="col-span-2 sm:col-span-1">
-                <Link href="/affiliate-disclosure" className="text-xs sm:text-sm text-foreground/80 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Affiliate Disclosure</Link>
+                <Link href="/affiliate-disclosure" className="text-xs sm:text-sm text-foreground/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">Affiliate Disclosure</Link>
               </li>
             </ul>
           </div>

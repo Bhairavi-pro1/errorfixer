@@ -128,10 +128,10 @@ export default function SearchBar() {
                     onClick={() => handleResultClick(err.slug)}
                     className="w-full text-left px-4 py-3 hover:bg-surface-high transition-colors flex flex-col gap-1 focus:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
                   >
-                    <div className="flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       <span className="bg-primary/10 border border-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-md">{err.code}</span>
                       <span className="font-display font-semibold text-foreground">{err.title}</span>
-                    </div>
+                    </span>
                     <span className="text-sm text-on-surface-variant truncate">{err.shortDescription}</span>
                   </button>
                 </li>

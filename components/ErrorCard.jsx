@@ -22,7 +22,7 @@ export default function ErrorCard({ error }) {
           {error.title}
         </h3>
         
-        <p className="text-xs sm:text-sm text-foreground/80 mb-3 sm:mb-5 flex-grow leading-relaxed text-left">
+        <p className="text-xs sm:text-sm text-foreground/90 mb-3 sm:mb-5 flex-grow leading-relaxed text-left">
           {error.shortDescription}
         </p>
 

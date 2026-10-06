@@ -38,7 +38,7 @@ export default function CausesAccordion({ error }) {
                 className="w-full flex items-center justify-between px-3 py-2 sm:px-6 sm:py-3.5 text-left hover:bg-surface-high focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 aria-expanded={isOpen}
               >
-                <div className="flex items-center gap-2 sm:gap-3 pr-2 sm:pr-4">
+                <span className="flex items-center gap-2 sm:gap-3 pr-2 sm:pr-4">
                   <span className="font-semibold text-foreground text-xs sm:text-base md:text-lg">
                     {cause.title}
                   </span>
@@ -47,7 +47,7 @@ export default function CausesAccordion({ error }) {
                       {cause.severity}
                     </span>
                   )}
-                </div>
+                </span>
                 <svg className={`flex-shrink-0 w-3.5 h-3.5 sm:w-5 sm:h-5 text-tertiary transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
