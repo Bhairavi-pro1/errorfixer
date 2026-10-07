@@ -18,7 +18,7 @@ export default function ErrorVariations({ error }) {
             href={`/${variation.slug}`}
             className="bg-surface-container p-2.5 sm:p-4 rounded-md border border-outline-variant hover:border-primary/50 transition-colors group flex items-center justify-between"
           >
-            <span className="text-foreground/90 text-[11px] sm:text-sm font-medium group-hover:text-primary transition-colors">{variation.name}</span>
+            <span className="text-foreground/90 text-xs sm:text-base font-medium group-hover:text-primary transition-colors">{variation.name}</span>
             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-outline-variant group-hover:text-primary transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </Link>
         ))}

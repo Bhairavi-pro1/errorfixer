@@ -27,7 +27,7 @@ export default function HomePageContent({ errors }) {
         <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold text-foreground mb-2.5 sm:mb-5 tracking-tight">
           Fix HTTP Errors <span className="gradient-text">Instantly</span>
         </h1>
-        <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
+        <p className="text-sm sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
           Stop guessing what went wrong. Search your error code, understand the cause, and copy-paste real-world solutions tailored to your tech stack.
         </p>
       </section>

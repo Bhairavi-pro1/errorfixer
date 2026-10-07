@@ -20,7 +20,7 @@ export default function DebugChecklist() {
 
   return (
     <div className="bg-surface-container-high rounded-md p-3 sm:p-6 mt-6 sm:mt-12 border border-outline-variant">
-      <h2 className="text-sm sm:text-xl font-display font-bold text-foreground mb-2 sm:mb-4">Debug Checklist</h2>
+      <h2 className="text-base sm:text-xl font-display font-bold text-foreground mb-2 sm:mb-4">Debug Checklist</h2>
       <div className="space-y-2 sm:space-y-3">
         {checklist.map((item) => (
           <div 
@@ -39,7 +39,7 @@ export default function DebugChecklist() {
               item.checked ? "bg-surface text-foreground/70 line-through" : "bg-surface-container text-foreground"
             }`}
           >
-            <span className="text-xs sm:text-sm select-none flex-1 text-left">{item.text}</span>
+            <span className="text-sm sm:text-base select-none flex-1 text-left">{item.text}</span>
           </div>
         ))}
       </div>

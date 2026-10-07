@@ -15,13 +15,13 @@ export default function AdvancedUseCases({ error }) {
 
   return (
     <section id="advanced-use-cases" className="mb-6 sm:mb-10 scroll-mt-24">
-      <h2 className="text-sm sm:text-lg md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
+      <h2 className="text-base sm:text-xl md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
         <svg className="w-4 h-4 sm:w-6 sm:h-6 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
         Advanced Use Cases
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-sm sm:text-base text-left">
         Explore advanced scenarios, distributed system implementations, and infrastructure considerations for {error.code} errors.
       </p>
 
@@ -29,7 +29,7 @@ export default function AdvancedUseCases({ error }) {
         {useCases.map((useCase, idx) => (
           <div key={idx} className="bg-surface-low border border-outline-variant rounded-lg overflow-hidden shadow-sm">
             <div className="px-3 sm:px-5 py-2 sm:py-3.5 border-b border-outline-variant bg-surface-container flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-3">
-              <h3 className="font-semibold text-foreground text-xs sm:text-base md:text-lg">{useCase.title}</h3>
+              <h3 className="font-semibold text-foreground text-sm sm:text-base md:text-lg">{useCase.title}</h3>
             </div>
             
             <div className="p-2.5 sm:p-5 space-y-2.5 sm:space-y-5 bg-surface-container/30">
@@ -42,7 +42,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     Scenario
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.scenario}</p>
+                  <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.scenario}</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1 flex items-center gap-1.5 text-xs sm:text-sm">
@@ -51,7 +51,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     How it Works
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.howItWorks}</p>
+                  <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.howItWorks}</p>
                 </div>
               </div>
 
@@ -95,8 +95,8 @@ export default function AdvancedUseCases({ error }) {
                     </h4>
                     <ul className="space-y-1 sm:space-y-2">
                       {useCase.benefits.map((benefit, i) => (
-                        <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1 sm:mt-1.5 flex-shrink-0"></span>
+                        <li key={i} className="text-sm sm:text-base text-on-surface-variant flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 sm:mt-2 flex-shrink-0"></span>
                           <span className="flex-1 text-left">{benefit}</span>
                         </li>
                       ))}
@@ -114,8 +114,8 @@ export default function AdvancedUseCases({ error }) {
                     </h4>
                     <ul className="space-y-1 sm:space-y-2">
                       {useCase.bestPractices.map((practice, i) => (
-                        <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1 sm:mt-1.5 flex-shrink-0"></span>
+                        <li key={i} className="text-sm sm:text-base text-on-surface-variant flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 sm:mt-2 flex-shrink-0"></span>
                           <span className="flex-1 text-left">{practice}</span>
                         </li>
                       ))}
@@ -135,7 +135,7 @@ export default function AdvancedUseCases({ error }) {
                   </h4>
                   <ul className="space-y-1">
                     {useCase.developerNotes.map((note, i) => (
-                      <li key={i} className="text-[11px] sm:text-sm text-on-surface-variant flex items-start gap-1.5">
+                      <li key={i} className="text-sm sm:text-base text-on-surface-variant flex items-start gap-1.5">
                         <span className="text-tertiary flex-shrink-0">•</span>
                         <span className="flex-1 text-left">{note}</span>
                       </li>
@@ -149,13 +149,13 @@ export default function AdvancedUseCases({ error }) {
                 {useCase.realWorldExample && (
                   <div>
                     <h4 className="font-semibold text-foreground mb-1 text-xs sm:text-sm">Real World Example</h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.realWorldExample}</p>
+                    <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.realWorldExample}</p>
                   </div>
                 )}
                 {useCase.whyUnderrated && (
                   <div>
                     <h4 className="font-semibold text-foreground mb-1 text-xs sm:text-sm">Why It's Underrated</h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.whyUnderrated}</p>
+                    <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.whyUnderrated}</p>
                   </div>
                 )}
               </div>
@@ -171,7 +171,7 @@ export default function AdvancedUseCases({ error }) {
                         </svg>
                         Security Impact
                       </h4>
-                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.securityImpact}</p>
+                      <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.securityImpact}</p>
                     </div>
                   )}
                   {useCase.performanceImpact && (
@@ -182,7 +182,7 @@ export default function AdvancedUseCases({ error }) {
                         </svg>
                         Performance Impact
                       </h4>
-                      <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.performanceImpact}</p>
+                      <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.performanceImpact}</p>
                     </div>
                   )}
                 </div>
@@ -197,7 +197,7 @@ export default function AdvancedUseCases({ error }) {
                     </svg>
                     Advanced Architecture: {useCase.advancedArchitecture.title}
                   </h4>
-                  <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{useCase.advancedArchitecture.description}</p>
+                  <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{useCase.advancedArchitecture.description}</p>
                 </div>
               )}
             </div>

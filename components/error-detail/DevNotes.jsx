@@ -13,7 +13,7 @@ export default function DevNotes({ error }) {
 
   return (
     <section id="dev-notes" className="mb-6 sm:mb-10 scroll-mt-24">
-      <h2 className="text-sm sm:text-lg md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
+      <h2 className="text-base sm:text-xl md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
         <svg className="w-4 h-4 sm:w-6 sm:h-6 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
@@ -25,8 +25,8 @@ export default function DevNotes({ error }) {
         {error.devNotes.httpHeaders && (
           <div className="bg-[#0d1117] rounded-lg overflow-hidden border border-outline-variant shadow-sm">
             <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#161b22] border-b border-outline-variant flex justify-between items-center">
-              <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant font-semibold">HTTP Headers Example</span>
-              <button onClick={() => handleCopy(error.devNotes.httpHeaders, 'headers')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
+              <span className="text-xs sm:text-sm font-mono text-on-surface-variant font-semibold">HTTP Headers Example</span>
+              <button onClick={() => handleCopy(error.devNotes.httpHeaders, 'headers')} className="text-xs sm:text-sm text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
                 {copied === 'headers' ? <span className="text-emerald-400">Copied!</span> : 'Copy'}
               </button>
             </div>
@@ -40,8 +40,8 @@ export default function DevNotes({ error }) {
         {error.devNotes.responseExample && (
           <div className="bg-[#0d1117] rounded-lg overflow-hidden border border-outline-variant shadow-sm">
             <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#161b22] border-b border-outline-variant flex justify-between items-center">
-              <span className="text-[10px] sm:text-xs font-mono text-on-surface-variant font-semibold">JSON Response Example</span>
-              <button onClick={() => handleCopy(error.devNotes.responseExample, 'response')} className="text-[10px] sm:text-xs text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
+              <span className="text-xs sm:text-sm font-mono text-on-surface-variant font-semibold">JSON Response Example</span>
+              <button onClick={() => handleCopy(error.devNotes.responseExample, 'response')} className="text-xs sm:text-sm text-on-surface-variant hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-0.5">
                 {copied === 'response' ? <span className="text-emerald-400">Copied!</span> : 'Copy'}
               </button>
             </div>
@@ -54,7 +54,7 @@ export default function DevNotes({ error }) {
 
       {error.devNotes.relatedRFCs && error.devNotes.relatedRFCs.length > 0 && (
         <div className="mt-3 sm:mt-5 bg-surface-low p-2.5 sm:p-4 rounded-md border border-outline-variant inline-block w-full">
-          <h4 className="text-[10px] sm:text-xs font-bold text-foreground mb-1.5 sm:mb-2 flex items-center gap-1.5 uppercase tracking-wider">
+          <h4 className="text-xs sm:text-sm font-bold text-foreground mb-1.5 sm:mb-2 flex items-center gap-1.5 uppercase tracking-wider">
             <svg className="w-3.5 h-3.5 flex-shrink-0 text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>

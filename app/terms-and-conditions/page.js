@@ -33,7 +33,7 @@ export default function TermsAndConditions() {
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-2 sm:mb-4">
             Terms and <span className="gradient-text">Conditions</span>
           </h1>
-          <p className="text-xs sm:text-sm text-on-surface-variant">
+          <p className="text-xs sm:text-base text-on-surface-variant">
             Last Updated: May 1, 2026 &bull; Agreement for Platform Use
           </p>
         </div>
@@ -49,15 +49,15 @@ export default function TermsAndConditions() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 text-xs sm:text-sm text-on-surface-variant">
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Educational Purpose</strong>
-              <p className="text-[11px] sm:text-xs text-left">All code samples, diagnostic commands, and server configurations are provided for technical reference.</p>
+              <p className="text-xs sm:text-sm text-left">All code samples, diagnostic commands, and server configurations are provided for technical reference.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Fair Usage</strong>
-              <p className="text-[11px] sm:text-xs text-left">You may freely use our guides and solutions for building, debugging, and maintaining software applications.</p>
+              <p className="text-xs sm:text-sm text-left">You may freely use our guides and solutions for building, debugging, and maintaining software applications.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">No Warranty</strong>
-              <p className="text-[11px] sm:text-xs text-left">Content is provided on an "as-is" basis; always test configuration changes in sandbox staging environments first.</p>
+              <p className="text-xs sm:text-sm text-left">Content is provided on an "as-is" basis; always test configuration changes in sandbox staging environments first.</p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">1</span>
               Acceptance of Terms
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               By accessing and using ErrorFixer ("the Website"), you acknowledge and agree to comply with these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of the platform immediately.
             </p>
           </section>
@@ -80,7 +80,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">2</span>
               Description of Service & Scope
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               ErrorFixer provides software engineers, web developers, sysadmins, and students with educational documentation, troubleshooting checklists, and architectural best practices covering standard and non-standard HTTP response status codes. The service is provided on an "as-is" and "as-available" basis.
             </p>
           </section>
@@ -90,10 +90,10 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">3</span>
               Third-Party Integrations & Advertising
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               To keep our diagnostic guides 100% free and publicly accessible, ErrorFixer integrates third-party analytics and advertising services:
             </p>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="space-y-2 text-sm sm:text-base">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
                 <span className="flex-1 text-left">
@@ -114,7 +114,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">4</span>
               Intellectual Property Rights
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               All proprietary brand graphics, custom descriptions, diagrams, and site design are the intellectual property of ErrorFixer. Standard IETF/RFC specification excerpts and generic code patterns remain governed by their respective public and open-source licenses.
             </p>
           </section>
@@ -124,7 +124,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">5</span>
               Limitation of Liability
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               Under no circumstances shall ErrorFixer or its contributors be held liable for any direct, indirect, incidental, special, or consequential damages resulting from system downtime, data loss, or server misconfiguration arising out of applying troubleshooting recommendations found on this website. Always verify configuration changes in controlled testing environments.
             </p>
           </section>
@@ -134,7 +134,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">6</span>
               Changes to These Terms
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               We reserve the right to revise and amend these Terms and Conditions at any time. Material updates will be reflected with an updated revision date at the top of this page.
             </p>
           </section>
@@ -144,7 +144,7 @@ export default function TermsAndConditions() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary text-white text-xs flex items-center justify-center font-mono">7</span>
               Legal & Support Inquiries
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               For any questions regarding these Terms and Conditions or to submit a legal notice, contact our team:
             </p>
             <div className="inline-flex items-center gap-2 p-2.5 sm:p-3 rounded-md bg-surface-container border border-outline-variant">

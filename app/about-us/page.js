@@ -34,7 +34,7 @@ export default function AboutUs() {
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-3 sm:mb-5 tracking-tight">
             About <span className="gradient-text">ErrorFixer</span>
           </h1>
-          <p className="text-xs sm:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-center">
+          <p className="text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-center">
             We are on a mission to eliminate developer frustration by providing instant, deep, and actionable solutions to every HTTP status code and server response anomaly.
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function AboutUs() {
               </svg>
               Our Story
             </h2>
-            <div className="space-y-2.5 sm:space-y-4 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+            <div className="space-y-2.5 sm:space-y-4 text-sm sm:text-base text-on-surface-variant leading-relaxed">
               <p className="text-left">
                 Every developer has experienced the roadblock: a sudden <code>502 Bad Gateway</code>, an obscure <code>422 Unprocessable Content</code>, or a baffling <code>100 Continue</code> handshake failure during production deploys. Rather than forcing engineers to sift through fragmented forum posts and dry specification manuals, we created a single, authoritative diagnostic manual.
               </p>
@@ -88,7 +88,7 @@ export default function AboutUs() {
                   </svg>
                 </div>
                 <h3 className="text-xs sm:text-base font-bold text-foreground mb-1 sm:mb-2">Step-by-Step Fixes</h3>
-                <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-left">
+                <p className="text-on-surface-variant text-sm sm:text-base leading-relaxed text-left">
                   Ordered, sequential diagnostic steps that pinpoint client bugs, proxy misconfigurations, or backend timeout issues immediately.
                 </p>
               </div>
@@ -100,7 +100,7 @@ export default function AboutUs() {
                   </svg>
                 </div>
                 <h3 className="text-xs sm:text-base font-bold text-foreground mb-1 sm:mb-2">Platform-Specific Solutions</h3>
-                <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-left">
+                <p className="text-on-surface-variant text-sm sm:text-base leading-relaxed text-left">
                   Ready-to-copy code snippets and middleware configurations tailored for Express, Django, FastAPI, Nginx, and cloud microservices.
                 </p>
               </div>
@@ -112,7 +112,7 @@ export default function AboutUs() {
                   </svg>
                 </div>
                 <h3 className="text-xs sm:text-base font-bold text-foreground mb-1 sm:mb-2">Prevention & Architecture</h3>
-                <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-left">
+                <p className="text-on-surface-variant text-sm sm:text-base leading-relaxed text-left">
                   Proactive strategies to bulletproof your infrastructure against cascading failures, rate-limit thrashing, and connection leaks.
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function AboutUs() {
                   </svg>
                 </div>
                 <h3 className="text-xs sm:text-base font-bold text-foreground mb-1 sm:mb-2">Official RFC Context</h3>
-                <p className="text-on-surface-variant text-[11px] sm:text-sm leading-relaxed text-left">
+                <p className="text-on-surface-variant text-sm sm:text-base leading-relaxed text-left">
                   Cross-referenced with IETF standards (RFC 7231, RFC 9110) to ensure compliance with modern protocol specifications.
                 </p>
               </div>
@@ -136,7 +136,7 @@ export default function AboutUs() {
             <h2 className="text-xs sm:text-lg font-display font-bold text-foreground mb-1.5 sm:mb-2">
               Have Suggestions or Found an Edge Case?
             </h2>
-            <p className="text-xs sm:text-sm text-on-surface-variant mb-4 max-w-xl mx-auto leading-relaxed text-center">
+            <p className="text-sm sm:text-base text-on-surface-variant mb-4 max-w-xl mx-auto leading-relaxed text-center">
               Our documentation grows through community contributions and real developer experiences. Drop us an email anytime.
             </p>
             <div className="inline-flex items-center gap-2 p-2 sm:p-2.5 rounded-md bg-surface-container border border-outline-variant">

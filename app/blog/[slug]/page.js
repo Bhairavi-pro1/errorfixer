@@ -7,7 +7,7 @@ import AdSidebar from "../../../components/AdSidebar";
 
 const portableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-xs sm:text-base md:text-lg text-foreground/90 leading-relaxed mb-3 sm:mb-6 font-sans text-left">{children}</p>,
+    normal: ({ children }) => <p className="text-sm sm:text-base md:text-lg text-foreground/90 leading-relaxed mb-3 sm:mb-6 font-sans text-left">{children}</p>,
     h1: ({ children }) => <h1 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mt-6 sm:mt-12 mb-3 sm:mb-6">{children}</h1>,
     h2: ({ children }) => (
       <h2 className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-foreground mt-5 sm:mt-10 mb-2.5 sm:mb-5 flex items-center gap-2 border-b border-outline-variant pb-1.5 sm:pb-2">
@@ -17,14 +17,14 @@ const portableTextComponents = {
     ),
     h3: ({ children }) => <h3 className="text-sm sm:text-xl md:text-2xl font-display font-bold text-foreground mt-4 sm:mt-8 mb-2 sm:mb-4">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-3 sm:p-5 pl-4 sm:pl-6 rounded-r-xl italic my-4 sm:my-8 text-foreground/95 border-l-primary/80 text-xs sm:text-base text-left">
+      <blockquote className="border-l-4 border-primary bg-surface-high/30 p-3 sm:p-5 pl-4 sm:pl-6 rounded-r-xl italic my-4 sm:my-8 text-foreground/95 border-l-primary/80 text-sm sm:text-base md:text-lg text-left">
         {children}
       </blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-xs sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-xs sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ol>,
+    bullet: ({ children }) => <ul className="list-disc pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-sm sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-5 sm:pl-6 mb-3 sm:mb-6 space-y-1.5 sm:space-y-3 text-sm sm:text-base md:text-lg text-foreground/90 font-sans">{children}</ol>,
   },
   listItem: {
     bullet: ({ children }) => <li className="text-left">{children}</li>,

@@ -25,8 +25,10 @@ export default function Navbar() {
     if (savedTheme === 'light') {
       setIsDarkMode(false);
       document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
     } else {
       setIsDarkMode(true);
+      document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
     }
   }, []);
@@ -35,10 +37,12 @@ export default function Navbar() {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     if (newMode) {
+      document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
   };

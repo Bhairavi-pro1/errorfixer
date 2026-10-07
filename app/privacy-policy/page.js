@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-2 sm:mb-4">
             Privacy <span className="gradient-text">Policy</span>
           </h1>
-          <p className="text-xs sm:text-sm text-on-surface-variant">
+          <p className="text-xs sm:text-base text-on-surface-variant">
             Last Updated: May 1, 2026 &bull; Effective Immediately
           </p>
         </div>
@@ -49,15 +49,15 @@ export default function PrivacyPolicy() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 text-xs sm:text-sm text-on-surface-variant">
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">No Account Required</strong>
-              <p className="text-[11px] sm:text-xs text-left">You can access all HTTP diagnostic guides without registering an account or providing financial credentials.</p>
+              <p className="text-xs sm:text-sm text-left">You can access all HTTP diagnostic guides without registering an account or providing financial credentials.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Analytics & Ads</strong>
-              <p className="text-[11px] sm:text-xs text-left">We use anonymized technical analytics and third-party advertising partners to sustain free open-access tools.</p>
+              <p className="text-xs sm:text-sm text-left">We use anonymized technical analytics and third-party advertising partners to sustain free open-access tools.</p>
             </div>
             <div className="bg-surface-container/60 p-2.5 sm:p-3.5 rounded-md border border-outline-variant/40">
               <strong className="text-foreground block mb-0.5">Your Privacy Rights</strong>
-              <p className="text-[11px] sm:text-xs text-left">We fully honor GDPR, CCPA, and global data rights requests promptly via our designated email contact.</p>
+              <p className="text-xs sm:text-sm text-left">We fully honor GDPR, CCPA, and global data rights requests promptly via our designated email contact.</p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">1</span>
               Introduction
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               Welcome to ErrorFixer. We respect your privacy and are committed to protecting your personal data. This Privacy Policy informs you how we manage and safeguard information when you visit our website, regardless of where you access it from, and explains your statutory privacy rights under global data protection frameworks.
             </p>
           </section>
@@ -80,10 +80,10 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">2</span>
               The Data We Collect
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               We may process different categories of technical and interaction data when you browse our platform:
             </p>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="space-y-2 text-sm sm:text-base">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
                 <span className="flex-1 text-left">
@@ -104,10 +104,10 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">3</span>
               How We Use Your Data
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               We process technical information only under lawful bases, including legitimate interests and user consent:
             </p>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="space-y-2 text-sm sm:text-base">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-tertiary mt-1.5 flex-shrink-0"></span>
                 <span className="flex-1 text-left">To operate, optimize, and maintain high server reliability across global networks.</span>
@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">4</span>
               Cookies & Advertising Partners
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               Our website uses standard browser cookies to retain user preferences (such as light/dark mode choices). We may also collaborate with vetted advertising partners who utilize web beacons or cookies to serve relevant technical advertisements. You can disable or modify cookie handling at any time through your browser settings without losing access to core error documentation.
             </p>
           </section>
@@ -138,7 +138,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">5</span>
               Data Security & Retention
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left">
+            <p className="text-sm sm:text-base leading-relaxed text-left">
               We implement industry-grade encryption, HTTPS protocols, and server firewalls to prevent unauthorized access or interception. We do not sell, rent, or lease personal user lists to third-party brokers under any circumstances.
             </p>
           </section>
@@ -148,25 +148,25 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary/10 text-primary text-xs flex items-center justify-center font-mono">6</span>
               Your Global Privacy Rights (GDPR / CCPA)
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               Depending on your regional jurisdiction, you possess specific legal rights over your personal information:
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
-              <div className="p-2 sm:p-3 rounded bg-surface-container border border-outline-variant/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm sm:text-base">
+              <div className="p-2.5 sm:p-3.5 rounded bg-surface-container border border-outline-variant/50">
                 <strong className="text-foreground block">&bull; Right to Access & Rectify</strong>
-                <span className="text-[11px] sm:text-xs">Request confirmation of data held and correct inaccuracies.</span>
+                <span className="text-xs sm:text-sm">Request confirmation of data held and correct inaccuracies.</span>
               </div>
-              <div className="p-2 sm:p-3 rounded bg-surface-container border border-outline-variant/50">
+              <div className="p-2.5 sm:p-3.5 rounded bg-surface-container border border-outline-variant/50">
                 <strong className="text-foreground block">&bull; Right to Erasure</strong>
-                <span className="text-[11px] sm:text-xs">Request immediate deletion of your technical logs and data.</span>
+                <span className="text-xs sm:text-sm">Request immediate deletion of your technical logs and data.</span>
               </div>
-              <div className="p-2 sm:p-3 rounded bg-surface-container border border-outline-variant/50">
+              <div className="p-2.5 sm:p-3.5 rounded bg-surface-container border border-outline-variant/50">
                 <strong className="text-foreground block">&bull; Right to Restrict & Object</strong>
-                <span className="text-[11px] sm:text-xs">Limit how we process your interactions or opt out of analytics.</span>
+                <span className="text-xs sm:text-sm">Limit how we process your interactions or opt out of analytics.</span>
               </div>
-              <div className="p-2 sm:p-3 rounded bg-surface-container border border-outline-variant/50">
+              <div className="p-2.5 sm:p-3.5 rounded bg-surface-container border border-outline-variant/50">
                 <strong className="text-foreground block">&bull; Right to Data Portability</strong>
-                <span className="text-[11px] sm:text-xs">Obtain a structured copy of your data in open format.</span>
+                <span className="text-xs sm:text-sm">Obtain a structured copy of your data in open format.</span>
               </div>
             </div>
           </section>
@@ -176,7 +176,7 @@ export default function PrivacyPolicy() {
               <span className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-primary text-white text-xs flex items-center justify-center font-mono">7</span>
               Contact Data Protection
             </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-left mb-3">
+            <p className="text-sm sm:text-base leading-relaxed text-left mb-3">
               If you have inquiries, concerns, or requests regarding this Privacy Policy or our security measures, please reach out to our privacy team directly:
             </p>
             <div className="inline-flex items-center gap-2 p-2.5 sm:p-3 rounded-md bg-surface-container border border-outline-variant">

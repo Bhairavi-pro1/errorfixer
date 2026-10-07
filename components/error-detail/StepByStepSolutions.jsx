@@ -15,11 +15,11 @@ export default function StepByStepSolutions({ error }) {
 
   return (
     <section id="solutions" className="mb-6 sm:mb-10 scroll-mt-24">
-      <h2 className="text-sm sm:text-lg md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
-        <span className="w-5 h-5 sm:w-8 sm:h-8 rounded-md bg-primary-container flex items-center justify-center border border-outline-variant text-white font-mono text-[10px] sm:text-sm shadow-sm flex-shrink-0">!</span>
+      <h2 className="text-base sm:text-xl md:text-2xl font-display font-bold text-foreground mb-2 sm:mb-4 flex items-center gap-1.5 sm:gap-2 border-b border-outline-variant pb-2">
+        <span className="w-5 h-5 sm:w-8 sm:h-8 rounded-md bg-primary text-white dark:bg-primary-container flex items-center justify-center border border-outline-variant font-mono text-xs sm:text-sm shadow-sm flex-shrink-0">!</span>
         Step-by-Step Solutions
       </h2>
-      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">
+      <p className="text-on-surface-variant mb-3 sm:mb-6 leading-relaxed text-sm sm:text-base text-left">
         Follow these step-by-step instructions to resolve the {error.code} error. Start with the first step and proceed sequentially.
       </p>
       
@@ -33,31 +33,31 @@ export default function StepByStepSolutions({ error }) {
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors pointer-events-none -mr-16 -mt-16"></div>
             
             <div className="flex flex-col md:flex-row items-start gap-2 sm:gap-4 md:gap-5 relative z-10">
-              <span className="flex-shrink-0 w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-surface-highest text-tertiary font-mono text-[11px] sm:text-base font-bold flex items-center justify-center border border-tertiary/30 shadow-[0_0_15px_rgba(76,215,246,0.15)]">
+              <span className="flex-shrink-0 w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-surface-highest text-tertiary font-mono text-xs sm:text-base font-bold flex items-center justify-center border border-tertiary/30 shadow-[0_0_15px_rgba(76,215,246,0.15)]">
                 {step.step || idx + 1}
               </span>
               <div className="flex-1 min-w-0 w-full">
-                <h3 className="text-xs sm:text-base md:text-lg font-display font-bold text-foreground mb-1 sm:mb-2">{step.title}</h3>
-                <p className="text-foreground/90 mb-2 sm:mb-4 leading-relaxed text-[11px] sm:text-sm md:text-base text-left">{step.description}</p>
+                <h3 className="text-sm sm:text-lg md:text-xl font-display font-bold text-foreground mb-1 sm:mb-2">{step.title}</h3>
+                <p className="text-foreground/90 mb-2 sm:mb-4 leading-relaxed text-sm sm:text-base text-left">{step.description}</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 mb-2.5 sm:mb-5">
                   <div className="bg-surface-low p-2 sm:p-3.5 rounded-md border border-outline-variant/50">
-                    <h4 className="text-[10px] sm:text-xs font-bold text-tertiary uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1">
+                    <h4 className="text-xs sm:text-sm font-bold text-tertiary uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1">
                       <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       Why this works
                     </h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{step.whyItWorks}</p>
+                    <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{step.whyItWorks}</p>
                   </div>
                   <div className="bg-surface-low p-2 sm:p-3.5 rounded-md border border-outline-variant/50">
-                    <h4 className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1">
+                    <h4 className="text-xs sm:text-sm font-bold text-primary uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1">
                       <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       Expected result
                     </h4>
-                    <p className="text-[11px] sm:text-sm text-on-surface-variant leading-relaxed text-left">{step.expectedResult}</p>
+                    <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed text-left">{step.expectedResult}</p>
                   </div>
                 </div>
 

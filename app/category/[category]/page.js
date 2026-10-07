@@ -128,7 +128,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { category } = await params;
+  const { category: rawCategory } = await params;
+  const category = rawCategory?.toLowerCase();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://errorfixer.toolsofsaas.com";
   const catKey = `category-${category}`;
   const custom = siteMetadata[catKey];
@@ -179,7 +180,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CategoryPage({ params }) {
-  const { category } = await params;
+  const { category: rawCategory } = await params;
+  const category = rawCategory?.toLowerCase();
   const info = CATEGORY_DETAILS[category];
 
   if (!info) {
@@ -292,7 +294,7 @@ export default async function CategoryPage({ params }) {
           <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold text-foreground mb-2.5 sm:mb-5 tracking-tight">
             {info.name} <span className="gradient-text">HTTP Codes</span>
           </h1>
-          <p className="text-xs sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
+          <p className="text-sm sm:text-base md:text-xl text-on-surface-variant max-w-3xl mx-auto mb-3 sm:mb-6 leading-relaxed text-center">
             {info.overview}
           </p>
         </section>
@@ -353,11 +355,11 @@ export default async function CategoryPage({ params }) {
         <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 sm:pb-24">
           <div className="bg-surface-low border border-outline-variant rounded-xl p-4 sm:p-8 sm:p-10 shadow-lg mb-6 sm:mb-10">
             <h2 className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-foreground mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
-              <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-primary-container text-white flex items-center justify-center font-mono text-xs sm:text-sm">💡</span>
+              <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-primary text-white dark:bg-primary-container flex items-center justify-center font-mono text-xs sm:text-sm">💡</span>
               Understanding {info.name} Codes
             </h2>
             
-            <div className="space-y-4 sm:space-y-6 text-xs sm:text-sm md:text-base text-foreground/90 leading-relaxed text-left">
+            <div className="space-y-4 sm:space-y-6 text-sm sm:text-base text-foreground/90 leading-relaxed text-left">
               <div>
                 <h3 className="text-sm sm:text-base md:text-lg font-bold text-tertiary mb-1 sm:mb-2">Why These Status Codes Matter</h3>
                 <p>{info.whyImportant}</p>
@@ -385,7 +387,7 @@ export default async function CategoryPage({ params }) {
                   <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground mb-1 sm:mb-2">
                     {faq.q}
                   </h3>
-                  <p className="text-on-surface-variant text-xs sm:text-sm md:text-base leading-relaxed text-left">
+                  <p className="text-on-surface-variant text-sm sm:text-base leading-relaxed text-left">
                     {faq.a}
                   </p>
                 </div>

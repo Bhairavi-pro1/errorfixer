@@ -22,11 +22,11 @@ export default function ErrorCard({ error }) {
           {error.title}
         </h3>
         
-        <p className="text-xs sm:text-sm text-foreground/90 mb-3 sm:mb-5 flex-grow leading-relaxed text-left">
+        <p className="text-sm sm:text-base text-foreground/90 mb-3 sm:mb-5 flex-grow leading-relaxed text-left">
           {error.shortDescription}
         </p>
 
-        <div className="mt-auto flex items-center text-xs sm:text-sm font-semibold text-tertiary group-hover:text-primary transition-colors">
+        <div className="mt-auto flex items-center text-sm font-semibold text-tertiary group-hover:text-primary transition-colors">
           <span>Fix This</span>
           <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

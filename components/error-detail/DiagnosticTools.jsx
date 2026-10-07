@@ -22,9 +22,9 @@ export default function DiagnosticTools() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={tool.icon} />
               </svg>
             </div>
-            <h3 className="font-bold text-foreground text-xs sm:text-base mb-1 sm:mb-2">{tool.name}</h3>
-            <p className="text-[11px] sm:text-xs text-on-surface-variant flex-grow text-center">{tool.desc}</p>
-            <button className="mt-2.5 sm:mt-4 text-[10px] sm:text-xs font-bold text-primary hover:text-tertiary transition-colors uppercase tracking-wider focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1">Use Tool &rarr;</button>
+            <h3 className="font-bold text-foreground text-sm sm:text-base mb-1 sm:mb-2">{tool.name}</h3>
+            <p className="text-sm sm:text-base text-on-surface-variant flex-grow text-center">{tool.desc}</p>
+            <button className="mt-2.5 sm:mt-4 text-xs sm:text-sm font-bold text-primary hover:text-tertiary transition-colors uppercase tracking-wider focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1">Use Tool &rarr;</button>
           </div>
         ))}
       </div>

@@ -98,7 +98,7 @@ export default async function BlogPage() {
         <h1 className="mt-2 sm:mt-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground tracking-tight">
           The Error<span className="gradient-text font-bold">Fixer</span> Blog
         </h1>
-        <p className="mt-2 sm:mt-4 text-xs sm:text-base md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-center">
+        <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-center">
           Deep dives into HTTP error code resolution, Web architectures, API design best practices, and performance optimization.
         </p>
       </div>
@@ -115,7 +115,7 @@ export default async function BlogPage() {
             </svg>
           </div>
           <h2 className="text-base sm:text-xl font-display font-bold text-foreground mb-2 sm:mb-3">No blogs are available at the moment</h2>
-          <p className="text-xs sm:text-sm text-on-surface-variant mb-6 sm:mb-8 leading-relaxed">
+          <p className="text-sm sm:text-base text-on-surface-variant mb-6 sm:mb-8 leading-relaxed">
             Our engineering team is currently crafting technical content. Please check back soon!
           </p>
         </div>
@@ -171,7 +171,7 @@ export default async function BlogPage() {
                     </h2>
 
                     {/* Excerpt */}
-                    <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-3 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-left">
+                    <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed mb-3 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-left">
                       {post.excerpt || post.description || "Click to read this article's full troubleshooting guides and solutions."}
                     </p>
 
