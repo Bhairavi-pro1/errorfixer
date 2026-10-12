@@ -27,8 +27,6 @@ export default function AdBannerMobile() {
           srcDoc={iframeHtml}
           width="320"
           height="50"
-          frameBorder="0"
-          scrolling="no"
           style={{ border: 'none', overflow: 'hidden', backgroundColor: 'transparent' }}
           title="Mobile Advertisement"
         />

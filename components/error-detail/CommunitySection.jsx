@@ -15,7 +15,7 @@ export default function CommunitySection() {
         <p className="text-on-surface-variant text-sm mb-6 max-w-md mx-auto">
           Join the ErrorFixer community to share your own troubleshooting steps, scripts, and configurations that resolved this error.
         </p>
-        <button className="px-6 py-2.5 rounded-full bg-primary-container text-white font-bold text-sm shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-shadow">
+        <button className="px-6 py-2.5 rounded-full bg-primary text-white dark:bg-primary-container font-bold text-sm shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] transition-shadow">
           Contribute a Solution
         </button>
       </div>

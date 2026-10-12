@@ -1,7 +1,7 @@
 export default function QuickSummaryBox({ error }) {
   const getSeverityColor = (sev) => {
     switch (sev?.toLowerCase()) {
-      case 'low': return 'text-green-400 border-green-400/20 bg-green-400/5';
+      case 'low': return 'text-emerald-400 border-emerald-400/20 bg-emerald-400/5';
       case 'medium': return 'text-yellow-400 border-yellow-400/20 bg-yellow-400/5';
       case 'high': return 'text-orange-400 border-orange-400/20 bg-orange-400/5';
       case 'critical': return 'text-red-400 border-red-400/20 bg-red-400/5';

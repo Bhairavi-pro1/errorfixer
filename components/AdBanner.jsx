@@ -27,8 +27,6 @@ export default function AdBanner() {
           srcDoc={iframeHtml}
           width="728"
           height="90"
-          frameBorder="0"
-          scrolling="no"
           style={{ border: 'none', overflow: 'hidden', backgroundColor: 'transparent' }}
           title="Advertisement"
         />

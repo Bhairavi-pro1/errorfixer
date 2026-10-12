@@ -21,9 +21,9 @@ export default function HelpfulVoting({ error }) {
       <div className="flex justify-center gap-3 sm:gap-4">
         <button 
           onClick={() => handleVote('up')}
-          className={`flex items-center gap-1.5 sm:gap-2 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border text-xs sm:text-sm transition-all ${
+          className={`flex items-center gap-1.5 sm:gap-2 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border text-xs sm:text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
             vote === 'up' 
-              ? 'bg-green-400/20 border-green-400/50 text-green-400' 
+              ? 'bg-emerald-400/20 border-emerald-400/50 text-emerald-400' 
               : 'bg-surface border-outline-variant text-on-surface-variant hover:bg-surface-high'
           }`}
         >
@@ -34,7 +34,7 @@ export default function HelpfulVoting({ error }) {
         </button>
         <button 
           onClick={() => handleVote('down')}
-          className={`flex items-center gap-1.5 sm:gap-2 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border text-xs sm:text-sm transition-all ${
+          className={`flex items-center gap-1.5 sm:gap-2 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border text-xs sm:text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
             vote === 'down' 
               ? 'bg-red-400/20 border-red-400/50 text-red-400' 
               : 'bg-surface border-outline-variant text-on-surface-variant hover:bg-surface-high'

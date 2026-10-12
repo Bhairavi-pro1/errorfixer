@@ -55,7 +55,7 @@ export default function MobileTOC({ error }) {
     <div className="lg:hidden mb-4 bg-surface-high border border-outline-variant rounded-lg p-3 sm:p-4 glass shadow-sm">
       <button 
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="w-full flex items-center justify-between text-foreground font-bold font-display text-sm sm:text-base focus:outline-none"
+        className="w-full flex items-center justify-between text-foreground font-bold font-display text-sm sm:text-base focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
         aria-expanded={isMobileOpen}
       >
         <span className="flex items-center gap-2">
@@ -75,14 +75,14 @@ export default function MobileTOC({ error }) {
             <button
               key={id}
               onClick={() => handleNavClick(id)}
-              className={`text-xs sm:text-sm w-full text-left px-2.5 py-1.5 rounded-md transition-colors flex items-center justify-between ${
+              className={`text-xs sm:text-sm w-full text-left px-2.5 py-1.5 rounded-md transition-colors flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeId === id 
                   ? "bg-primary/10 text-primary font-bold border border-primary/20" 
                   : "text-on-surface-variant hover:bg-surface-highest hover:text-foreground"
               }`}
             >
               <span>{label}</span>
-              <span className="text-[10px] text-outline-variant">&rarr;</span>
+              <span className="text-[10px] text-on-surface-variant">&rarr;</span>
             </button>
           ))}
         </div>

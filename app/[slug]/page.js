@@ -91,7 +91,7 @@ export default async function ErrorDetailPage({ params }) {
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <h1 className="text-4xl font-display font-bold text-foreground mb-4">Error Code Not Found</h1>
         <p className="text-on-surface-variant mb-8">We couldn't find the solution for this specific error.</p>
-        <Link href="/" className="px-6 py-3 bg-surface-high hover:bg-surface-highest rounded-md font-semibold text-foreground transition-colors border border-outline-variant">
+        <Link href="/" className="px-6 py-3 bg-surface-high hover:bg-surface-highest rounded-md font-semibold text-foreground transition-colors border border-outline-variant focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           Back to Homepage
         </Link>
       </div>
@@ -167,7 +167,7 @@ export default async function ErrorDetailPage({ params }) {
             ) : (
               // Fallback for legacy layout if an error somehow wasn't enriched
               <>
-                <p className="text-sm sm:text-xl md:text-2xl text-foreground/90 leading-relaxed mb-4 sm:mb-6 font-medium text-justify hyphens-auto">
+                <p className="text-sm sm:text-xl md:text-2xl text-foreground/90 leading-relaxed mb-4 sm:mb-6 font-medium text-left">
                   {error.shortDescription}
                 </p>
                 <div className="mb-6 sm:mb-8">
@@ -186,7 +186,7 @@ export default async function ErrorDetailPage({ params }) {
                           <svg className="w-4 h-4 sm:w-5 sm:h-5 text-tertiary mr-2 sm:mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span className="text-justify hyphens-auto">{cause}</span>
+                          <span className="text-left">{cause}</span>
                         </li>
                       ))}
                     </ul>

@@ -26,8 +26,6 @@ export default function AdSidebar() {
         srcDoc={iframeHtml}
         width="160"
         height="600"
-        frameBorder="0"
-        scrolling="no"
         style={{ border: 'none', overflow: 'hidden', backgroundColor: 'transparent' }}
         title="Sidebar Advertisement"
       />
